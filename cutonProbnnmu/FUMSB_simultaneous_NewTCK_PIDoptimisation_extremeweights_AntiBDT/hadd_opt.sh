@@ -1,0 +1,2 @@
+hadd -f haddtuples/Signaldata_All_LowFCME.root  haddtuples/Signaldata_Run1_probnnmu035_cut_LowFCME.root haddtuples/Signaldata_2016_probmu35_cut_LowFCME.root 
+hadd -f haddtuples/Signaldata_All_HighFCME.root  haddtuples/Signaldata_Run1_probnnmu035_cut_HighFCME.root haddtuples/Signaldata_2016_probmu35_cut_HighFCME.root 

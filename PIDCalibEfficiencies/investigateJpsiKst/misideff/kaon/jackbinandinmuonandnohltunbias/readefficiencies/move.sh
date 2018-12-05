@@ -1,0 +1,2 @@
+mkdir ~/public_html/jpsikststudy/PIDCalibTables/kaonmisid/jackbinandinmuonandnohltunbias
+cp PIDResult/*txt ~/public_html/jpsikststudy/PIDCalibTables/kaonmisid/jackbinandinmuonandnohltunbias

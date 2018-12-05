@@ -1,0 +1,7 @@
+cp /vols/lhcb/ss4314/CLsMethod/expectedlimitfitLMSBfullUMSB_simultaneous_final_GenLevelEff_Run1only/plotExclusionLimit/bin/ClsExclusion.pdf Run1Sim.pdf
+cp /vols/lhcb/ss4314/CLsMethod/expectedlimitfitLMSBfullUMSB_NOTsimultaneous_final_GenLevelEff_Run1only/plotExclusionLimit/bin/ClsExclusion.pdf  Run1NotSim.pdf
+cp /vols/lhcb/ss4314/CLsMethod/expectedlimitfitLMSBfullUMSB_simultaneous_final_GenLevelEff/plotExclusionLimit/bin/ClsExclusion.pdf AllSim.pdf
+cp /vols/lhcb/ss4314/CLsMethod/expectedlimitfitLMSBfullUMSB_NOTsimultaneous_final_GenLevelEff/plotExclusionLimit/bin/ClsExclusion.pdf AllNotSim.pdf
+
+#cp /vols/lhcb/ss4314/CLsMethod/expectedlimitfitLMSBfullUMSB_simultaneous_NewTCK_misidvariation_newcalceff/plotExclusionLimit/bin/*pdf SIM.pdf
+#cp /vols/lhcb/ss4314/CLsMethod/expectedlimitfitLMSBfullUMSB_NOTsimultaneous_NewTCK_misidvariation_newcalceff/plotExclusionLimit/bin/*pdf NOTSIM.pdf

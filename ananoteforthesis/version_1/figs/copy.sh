@@ -1,0 +1,2 @@
+cp /vols/lhcb/ss4314/fitcontrol/fitcontrolchannelFUMSB_NOTsimultaneous_NewTCK/NOFCME/workspace/HypatiaplotJpsiKFitLogyPrettyRun1.pdf HypatiaplotJpsiKFitLogyPrettyRun1NOFCME.pdf
+cp /vols/lhcb/ss4314/fitcontrol/fitcontrolchannelFUMSB_NOTsimultaneous_NewTCK/NOFCME/workspace/HypatiaplotJpsiKFitLogyPretty2016.pdf HypatiaplotJpsiKFitLogyPretty2016NOFCME.pdf

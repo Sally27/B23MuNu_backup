@@ -1,0 +1,3 @@
+
+mkdir SesFUMSB_simultaneous_final_optimisation_GenLevelEff
+cp -r /vols/lhcb/ss4314/SingleEventSensitivity/SesFUMSB_simultaneous_final_optimisation_GenLevelEff/* SesFUMSB_simultaneous_final_optimisation_GenLevelEff/

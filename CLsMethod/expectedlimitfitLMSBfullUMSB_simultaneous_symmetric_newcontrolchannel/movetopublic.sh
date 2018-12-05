@@ -1,0 +1,6 @@
+
+mkdir ~/public_html/CLsmethod/fitallafterMCnSharedRemovedFullUMSBIncludeLMSB_simultaneous_symmetric_newcontrolchannel/
+mkdir ~/public_html/CLsmethod/fitallafterMCnSharedRemovedFullUMSBIncludeLMSB_simultaneous_symmetric_newcontrolchannel/expected_exclusion/
+
+cp -r toy_* ~/public_html/CLsmethod/fitallafterMCnSharedRemovedFullUMSBIncludeLMSB_simultaneous_symmetric_newcontrolchannel/expected_exclusion/ 
+cp -r plotExclusionLimit/*pdf ~/public_html/CLsmethod/fitallafterMCnSharedRemovedFullUMSBIncludeLMSB_simultaneous_symmetric_newcontrolchannel/expected_exclusion/ 

@@ -1,0 +1,31 @@
+#!/bin/bash
+
+#rm *.root *.pdf
+
+VAR1=Strip21
+VAR2=MagUp
+
+
+
+SetupProject Urania v5r0
+make
+
+
+cd bin
+
+./main Strip21 /vols/lhcb/ss4314/cutonBDTs/InvestigatePHSP_Combi/bin/Bu23MuNuMC2012_MCtruth_L0MuonDecisionTOS_trigger_Jpsi_CombBasic_MisidBasic_FitCorM_HighFCME.root Bu23MuNuMC2012_MCtruth_L0MuonDecisionTOS_trigger_Jpsi_CombBasic_MisidBasic_FitCorM_HighFCME.root HighFCME B23MuNuMC2012
+
+./main Strip21 /vols/lhcb/ss4314/cutonBDTs/InvestigatePHSP_Combi/bin/Bu23MuNuMC2012_MCtruth_L0MuonDecisionTOS_trigger_Jpsi_CombBasic_MisidBasic_FitCorM_LowFCME.root Bu23MuNuMC2012_MCtruth_L0MuonDecisionTOS_trigger_Jpsi_CombBasic_MisidBasic_FitCorM_LowFCME.root LowFCME B23MuNuMC2012
+
+
+./main Strip21 /vols/lhcb/ss4314/cutonBDTs/InvestigatePHSP_Combi/bin/B23MuNuMCPHSP_MCtruth_L0MuonDecisionTOS_trigger_Jpsi_CombBasic_MisidBasic_FitCorM_HighFCME.root B23MuNuMCPHSP_MCtruth_L0MuonDecisionTOS_trigger_Jpsi_CombBasic_MisidBasic_FitCorM_HighFCME.root HighFCME B23MuNuMCPHSP2012
+
+./main Strip21 /vols/lhcb/ss4314/cutonBDTs/InvestigatePHSP_Combi/bin/B23MuNuMCPHSP_MCtruth_L0MuonDecisionTOS_trigger_Jpsi_CombBasic_MisidBasic_FitCorM_LowFCME.root B23MuNuMCPHSP_MCtruth_L0MuonDecisionTOS_trigger_Jpsi_CombBasic_MisidBasic_FitCorM_LowFCME.root LowFCME B23MuNuMCPHSP2012
+
+latex EfficienciesPIDreweightingStrip21LowFCMEB23MuNuMC2012.tex
+latex EfficienciesPIDreweightingStrip21HighFCMEB23MuNuMC2012.tex
+
+latex EfficienciesPIDreweightingStrip21LowFCMEB23MuNuMCPHSP2012.tex
+latex EfficienciesPIDreweightingStrip21HighFCMEB23MuNuMCPHSP2012.tex
+
+

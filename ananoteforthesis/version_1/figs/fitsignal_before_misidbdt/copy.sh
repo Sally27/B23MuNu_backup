@@ -1,0 +1,2 @@
+cp /vols/lhcb/ss4314/fitsignal_before_misidbdt/estimateformisidbdt_newTCK_Run1/workspace_preparation/plotMisidFitPretty.pdf plotMisidFitPretty_Run1.pdf
+cp /vols/lhcb/ss4314/fitsignal_before_misidbdt/estimateformisidbdt_newTCK_2016/workspace_preparation/plotMisidFitPretty.pdf plotMisidFitPretty_2016.pdf

@@ -1,0 +1,1 @@
+cp /vols/lhcb/ss4314/systematic_uncertainties/triggerTISTOS/sweightit/NOFCME_2016_ALLTCK/Sweights/Data_WS_sweights_2016.root Data_WS_sweights_2016_ALLTCK.root

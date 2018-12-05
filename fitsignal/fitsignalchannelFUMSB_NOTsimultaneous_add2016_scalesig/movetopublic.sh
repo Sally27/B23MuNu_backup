@@ -1,0 +1,16 @@
+
+mkdir ~/public_html/fitsignal/fitsignalchannelFUMSB_NOTsimultaneous_add2016_scalesig/
+mkdir ~/public_html/fitsignal/fitsignalchannelFUMSB_NOTsimultaneous_add2016_scalesig/workspace_preparation
+
+cp workspace_preparation/*pdf ~/public_html/fitsignal/fitsignalchannelFUMSB_NOTsimultaneous_add2016_scalesig/workspace_preparation/ 
+cp workspace_preparation/*txt ~/public_html/fitsignal/fitsignalchannelFUMSB_NOTsimultaneous_add2016_scalesig/workspace_preparation/
+
+mkdir ~/public_html/fitsignal/fitsignalchannelFUMSB_NOTsimultaneous_add2016_scalesig/workspace_plots
+
+cp workspace_plots/*pdf ~/public_html/fitsignal/fitsignalchannelFUMSB_NOTsimultaneous_add2016_scalesig/workspace_plots/
+cp workspace_plots/*txt ~/public_html/fitsignal/fitsignalchannelFUMSB_NOTsimultaneous_add2016_scalesig/workspace_plots/
+
+
+mkdir ~/public_html/fitsignal/fitsignalchannelFUMSB_NOTsimultaneous_add2016_scalesig/FOM
+
+cp FOM/*txt ~/public_html/fitsignal/fitsignalchannelFUMSB_NOTsimultaneous_add2016_scalesig/FOM/

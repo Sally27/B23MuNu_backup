@@ -1,0 +1,2 @@
+#cp /vols/lhcb/ss4314/cutonProbnnmu/FUMSB_NOTsimultaneous_NewTCK_PIDoptimisation_extremeweights_AntiBDT/haddtuples/* .
+cp /vols/lhcb/ss4314/cutonProbnnmu/FUMSB_NOTsimultaneous_NewTCK_PIDoptimisation_extremeweights_AntiBDT/bin/Data2012and2011_SigReg_trigger*root .

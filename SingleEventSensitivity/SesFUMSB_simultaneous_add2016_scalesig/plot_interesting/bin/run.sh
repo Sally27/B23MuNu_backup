@@ -1,0 +1,6 @@
+./plotnice "lowFCME"
+./plotnice "highFCME"
+./plot_individual_effi "lowFCME"
+./plot_individual_effi "highFCME"
+./plot_ratio_effi "lowFCME"
+./plot_ratio_effi "highFCME"

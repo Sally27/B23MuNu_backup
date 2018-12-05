@@ -1,0 +1,3 @@
+cp /vols/lhcb/ss4314/tablesforana/efficiencyratios/2016/SesFUMSB_NOTsimultaneous_full_Error/plot_interesting/bin/Plot_ALL_Efficiencies_Ratio_Overview_Pretty.pdf .
+
+cp /vols/lhcb/ss4314/SingleEventSensitivity/SesFUMSB_NOTsimultaneous_final_optimisation_GenLevelEff/plot_interesting/bin/Plot_ALL_Efficiencies_Ratio_Overview.pdf .

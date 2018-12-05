@@ -1,0 +1,13 @@
+#!/bin/bash
+
+cp /vols/lhcb/ss4314/preparetuplesforBDTfinalallvartrigger/MCSigpreparetupleNew/bin/Efficiencies.pdf EfficienciesB23muMC.pdf
+cp /vols/lhcb/ss4314/preparetuplesforBDTfinalallvartrigger/JpsiKMCDetachedLine/2011/bin/Efficiencies.pdf EfficienciesJpsiKmc2011.pdf
+cp /vols/lhcb/ss4314/preparetuplesforBDTfinalallvartrigger/JpsiKMCDetachedLine/2012/bin/Efficiencies.pdf EfficienciesJpsiKmc2012.pdf
+cp /vols/lhcb/ss4314/cutonBDTs/MCnonsharedvsCombiFUMSB_newcontrolchannel/bin/EfficienciesCombiBDT.pdf EfficienciesCombiBDT.pdf
+cp /vols/lhcb/ss4314/cutonBDTs/MCnonsharedvsMisidFUMSB_newcontrolchannel/bin/EfficienciesMisidBDT.pdf EfficienciesMISID.pdf
+cp /vols/lhcb/ss4314/cutonFitRange/FUMSB_NOTsimultaneous_newcontrolchannel/bin/EfficienciesFitRange.pdf EfficienciesFitRange.pdf
+cp /vols/lhcb/ss4314/fitcontrolchannelFUMSB_NOTsimultaneous_newcontrolchannel/NOFCME/workspace/HypathiaplotJpsiK.pdf JpsikdataNOFCME.pdf
+cp /vols/lhcb/ss4314/PIDeffMC/FUMSB_NOTsimultaneous_newcontrolchannel/MCsigB23Mu/bin/PIDEfficiency_BASICUTSMagDownStrip21.tex EfficiencyPIDB23Mu.tex
+cp /vols/lhcb/ss4314/cutonFitRange/FUMSB_NOTsimultaneous_newcontrolchannel/bin/EfficienciesFitRange.pdf crosscheck.pdf
+cp /vols/lhcb/ss4314/PIDeffMC/FUMSB_NOTsimultaneous_newcontrolchannel/MCctlJpsiK/bin/PIDEfficiency_BASICUTSMagDownStrip21.tex EfficiencyPIDJpsiK.tex
+

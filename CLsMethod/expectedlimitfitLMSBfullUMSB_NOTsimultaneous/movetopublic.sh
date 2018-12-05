@@ -1,0 +1,6 @@
+
+mkdir ~/public_html/CLsmethod/fitallafterMCnSharedRemovedFullUMSBIncludeLMSB_NOTsimultaneous/
+mkdir ~/public_html/CLsmethod/fitallafterMCnSharedRemovedFullUMSBIncludeLMSB_NOTsimultaneous/expected_exclusion/
+
+cp -r toy_*/*pdf ~/public_html/CLsmethod/fitallafterMCnSharedRemovedFullUMSBIncludeLMSB_NOTsimultaneous/expected_exclusion/ 
+cp -r plotExclusionLimit/*pdf ~/public_html/CLsmethod/fitallafterMCnSharedRemovedFullUMSBIncludeLMSB_NOTsimultaneous/expected_exclusion/ 

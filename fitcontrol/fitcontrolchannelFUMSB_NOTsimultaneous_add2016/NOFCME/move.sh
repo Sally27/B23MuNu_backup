@@ -1,0 +1,4 @@
+
+mkdir ~/public_html/fitcontrol/fitcontrolchannelFUMSB_NOTsimultaneous_add2016
+mkdir ~/public_html/fitcontrol/fitcontrolchannelFUMSB_NOTsimultaneous_add2016/NOFCME
+cp workspace/*pdf ~/public_html/fitcontrol/fitcontrolchannelFUMSB_NOTsimultaneous_add2016/NOFCME/

@@ -1,0 +1,4 @@
+
+mkdir ~/public_html/fitcontrol/fitcontrolchannelFUMSB_NOTsimultaneous_add2016_scalesig_scalepimumu
+mkdir ~/public_html/fitcontrol/fitcontrolchannelFUMSB_NOTsimultaneous_add2016_scalesig_scalepimumu/NOFCME
+cp workspace/*pdf ~/public_html/fitcontrol/fitcontrolchannelFUMSB_NOTsimultaneous_add2016_scalesig_scalepimumu/NOFCME/

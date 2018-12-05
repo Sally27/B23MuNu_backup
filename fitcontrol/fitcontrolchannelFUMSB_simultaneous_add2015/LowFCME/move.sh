@@ -1,0 +1,4 @@
+
+mkdir ~/public_html/fitcontrol/fitcontrolchannelFUMSB_simultaneous_add2015
+mkdir ~/public_html/fitcontrol/fitcontrolchannelFUMSB_simultaneous_add2015/LowFCME
+cp workspace/*pdf ~/public_html/fitcontrol/fitcontrolchannelFUMSB_simultaneous_add2015/LowFCME/

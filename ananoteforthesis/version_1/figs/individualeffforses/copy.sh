@@ -1,0 +1,3 @@
+cp /vols/lhcb/ss4314/SingleEventSensitivity/SesFUMSB_simultaneous_NewTCK_neweffcalc/plot_interesting/bin/Plot_ALL_Efficiencies_Overview_lowFCME.pdf .
+cp /vols/lhcb/ss4314/SingleEventSensitivity/SesFUMSB_simultaneous_NewTCK_neweffcalc/plot_interesting/bin/Plot_ALL_Efficiencies_Overview_highFCME.pdf .
+cp /vols/lhcb/ss4314/SingleEventSensitivity/SesFUMSB_NOTsimultaneous_NewTCK_neweffcalc/plot_interesting/bin/Plot_ALL_Efficiencies_Overview.pdf Plot_ALL_Efficiencies_Overview_NOFCME.pdf

@@ -1,0 +1,4 @@
+cp /vols/lhcb/ss4314/preparetuplesforBDTfinalallvartrigger/B23MuData2016preparetuple/LowerMassSideBandFullDatapreparetuple/bin/B23MuNuData2016_corrmLSDfull_trigger_Jpsi_mu1nShared_mu2nShared_mu3nShared_qmincut.root .
+cp /vols/lhcb/ss4314/preparetuplesforBDTfinalallvartrigger/B23MuData2016preparetuple/FullUpperMassSideBand/bin/B23MuNuData2016_corrmFUSMB_trigger_Jpsi_mu1nShared_mu2nShared_mu3nShared_qmincut.root .
+hadd finaldata2016.root *root
+

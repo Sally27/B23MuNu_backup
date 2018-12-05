@@ -1,0 +1,5 @@
+cp /home/hep/ss4314/public_html/BDTtrainings/MCSig2012_vs_DATACombiRun1/overtraining*pdf .
+cp /home/hep/ss4314/public_html/BDTtrainings/MCSig2012_vs_DATACombiRun1/CutEfficiency_Bplus_Corrected_MassMisid_nice.pdf .
+cp /home/hep/ss4314/public_html/BDTtrainings/MCSig2012_vs_DATACombiRun1/truepunzi_roccurves.pdf .
+cp /home/hep/ss4314/public_html/BDTtrainings/MCSig2012_vs_DATACombiRun1/ScaledpunziFOM*.pdf .
+cp /home/hep/ss4314/public_html/BDTtrainings/MCSig2012_vs_DATACombiRun1/*ProfileX_of_Bplus_Corrected_Mass_vs_MCSig2012_vs_DATACombiRun1NTrees60_MinNodeSize2_MaxDepth3_SeparationTypeGiniIndex_PruneMethodNoPruning_DoPreselection* .

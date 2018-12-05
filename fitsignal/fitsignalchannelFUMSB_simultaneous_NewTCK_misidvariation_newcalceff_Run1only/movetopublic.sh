@@ -1,0 +1,21 @@
+
+mkdir ~/public_html/fitsignal/fitsignalchannelFUMSB_simultaneous_NewTCK_misidvariation_newcalceff/
+mkdir ~/public_html/fitsignal/fitsignalchannelFUMSB_simultaneous_NewTCK_misidvariation_newcalceff/workspace_preparation
+
+cp workspace_preparation/*pdf ~/public_html/fitsignal/fitsignalchannelFUMSB_simultaneous_NewTCK_misidvariation_newcalceff/workspace_preparation/ 
+cp workspace_preparation/*txt ~/public_html/fitsignal/fitsignalchannelFUMSB_simultaneous_NewTCK_misidvariation_newcalceff/workspace_preparation/
+
+mkdir ~/public_html/fitsignal/fitsignalchannelFUMSB_simultaneous_NewTCK_misidvariation_newcalceff/workspace_plots
+
+cp workspace_plots/*pdf ~/public_html/fitsignal/fitsignalchannelFUMSB_simultaneous_NewTCK_misidvariation_newcalceff/workspace_plots/
+cp workspace_plots/*txt ~/public_html/fitsignal/fitsignalchannelFUMSB_simultaneous_NewTCK_misidvariation_newcalceff/workspace_plots/
+
+
+mkdir ~/public_html/fitsignal/fitsignalchannelFUMSB_simultaneous_NewTCK_misidvariation_newcalceff/FOM
+
+cp FOM/*txt ~/public_html/fitsignal/fitsignalchannelFUMSB_simultaneous_NewTCK_misidvariation_newcalceff/FOM/
+
+
+mkdir ~/public_html/fitsignal/fitsignalchannelFUMSB_simultaneous_NewTCK_misidvariation_newcalceff/compare_fits
+
+cp compare_fits/* ~/public_html/fitsignal/fitsignalchannelFUMSB_simultaneous_NewTCK_misidvariation_newcalceff/compare_fits/

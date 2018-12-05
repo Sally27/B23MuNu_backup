@@ -1,0 +1,3 @@
+cp /vols/lhcb/ss4314/fitsignal/fitsignalchannelFUMSB_simultaneous_NewTCK_misidvariation_newcalceff/workspace_preparation/*Changed* .
+
+cp /vols/lhcb/ss4314/fitsignal/fitsignalchannelFUMSB_NOTsimultaneous_NewTCK_misidvariation_newcalceff/workspace_preparation/*Changed* .

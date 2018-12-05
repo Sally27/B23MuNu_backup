@@ -1,0 +1,7 @@
+#cp /vols/lhcb/ss4314/fitsignal/fitsignalchannelFUMSB_simultaneous_NewTCK_misidvariation_newcalceff/workspace_preparation/*Changed* .
+
+cp /vols/lhcb/ss4314/fitsignal/fitsignal_final_GenLevelEff_CorrectMisid/workspace_preparation/partrecofit_NOTMAIN_moreinfo_.pdf  .
+cp /vols/lhcb/ss4314/fitsignal/fitsignal_simultaneous_final_GenLevelEff_CorrectMisid/workspace_preparation/partrecofit_NOTMAIN_moreinfo_LowFCME.pdf .
+
+cp /vols/lhcb/ss4314/fitsignal/fitsignal_simultaneous_final_GenLevelEff_CorrectMisid/workspace_preparation/partrecofit_NOTMAIN_moreinfo_HighFCME.pdf .
+#cp /vols/lhcb/ss4314/fitsignal/fitsignalchannelFUMSB_NOTsimultaneous_NewTCK_misidvariation_newcalceff/workspace_preparation/*Changed* .

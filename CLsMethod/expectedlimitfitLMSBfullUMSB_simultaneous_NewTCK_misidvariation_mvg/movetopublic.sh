@@ -1,0 +1,7 @@
+
+mkdir ~/public_html/CLsmethod/expectedlimits_includemisiduncertainites_FullUMSB_simultaneous_NewTCK_misidvariation_mvg/
+mkdir ~/public_html/CLsmethod/expectedlimits_includemisiduncertainites_FullUMSB_simultaneous_NewTCK_misidvariation_mvg/expected_exclusion/
+
+cp -r toy_* ~/public_html/CLsmethod/expectedlimits_includemisiduncertainites_FullUMSB_simultaneous_NewTCK_misidvariation_mvg/expected_exclusion/ 
+cp -r bin/*pdf ~/public_html/CLsmethod/expectedlimits_includemisiduncertainites_FullUMSB_simultaneous_NewTCK_misidvariation_mvg/expected_exclusion/ 
+cp -r plotExclusionLimit/bin/*pdf ~/public_html/CLsmethod/expectedlimits_includemisiduncertainites_FullUMSB_simultaneous_NewTCK_misidvariation_mvg/expected_exclusion/ 

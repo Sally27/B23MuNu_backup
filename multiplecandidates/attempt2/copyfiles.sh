@@ -1,0 +1,10 @@
+
+cp /vols/lhcb/ss4314/cutonProbnnmu/FUMSB_NOTsimultaneous_NewTCK_PIDoptimisation_extremeweights/haddtuples/*probmu35.root tuplestotry/
+cp /vols/lhcb/ss4314/cutonProbnnmu/FUMSB_NOTsimultaneous_NewTCK_PIDoptimisation_extremeweights/haddtuples/*probnnmu035.root tuplestotry/
+
+
+cp /vols/lhcb/ss4314/preparesignalweights/preparesignalweights_FUMSB_NOTsimultaneous_NewTCK_PIDoptimisation_extremeweights/haddtuples/B23MuNuMC2012probnnmu035Strip21.root mctuples/
+
+cp /vols/lhcb/ss4314/preparesignalweights/preparesignalweights_FUMSB_NOTsimultaneous_NewTCK_PIDoptimisation_extremeweights/haddtuples/B23MuNuMC2016probmu35Turbo16.root mctuples/
+
+cp /vols/lhcb/ss4314/preparesignalweights/preparesignalweights_FUMSB_NOTsimultaneous_NewTCK_PIDoptimisation_extremeweights/haddtuples/B23MuNuMC_2012_2016_opt.root mctuples/

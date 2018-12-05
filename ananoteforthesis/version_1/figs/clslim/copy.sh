@@ -1,0 +1,2 @@
+cp /vols/lhcb/ss4314/CLsMethod/expectedlimitfitLMSBfullUMSB_simultaneous_NewTCK_misidvariation_newcalceff/plotExclusionLimit/bin/*pdf SIM.pdf
+cp /vols/lhcb/ss4314/CLsMethod/expectedlimitfitLMSBfullUMSB_NOTsimultaneous_NewTCK_misidvariation_newcalceff/plotExclusionLimit/bin/*pdf NOTSIM.pdf

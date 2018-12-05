@@ -1,0 +1,1 @@
+cp /vols/lhcb/ss4314/preparejpsipiweights/preparejpsipiweights_FUMSB_NOTsimultaneous_NewTCK_PIDoptimisation_extremeweights_AntiBDT/bin/*root .

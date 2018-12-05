@@ -1,0 +1,81 @@
+
+trainingname=FUMSB_simultaneous_add2016 #NEW simultaneous year
+tag=FUMSB_NOTsimultaneous_add2016 #NEW NOT simultaneous year
+tn=_scalesig
+
+
+#-----------------OS RUN1 tag---------------#
+
+cd /vols/lhcb/ss4314/addPIDweights/
+cd $tag$tn
+#
+cd os
+#
+rm finaltuplesRun1/*
+rm bin/*
+#
+make
+
+cd bin
+
+
+
+cp /vols/lhcb/ss4314/misidsplitting/$tag$tn/Run1/B23MuNuFakeOStotal_mu2isNotMuon_mu2inMuonAcc_trigger_mu1nShared_mu3nShared_qmincut_PionPID_CombBasic_MisidBasic_FitCorM_Strip* .
+cp /vols/lhcb/ss4314/misidsplitting/$tag$tn/Run1/B23MuNuFakeOStotal_mu2isNotMuon_mu2inMuonAcc_trigger_mu1nShared_mu3nShared_qmincut_KaonPID_CombBasic_MisidBasic_FitCorM_Strip* .
+cp /vols/lhcb/ss4314/misidsplitting/$tag$tn/Run1/B23MuNuFakeOStotal_mu2isNotMuon_mu2inMuonAcc_trigger_mu1nShared_mu3nShared_qmincut_ProtonPID_CombBasic_MisidBasic_FitCorM_Strip* .
+
+./mainforos B23MuNuFakeOStotal_mu2isNotMuon_mu2inMuonAcc_trigger_mu1nShared_mu3nShared_qmincut_PionPID_CombBasic_MisidBasic_FitCorM_Strip21MagDown.root B23MuNuFakeOStotal_mu2isNotMuon_mu2inMuonAcc_trigger_mu1nShared_mu3nShared_qmincut_KaonPID_CombBasic_MisidBasic_FitCorM_Strip21MagDown.root B23MuNuFakeOStotal_mu2isNotMuon_mu2inMuonAcc_trigger_mu1nShared_mu3nShared_qmincut_ProtonPID_CombBasic_MisidBasic_FitCorM_Strip21MagDown.root MagDown Strip21
+
+./mainforos B23MuNuFakeOStotal_mu2isNotMuon_mu2inMuonAcc_trigger_mu1nShared_mu3nShared_qmincut_PionPID_CombBasic_MisidBasic_FitCorM_Strip21MagUp.root B23MuNuFakeOStotal_mu2isNotMuon_mu2inMuonAcc_trigger_mu1nShared_mu3nShared_qmincut_KaonPID_CombBasic_MisidBasic_FitCorM_Strip21MagUp.root B23MuNuFakeOStotal_mu2isNotMuon_mu2inMuonAcc_trigger_mu1nShared_mu3nShared_qmincut_ProtonPID_CombBasic_MisidBasic_FitCorM_Strip21MagUp.root MagUp Strip21
+
+./mainforos B23MuNuFakeOStotal_mu2isNotMuon_mu2inMuonAcc_trigger_mu1nShared_mu3nShared_qmincut_PionPID_CombBasic_MisidBasic_FitCorM_Strip21r1MagDown.root B23MuNuFakeOStotal_mu2isNotMuon_mu2inMuonAcc_trigger_mu1nShared_mu3nShared_qmincut_KaonPID_CombBasic_MisidBasic_FitCorM_Strip21r1MagDown.root B23MuNuFakeOStotal_mu2isNotMuon_mu2inMuonAcc_trigger_mu1nShared_mu3nShared_qmincut_ProtonPID_CombBasic_MisidBasic_FitCorM_Strip21r1MagDown.root MagDown Strip21r1
+
+./mainforos B23MuNuFakeOStotal_mu2isNotMuon_mu2inMuonAcc_trigger_mu1nShared_mu3nShared_qmincut_PionPID_CombBasic_MisidBasic_FitCorM_Strip21r1MagUp.root B23MuNuFakeOStotal_mu2isNotMuon_mu2inMuonAcc_trigger_mu1nShared_mu3nShared_qmincut_KaonPID_CombBasic_MisidBasic_FitCorM_Strip21r1MagUp.root B23MuNuFakeOStotal_mu2isNotMuon_mu2inMuonAcc_trigger_mu1nShared_mu3nShared_qmincut_ProtonPID_CombBasic_MisidBasic_FitCorM_Strip21r1MagUp.root MagUp Strip21r1
+
+
+this=Basiccut
+var1=Strip21r1MagDown
+var2=Strip21r1MagUp
+var3=Strip21MagDown
+var4=Strip21MagUp
+beg=../finaltuplesRun1/modifiedandcut
+end=B23MuNuFakeOStotal_mu2isNotMuon_mu2inMuonAcc_trigger_mu1nShared_mu3nShared_qmincut_PionPID_CombBasic_MisidBasic_FitCorM.root
+beg2=modifiedandcut
+end2=B23MuNuFakeOStotal_mu2isNotMuon_mu2inMuonAcc_trigger_mu1nShared_mu3nShared_qmincut_PionPID_CombBasic_MisidBasic_FitCorM_
+
+
+for wohoo in "$this" Dllmumore05 Dllmumore1 Dllmumore15 Dllmumore2 Dllmuminkmore05 Dllmuminkmore1 Dllmuminkmore15 Dllmuminkmore2 NNmuminuspimorem06 NNmuminuspimorem05 NNmuminuspimorem04 NNmumore02 NNmumore025 NNmumore03 NNmumore035
+
+do
+
+	hadd $beg$wohoo$end $beg2$wohoo$var1$end2$var1.root $beg2$wohoo$var2$end2$var2.root $beg2$wohoo$var3$end2$var3.root $beg2$wohoo$var4$end2$var4.root 
+
+done
+
+beg3=../finaltuplesRun1/modifiedandcut
+end3=B23MuNuFakeOStotal_mu2isNotMuon_mu2inMuonAcc_trigger_mu1nShared_mu3nShared_qmincut_KaonPID_CombBasic_MisidBasic_FitCorM.root
+beg4=modifiedandcut
+end4=B23MuNuFakeOStotal_mu2isNotMuon_mu2inMuonAcc_trigger_mu1nShared_mu3nShared_qmincut_KaonPID_CombBasic_MisidBasic_FitCorM_
+
+for wohoo in "$this" Dllmumore05 Dllmumore1 Dllmumore15 Dllmumore2 Dllmuminkmore05 Dllmuminkmore1 Dllmuminkmore15 Dllmuminkmore2 NNmuminuspimorem06 NNmuminuspimorem05 NNmuminuspimorem04 NNmumore02 NNmumore025 NNmumore03 NNmumore035
+
+do
+
+        hadd $beg3$wohoo$end3 $beg4$wohoo$var1$end4$var1.root $beg4$wohoo$var2$end4$var2.root $beg4$wohoo$var3$end4$var3.root $beg4$wohoo$var4$end4$var4.root
+
+done
+
+beg5=../finaltuplesRun1/modifiedandcut
+end5=B23MuNuFakeOStotal_mu2isNotMuon_mu2inMuonAcc_trigger_mu1nShared_mu3nShared_qmincut_ProtonPID_CombBasic_MisidBasic_FitCorM.root
+beg6=modifiedandcut
+end6=B23MuNuFakeOStotal_mu2isNotMuon_mu2inMuonAcc_trigger_mu1nShared_mu3nShared_qmincut_ProtonPID_CombBasic_MisidBasic_FitCorM_
+
+for wohoo in "$this" Dllmumore05 Dllmumore1 Dllmumore15 Dllmumore2 Dllmuminkmore05 Dllmuminkmore1 Dllmuminkmore15 Dllmuminkmore2 NNmuminuspimorem06 NNmuminuspimorem05 NNmuminuspimorem04 NNmumore02 NNmumore025 NNmumore03 NNmumore035
+
+do
+
+        hadd $beg5$wohoo$end5 $beg6$wohoo$var1$end6$var1.root $beg6$wohoo$var2$end6$var2.root $beg6$wohoo$var3$end6$var3.root $beg6$wohoo$var4$end6$var4.root
+
+done
+
+

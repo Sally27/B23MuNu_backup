@@ -1,0 +1,4 @@
+
+mkdir ~/public_html/prepare_misidvariations
+mkdir ~/public_html/prepare_misidvariations/FUMSB_NOTsimultaneous_NewTCK_misidvariation/
+cp generatedplots/*pdf ~/public_html/prepare_misidvariations/FUMSB_NOTsimultaneous_NewTCK_misidvariation/

@@ -197,14 +197,14 @@ int main()
        fbkg4.push_back("Bu23MuNuData2016_SSmisid_mu3isNotMuon_mu3InAccMuonAcc_trigger_Jpsi_mu1isMuonTight_mu2isMuonTight_mu1MuonNShared_mu2MuonNShared_qmincut_CombBasic.root");
 
        vector<string> condi4;
-       condi4.push_back("Run1(trained on Run1)");
-       condi4.push_back("Run1(trained on Run1+2016)");
-       condi4.push_back("2016(trained on 2016)");
-       condi4.push_back("2016(trained on Run1+2016)");       
+       condi4.push_back("Run I (trained on Run I)");
+       condi4.push_back("Run I (trained on Run I + 2016)");
+       condi4.push_back("2016 (trained on 2016)");
+       condi4.push_back("2016 (trained on Run I + 2016)");       
  
        plotRocCurvesSallyCompareDiffTraining(paths4, condi4 ,fsig4, fbkg4, vars4, "_Misid_CompareTrainOnBothRun1and2016_", extracuts, tr, nsigexp, nbkgexp, namemything1, mincut, maxcut, weightBranchSig, weightBranchBkg);
      
-       plotRocCurvesSallyCompareDiffTrainingOneMinusBkgRej(paths4, condi4 ,fsig4, fbkg4, vars4, "_Misid_CompareTrainOnBothRun1and2016_", extracuts, tr, nsigexp, nbkgexp, namemything1, mincut, maxcut, weightBranchSig, weightBranchBkg);
+      // plotRocCurvesSallyCompareDiffTrainingOneMinusBkgRej(paths4, condi4 ,fsig4, fbkg4, vars4, "_Misid_CompareTrainOnBothRun1and2016_", extracuts, tr, nsigexp, nbkgexp, namemything1, mincut, maxcut, weightBranchSig, weightBranchBkg);
 
 
 }

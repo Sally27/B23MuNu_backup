@@ -31,6 +31,8 @@ cout<<"I am bad!"<<endl;
 //RUN with hypathia
 
 vector<string> tuples;
+tuples.push_back("/vols/lhcb/ss4314/multiplecandidates/tuplestotry/Data_Run1_unblinded.root");
+tuples.push_back("/vols/lhcb/ss4314/multiplecandidates/tuplestotry/Data_2016_unblinded.root");
 tuples.push_back("/vols/lhcb/ss4314/multiplecandidates/tuplestotry/finaldata.root");
 tuples.push_back("/vols/lhcb/ss4314/multiplecandidates/tuplestotry/finaldata_2015.root");
 tuples.push_back("/vols/lhcb/ss4314/multiplecandidates/tuplestotry/finaldata_2016.root");
@@ -65,6 +67,8 @@ tuples.push_back("/vols/lhcb/ss4314/multiplecandidates/mctuples/B23MuNuMCAll.roo
 
 
 vector<string> newfiles;
+newfiles.push_back("datarun1_unblinded_mcand.root");
+newfiles.push_back("data2016_unblinded_mcand.root");
 newfiles.push_back("dataall_mcand.root");
 newfiles.push_back("data2015_mcand.root");
 newfiles.push_back("data2016_mcand.root");

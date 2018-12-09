@@ -45,6 +45,8 @@ cp workspace_preparation/*txt ~/public_html/fitsignal_unblinding/fitsignal_simul
 mkdir ~/public_html/fitsignal_unblinding/fitsignal_simultaneous_final_genlevelcor_allsyst_upgrade_freeBF_fitatminll/$cut$cut2/workspace_plots
 
 cp workspace_plots/*pdf ~/public_html/fitsignal_unblinding/fitsignal_simultaneous_final_genlevelcor_allsyst_upgrade_freeBF_fitatminll/$cut$cut2/workspace_plots/
+cp workspace_plots/*eps ~/public_html/fitsignal_unblinding/fitsignal_simultaneous_final_genlevelcor_allsyst_upgrade_freeBF_fitatminll/$cut$cut2/workspace_plots/
+cp workspace_plots/*C ~/public_html/fitsignal_unblinding/fitsignal_simultaneous_final_genlevelcor_allsyst_upgrade_freeBF_fitatminll/$cut$cut2/workspace_plots/
 cp workspace_plots/*txt ~/public_html/fitsignal_unblinding/fitsignal_simultaneous_final_genlevelcor_allsyst_upgrade_freeBF_fitatminll/$cut$cut2/workspace_plots/
 
 

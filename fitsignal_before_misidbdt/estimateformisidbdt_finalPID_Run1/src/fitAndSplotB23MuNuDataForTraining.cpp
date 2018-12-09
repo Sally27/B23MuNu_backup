@@ -30,6 +30,8 @@
 #include "RooCategory.h"
 #include "TCanvas.h"
 #include "TAxis.h"
+#include "TColor.h"
+#include "TROOT.h"
 #include "RooPlot.h"
 #include<iostream>
 #include<fstream>
@@ -112,11 +114,19 @@ double FitAndSplotB23MuNuDataForTraining::fitmisidone_newdir_compare2weights(str
         RooPlot* frame12 = Bplus_Corrected_Mass.frame(Title(("MisIDShape_Normalized_"+species).c_str())) ;
         dk.plotOn(frame11);
         dkw.plotOn(frame11,DataError(RooAbsData::SumW2),MarkerColor(kRed),LineColor(kRed));
+        dkw2.plotOn(frame11,DataError(RooAbsData::SumW2),MarkerColor(kRed),LineColor(kBlue));
         dkw.plotOn(frame12,DataError(RooAbsData::SumW2),MarkerColor(kRed),LineColor(kRed),RooFit::Name("weight1"));
         dkw2.plotOn(frame12,DataError(RooAbsData::SumW2),MarkerColor(kBlue),LineColor(kBlue),RooFit::Name("weight2"));
         double kaonmisid,kaonmisid2;
         kaonmisid =dkw.sumEntries();
         kaonmisid2 =dkw2.sumEntries();
+       
+        frame11->SetMinimum(0.01); 
+        frame11->GetYaxis()->SetTitle("Entries / (100 MeV/c^{2})");
+        frame12->GetYaxis()->SetTitle("Entries / (100 MeV/c^{2})");
+
+
+
 //      TPaveLabel *t3 = new TPaveLabel(0.45,0.6,0.9,0.8, Form("Total MisID = %f",kaonmisid),"brNDC");
 //        t3->SetTextSize(0.2);
 //      frame12->addObject(t3);
@@ -126,17 +136,18 @@ double FitAndSplotB23MuNuDataForTraining::fitmisidone_newdir_compare2weights(str
 
 	TCanvas* canv5 = new TCanvas("myattempt6","myattempt6",1500,600) ;
 	canv5->Divide(2,1) ;
-	canv5->cd(1) ; gPad->SetLeftMargin(0.15) ; frame11->GetYaxis()->SetTitleOffset(1.1) ; frame11->GetXaxis()->SetTitle("Corrected #mu^{+} #mu^{-} #mu^{+} mass [MeV/c^{2}]") ;  frame11->Draw() ;
-	canv5->cd(2) ; gPad->SetLeftMargin(0.15) ; frame12->GetYaxis()->SetTitleOffset(1.1) ; frame12->GetXaxis()->SetTitle("Corrected #mu^{+} #mu^{-} #mu^{+} mass [MeV/c^{2}]") ; frame12->Draw() ;
+	canv5->cd(1) ; gPad->SetLeftMargin(0.15) ; gPad->SetLogy(); frame11->GetYaxis()->SetTitleOffset(1.05) ; frame11->GetXaxis()->SetTitle("Corrected #mu^{+} #mu^{-} #mu^{+} mass [MeV/c^{2}]") ;  frame11->Draw() ;
+	canv5->cd(2) ; gPad->SetLeftMargin(0.15) ; frame12->GetYaxis()->SetTitleOffset(1.05) ; frame12->GetXaxis()->SetTitle("Corrected #mu^{+} #mu^{-} #mu^{+} mass [MeV/c^{2}]") ; frame12->Draw() ;
 
-	TLegend *leg = new TLegend(0.45,0.45,0.9,0.9);
-	leg->SetTextSize(0.05);
+	TLegend *leg = new TLegend(0.45,0.45,0.9,0.7);
+//	leg->SetTextSize(0.05);
+        leg->SetTextSize(0.062);
 	leg->AddEntry(frame12->findObject("weight1"),("No Crossfeed: "+d2s(round_to_digits(kaonmisid,4))).c_str(),"l");
 	leg->AddEntry(frame12->findObject("weight2"),("Crossfeed: "+d2s(round_to_digits(kaonmisid2,4))).c_str(),"l");
 	//      leg->AddEntry(frame->findObject("partreco"),"PartReco","l");
 	leg->Draw("same");
 
-	canv5->SaveAs((newdir+"compare_misid_"+filename+"_"+type+"_.pdf").c_str());
+	canv5->SaveAs((newdir+"compare_misid_"+filename+"_"+type+"_NEW.pdf").c_str());
 	//delete t3;
 	delete canv5;
 	//delete t3;
@@ -869,10 +880,13 @@ vector<double> FitAndSplotB23MuNuDataForTraining::fitmisidcomponentall_chi2(vect
 
 //----------Non uni on uni plotting issue resolved--------------------//
 
+        TColor* col4 = gROOT->GetColor(99);
+        col4->SetRGB(double(128)/double(255),double(177)/double(255),double(211)/double(255)); //blue
 
 	RooPlot* ibou = Bplus_Corrected_Mass.frame(Title(" ")) ;
 	binnedData.plotOn(ibou,DataError(RooAbsData::SumW2)); 
-        two_ext4.plotOn(ibou);
+        two_ext4.plotOn(ibou,LineColor(99));
+	binnedData.plotOn(ibou,DataError(RooAbsData::SumW2)); 
 	RooPlot* ibou2 = Bplus_Corrected_Mass.frame(Title("Binned histogram")) ;
 	binnedData.plotOn(ibou2,DataError(RooAbsData::SumW2));
 	two_ext4.plotOn(ibou2) ;
@@ -935,11 +949,19 @@ vector<double> FitAndSplotB23MuNuDataForTraining::fitmisidcomponentall_chi2(vect
 
 
 	//----------Draw Histo + Pull ! dont do external function because it doesnt preserve stuff-----------------//
+        //TColor* col4 = gROOT->GetColor(99);
+        //col4->SetRGB(double(128)/double(255),double(177)/double(255),double(211)/double(255)); //blue
+
+
 
 	TCanvas canv("canv", "canv", 800, 600);
 	ibou->GetXaxis()->SetTitle("Corrected #mu^{+} #mu^{-} #mu^{+} mass [MeV/c^{2}]");
-	ibou->GetYaxis()->SetTitleOffset(1.0);
+        ibou->GetYaxis()->SetTitle("Entries / (200 MeV/c^{2})");
+	ibou->GetYaxis()->SetTitleOffset(0.9);
 	ibou->Draw();
+
+	canv.Print((workspacedir+"plotMisidFitPretty_"+type+"_nopull.pdf").c_str());
+	canv.Print((workspacedir+"plotMisidFitPretty_"+type+"_nopull.root").c_str());
 
 	TCanvas canvTot("canvTot", "canvTot", 600, 600);
 	canvTot.Divide(1,2);

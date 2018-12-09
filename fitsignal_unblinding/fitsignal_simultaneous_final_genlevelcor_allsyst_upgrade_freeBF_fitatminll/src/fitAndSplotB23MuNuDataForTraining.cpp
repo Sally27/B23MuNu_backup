@@ -14,6 +14,7 @@
 #include "TTree.h"
 #include "RooExponential.h"
 #include "RooAddPdf.h"
+#include "RooAbsReal.h"
 #include "RooMinuit.h"
 #include "RooCBShape.h"
 #include "RooDataHist.h"
@@ -186,6 +187,7 @@ void FitAndSplotB23MuNuDataForTraining::simfit_fit_freeBF(string filenameofprefi
     ofstream outsig((plotdir+"SimultaneousFitResults_bkgpdfandsigpdfwith_"+cleanNameString(d2s(BF_int->getVal()))+"_fullfitinfo_syst_100.txt").c_str());
     saveFitInfo_abspdf(outsig, frame1, 10, pdf_int,data_intresult_free);
 
+
     TFile file3((clsdir+"fitresults_sigandbkghypo_forCLs_syst_100_final_freeBF.root").c_str(), "RECREATE");
     RooWorkspace workspaceFit3("workspaceFit", "workspaceFit");
 
@@ -199,6 +201,9 @@ void FitAndSplotB23MuNuDataForTraining::simfit_fit_freeBF(string filenameofprefi
     workspaceFit3.Write("", TObject::kOverwrite);
     cout<<"Workspace for fit has been saved:"<<endl;
     file3.Close();
+
+
+
 
     delete firstfit;
 }
@@ -472,7 +477,7 @@ void FitAndSplotB23MuNuDataForTraining::simfitseparateandsavesig_chi2fit_100cor(
 	wsmisid_high->Print();
 
 
-	RooRealVar BR("BR","branching fraction",-2.0e-8,-5.0e-8,5.0e-8);
+	RooRealVar BR("BR","\\mathcal{B}(\\Bmumumu)",-2.0e-8,-5.0e-8,5.0e-8);
 
 	//-----------------BRF---------//
 
@@ -483,7 +488,7 @@ void FitAndSplotB23MuNuDataForTraining::simfitseparateandsavesig_chi2fit_100cor(
 
 	ValError BRnor=bjpsikbr*jpsimumubr;
 
-	RooRealVar BRnorm("BRnorm","BRnorm",BRnor.val,double(BRnor.val-(3.0*BRnor.err)),double(BRnor.val+(3.0*BRnor.err)));
+	RooRealVar BRnorm("BRnorm","\\mathcal{B}(\\bjpsimumuk)",BRnor.val,double(BRnor.val-(3.0*BRnor.err)),double(BRnor.val+(3.0*BRnor.err)));
 	RooRealVar BRnormval("BRnormval","BRnormval",BRnor.val);
 	RooRealVar BRnormerr("BRnormerr","BRnormerr",BRnor.err);
 	RooGaussian BRnorm_con("BRnorm_con","BRnorm_con",BRnorm,BRnormval,BRnormerr); //stat and syst 
@@ -496,7 +501,7 @@ void FitAndSplotB23MuNuDataForTraining::simfitseparateandsavesig_chi2fit_100cor(
 
 	ValError BRprtot=bdmunuxbr*dkpimumubr;
 
-	RooRealVar BRpr("BRpr","BRpr",BRprtot.val,double(BRprtot.val-(6.0*BRprtot.err)),double(BRprtot.val+(6.0*BRprtot.err)));
+	RooRealVar BRpr("BRpr","\\mathcal{B}(\\pr)",BRprtot.val,double(BRprtot.val-(6.0*BRprtot.err)),double(BRprtot.val+(6.0*BRprtot.err)));
 	RooRealVar BRprval("BRprval","BRprval",BRprtot.val);
 	RooRealVar BRprerr("BRprerr","BRprerr",BRprtot.err);
 	RooGaussian BRpr_con("BRpr_con","BRpr_con",BRpr,BRprval,BRprerr); //stat and syst
@@ -505,25 +510,25 @@ void FitAndSplotB23MuNuDataForTraining::simfitseparateandsavesig_chi2fit_100cor(
 	//---------------------------------SIG PART----------------------------------//
 	//efficiency ratio jpsi k and sig run1 and 2016//
 
-	RooRealVar eff_ratio_run1_low("eff_ratio_run1_low","eff_ratio_run1_low",ratiolowrun1,double(ratiolowrun1-(3.0*ratiolowrun1err)),double(ratiolowrun1+(3.0*ratiolowrun1err)));
+	RooRealVar eff_ratio_run1_low("eff_ratio_run1_low","R^{21}_{low}",ratiolowrun1,double(ratiolowrun1-(3.0*ratiolowrun1err)),double(ratiolowrun1+(3.0*ratiolowrun1err)));
 	RooRealVar eff_ratio_run1_lowval("eff_ratio_run1_lowval","eff_ratio_run1_lowval",ratiolowrun1);
 	RooRealVar eff_ratio_run1_lowerr("eff_ratio_run1_lowerr","eff_ratio_run1_lowerr",ratiolowrun1err);
 	RooGaussian eff_ratio_run1_low_con("eff_ratio_run1_low_con","eff_ratio_run1_low_con",eff_ratio_run1_low,eff_ratio_run1_lowval,eff_ratio_run1_lowerr); //stat
 
 
-	RooRealVar eff_ratio_2016_low("eff_ratio_2016_low","eff_ratio_2016_low",ratiolow2016,double(ratiolow2016-(3.0*ratiolow2016err)),double(ratiolow2016+(3.0*ratiolow2016err)));
+	RooRealVar eff_ratio_2016_low("eff_ratio_2016_low","R^{26}_{low}",ratiolow2016,double(ratiolow2016-(3.0*ratiolow2016err)),double(ratiolow2016+(3.0*ratiolow2016err)));
 	RooRealVar eff_ratio_2016_lowval("eff_ratio_2016_lowval","eff_ratio_2016_lowval",ratiolow2016);
 	RooRealVar eff_ratio_2016_lowerr("eff_ratio_2016_lowerr","eff_ratio_2016_lowerr",ratiolow2016err);
 	RooGaussian eff_ratio_2016_low_con("eff_ratio_2016_low_con","eff_ratio_2016_low_con",eff_ratio_2016_low,eff_ratio_2016_lowval,eff_ratio_2016_lowerr); //stat
 
 	//jpsik yields run1 and 2016 //
 
-	RooRealVar jpsik_run1_low("jpsik_run1_low","jpsik_run1_low",jpsiklowrun1,double(jpsiklowrun1-(3.0*jpsiklowrun1err)),double(jpsiklowrun1+(3.0*jpsiklowrun1err)));
+	RooRealVar jpsik_run1_low("jpsik_run1_low","N(\\bjpsimumuk)^{Run 1}_{low}",jpsiklowrun1,double(jpsiklowrun1-(3.0*jpsiklowrun1err)),double(jpsiklowrun1+(3.0*jpsiklowrun1err)));
 	RooRealVar jpsik_run1_lowval("jpsik_run1_lowval","jpsik_run1_lowval",jpsiklowrun1);
 	RooRealVar jpsik_run1_lowerr("jpsik_run1_lowerr","jpsik_run1_lowerr",jpsiklowrun1err);
 	RooGaussian jpsik_run1_low_con("jpsik_run1_low_con","jpsik_run1_low_con",jpsik_run1_low,jpsik_run1_lowval,jpsik_run1_lowerr); //stat
 
-	RooRealVar jpsik_2016_low("jpsik_2016_low","jpsik_2016_low",jpsiklow2016,double(jpsiklow2016-(3.0*jpsiklow2016err)),double(jpsiklow2016+(3.0*jpsiklow2016err)));
+	RooRealVar jpsik_2016_low("jpsik_2016_low","N(\\bjpsimumuk)^{2016}_{low}",jpsiklow2016,double(jpsiklow2016-(3.0*jpsiklow2016err)),double(jpsiklow2016+(3.0*jpsiklow2016err)));
 	RooRealVar jpsik_2016_lowval("jpsik_2016_lowval","jpsik_2016_lowvall",jpsiklow2016);
 	RooRealVar jpsik_2016_lowerr("jpsik_2016_lowerr","jpsik_2016_lowerr",jpsiklow2016err);
 	RooGaussian jpsik_2016_low_con("jpsik_2016_low_con","jpsik_2016_low_con",jpsik_2016_low,jpsik_2016_lowval,jpsik_2016_lowerr); //stat
@@ -533,7 +538,7 @@ void FitAndSplotB23MuNuDataForTraining::simfitseparateandsavesig_chi2fit_100cor(
 
 	//efficiency ratio jpsi k and pr (same for run1 and 2016)//
 
-	RooRealVar eff_ratio_pr_low("eff_ratio_pr_low","eff_ratio_pr_low",effratiolowpr,double(effratiolowpr-(3.0*effratiolowprerr)),double(effratiolowpr+(3.0*effratiolowprerr)));
+	RooRealVar eff_ratio_pr_low("eff_ratio_pr_low","R^{21}_{low}(\\pr)",effratiolowpr,double(effratiolowpr-(3.0*effratiolowprerr)),double(effratiolowpr+(3.0*effratiolowprerr)));
 	RooRealVar eff_ratio_pr_lowval("eff_ratio_pr_lowval","eff_ratio_pr_lowval",effratiolowpr);
 	RooRealVar eff_ratio_pr_lowerr("eff_ratio_pr_lowerr","eff_ratio_pr_lowerr",effratiolowprerr);
 	RooGaussian eff_ratio_pr_low_con("eff_ratio_pr_low_con","eff_ratio_pr_low_con",eff_ratio_pr_low,eff_ratio_pr_lowval,eff_ratio_pr_lowerr); //stat
@@ -615,25 +620,25 @@ void FitAndSplotB23MuNuDataForTraining::simfitseparateandsavesig_chi2fit_100cor(
 	//---------------------------------SIG PART----------------------------------//
 	//efficiency ratio jpsi k and sig run1 and 2016//
 
-	RooRealVar eff_ratio_run1_high("eff_ratio_run1_high","eff_ratio_run1_high",ratiohighrun1,double(ratiohighrun1-(3.0*ratiohighrun1err)),double(ratiohighrun1+(3.0*ratiohighrun1err)));
+	RooRealVar eff_ratio_run1_high("eff_ratio_run1_high","R^{21}_{high}",ratiohighrun1,double(ratiohighrun1-(3.0*ratiohighrun1err)),double(ratiohighrun1+(3.0*ratiohighrun1err)));
 	RooRealVar eff_ratio_run1_highval("eff_ratio_run1_highval","eff_ratio_run1_highval",ratiohighrun1);
 	RooRealVar eff_ratio_run1_higherr("eff_ratio_run1_higherr","eff_ratio_run1_higherr",ratiohighrun1err);
 	RooGaussian eff_ratio_run1_high_con("eff_ratio_run1_high_con","eff_ratio_run1_high_con",eff_ratio_run1_high,eff_ratio_run1_highval,eff_ratio_run1_higherr); //stat
 
 
-	RooRealVar eff_ratio_2016_high("eff_ratio_2016_high","eff_ratio_2016_high",ratiohigh2016,double(ratiohigh2016-(3.0*ratiohigh2016err)),double(ratiohigh2016+(3.0*ratiohigh2016err)));
+	RooRealVar eff_ratio_2016_high("eff_ratio_2016_high","R^{26}_{high}",ratiohigh2016,double(ratiohigh2016-(3.0*ratiohigh2016err)),double(ratiohigh2016+(3.0*ratiohigh2016err)));
 	RooRealVar eff_ratio_2016_highval("eff_ratio_2016_highval","eff_ratio_2016_highval",ratiohigh2016);
 	RooRealVar eff_ratio_2016_higherr("eff_ratio_2016_higherr","eff_ratio_2016_higherr",ratiohigh2016err);
 	RooGaussian eff_ratio_2016_high_con("eff_ratio_2016_high_con","eff_ratio_2016_high_con",eff_ratio_2016_high,eff_ratio_2016_highval,eff_ratio_2016_higherr); //stat
 
 	//jpsik yields run1 and 2016 //
 
-	RooRealVar jpsik_run1_high("jpsik_run1_high","jpsik_run1_high",jpsikhighrun1,double(jpsikhighrun1-(3.0*jpsikhighrun1err)),double(jpsikhighrun1+(3.0*jpsikhighrun1err)));
+	RooRealVar jpsik_run1_high("jpsik_run1_high","N(\\bjpsimumuk)^{Run 1}_{high}",jpsikhighrun1,double(jpsikhighrun1-(3.0*jpsikhighrun1err)),double(jpsikhighrun1+(3.0*jpsikhighrun1err)));
 	RooRealVar jpsik_run1_highval("jpsik_run1_highval","jpsik_run1_highval",jpsikhighrun1);
 	RooRealVar jpsik_run1_higherr("jpsik_run1_higherr","jpsik_run1_higherr",jpsikhighrun1err);
 	RooGaussian jpsik_run1_high_con("jpsik_run1_high_con","jpsik_run1_high_con",jpsik_run1_high,jpsik_run1_highval,jpsik_run1_higherr); //stat
 
-	RooRealVar jpsik_2016_high("jpsik_2016_high","jpsik_2016_high",jpsikhigh2016,double(jpsikhigh2016-(3.0*jpsikhigh2016err)),double(jpsikhigh2016+(3.0*jpsikhigh2016err)));
+	RooRealVar jpsik_2016_high("jpsik_2016_high","N(\\bjpsimumuk)^{2016}_{high}",jpsikhigh2016,double(jpsikhigh2016-(3.0*jpsikhigh2016err)),double(jpsikhigh2016+(3.0*jpsikhigh2016err)));
 	RooRealVar jpsik_2016_highval("jpsik_2016_highval","jpsik_2016_highvall",jpsikhigh2016);
 	RooRealVar jpsik_2016_higherr("jpsik_2016_higherr","jpsik_2016_higherr",jpsikhigh2016err);
 	RooGaussian jpsik_2016_high_con("jpsik_2016_high_con","jpsik_2016_high_con",jpsik_2016_high,jpsik_2016_highval,jpsik_2016_higherr); //stat
@@ -643,7 +648,7 @@ void FitAndSplotB23MuNuDataForTraining::simfitseparateandsavesig_chi2fit_100cor(
 
 	//efficiency ratio jpsi k and pr (same for run1 and 2016)//
 
-	RooRealVar eff_ratio_pr_high("eff_ratio_pr_high","eff_ratio_pr_high",effratiohighpr,double(effratiohighpr-(3.0*effratiohighprerr)),double(effratiohighpr+(3.0*effratiohighprerr)));
+	RooRealVar eff_ratio_pr_high("eff_ratio_pr_high","R^{21}_{high}(\\pr)",effratiohighpr,double(effratiohighpr-(3.0*effratiohighprerr)),double(effratiohighpr+(3.0*effratiohighprerr)));
 	RooRealVar eff_ratio_pr_highval("eff_ratio_pr_highval","eff_ratio_pr_highval",effratiohighpr);
 	RooRealVar eff_ratio_pr_higherr("eff_ratio_pr_higherr","eff_ratio_pr_higherr",effratiohighprerr);
 	RooGaussian eff_ratio_pr_high_con("eff_ratio_pr_high_con","eff_ratio_pr_high_con",eff_ratio_pr_high,eff_ratio_pr_highval,eff_ratio_pr_higherr); //stat
@@ -770,8 +775,8 @@ void FitAndSplotB23MuNuDataForTraining::simfitseparateandsavesig_chi2fit_100cor(
 	//
 	//
 	////--------------end of old code-----------------//
-	RooRealVar nexp_low("nexp_LowFCME","n explow",0.1,1500);
-	RooRealVar nexp_high("nexp_HighFCME","n exphigh",0.1,1500);
+	RooRealVar nexp_low("nexp_LowFCME","N_{combi_{low}}",0.1,1500);
+	RooRealVar nexp_high("nexp_HighFCME","N_{combi_{high}}",0.1,1500);
 
 
 	//	  RooFormulaVar nsigform_low("nsigform_LowFCME","nsigfromformula","(@3/@2)+(@3/@1)+(@3/@0)",RooArgList(ses_low,ses_low_2015,ses_low_2016,BR));
@@ -790,10 +795,10 @@ void FitAndSplotB23MuNuDataForTraining::simfitseparateandsavesig_chi2fit_100cor(
 	//	  RooRealVar newexpocon("newexpocon","newexpocon",-0.3,0.3);
 	//	  RooExponential newexpoun("newexpoun", "exponential",Bplus_Corrected_Mass,newexpocon);
 
-	RooRealVar newexpocon_low(("newexpocon_"+typelow).c_str(),"newexpocon_low",double(-0.1),double(0.0));
+	RooRealVar newexpocon_low(("newexpocon_"+typelow).c_str(),"#beta_{low}",double(-0.1),double(0.0));
 	RooExponential newexpoun_low(("newexpoun_"+typelow).c_str(), "exponential_low",Bplus_Corrected_Mass,newexpocon_low);
 
-	RooRealVar newexpocon_high(("newexpocon_"+typehigh).c_str(),"newexpocon_high",double(-0.1),double(0.0));
+	RooRealVar newexpocon_high(("newexpocon_"+typehigh).c_str(),"#beta_{high}",double(-0.1),double(0.0));
 	RooExponential newexpoun_high(("newexpoun_"+typehigh).c_str(), "exponential_high",Bplus_Corrected_Mass,newexpocon_high);
 
 
@@ -894,32 +899,56 @@ void FitAndSplotB23MuNuDataForTraining::simfitseparateandsavesig_chi2fit_100cor(
 	col10->SetAlpha(0.5);
 
 
-	TCanvas tryit("tryit","tryit",800,600);
+	TCanvas tryit("tryit","tryit",1000,600);
+        Bplus_Corrected_Mass_low->setBins(3000);
 	RooPlot* frame_sigi=Bplus_Corrected_Mass_low->frame(); 
 	frame_sigi->SetTitle(" ");
 	pdf_sig_low->plotOn(frame_sigi,RooFit::LineColor(98),RooFit::Name("signaliatko_l"));
 	pdf_sig_high->plotOn(frame_sigi,RooFit::LineColor(88),RooFit::FillColor(88),RooFit::DrawOption("F"),RooFit::Name("signaliatko"),VLines());
 	pdf_misid_low->plotOn(frame_sigi,RooFit::LineColor(99),RooFit::Name("misiatko_l"));
 	pdf_misid_high->plotOn(frame_sigi,RooFit::LineColor(89),RooFit::FillColor(89),RooFit::DrawOption("F"),RooFit::Name("misiatko"), VLines());
-	frame_sigi->GetXaxis()->SetTitle("Corrected #mu^{+} #mu^{-} #mu^{+} mass [MeV/c^{2}]");
-	frame_sigi->GetYaxis()->SetTitle(" ");
+	frame_sigi->GetXaxis()->SetTitle("#it{M}_{corr} [MeV/#it{c}^{2}]");
+        tryit.SetLeftMargin(0.15);
+        frame_sigi->GetYaxis()->SetTitleOffset(1.1);
+	frame_sigi->GetYaxis()->SetTitle("Probability / 1 MeV/#it{c}^{2}");
+
+        RooAbsReal* integral_low = pdf_sig_low->createIntegral(Bplus_Corrected_Mass,NormSet(Bplus_Corrected_Mass),Range("new"));
+        RooAbsReal* integral_high = pdf_sig_high->createIntegral(Bplus_Corrected_Mass,NormSet(Bplus_Corrected_Mass),Range("new"));
+
+        double int_low = integral_low->getVal();
+        double int_high = integral_high->getVal();
+        cout<<"Integral in lowfcme region: " << int_low <<endl;
+        cout<<"Integral in highfcme region: " << int_high <<endl;
 
 	//       pdf_pr_low->plotOn(frame_sigi,RooFit::LineColor(94));
 	//       pdf_pr_high->plotOn(frame_sigi,RooFit::LineColor(84),RooFit::FillColor(84),RooFit::DrawOption("F"),RooFit::Name("priatko"),VLines());
 	frame_sigi->Draw();
 
-	TLegend *leg3 = new TLegend(0.52,0.6,0.9,0.9);
+	TLegend *leg3 = new TLegend(0.56,0.6,0.92,0.9);
 
 	leg3->AddEntry(frame_sigi->findObject("signaliatko_l"),"Signal #sigma_{low}","l");
-	leg3->AddEntry(frame_sigi->findObject("misiatko_l"),"Misid #sigma_{low}","l");
-	leg3->AddEntry(frame_sigi->findObject("signaliatko"),"Signal #sigma_{high}","l");
-	leg3->AddEntry(frame_sigi->findObject("misiatko"),"Misid #sigma_{high}","l");
+	leg3->AddEntry(frame_sigi->findObject("misiatko_l"),"Misidentification #sigma_{low}","l");
+	leg3->AddEntry(frame_sigi->findObject("signaliatko"),"Signal #sigma_{high}","f");
+	leg3->AddEntry(frame_sigi->findObject("misiatko"),"Misidentification #sigma_{high}","f");
 	//          leg3->AddEntry(frame_sigi->findObject("priatko"),"PartReco","l");
+        cout<<"stuff on canvas"<<endl;
+//        tryit.Print("v");
+//	leg3->Draw("same");
 
+
+	string optLR[]="L";
+	string optPrelim[]="Final";
+	string optText=("LHCb");
+
+	printLHCb("L","Other",optText);
 	leg3->Draw("same");
 
-	tryit.SaveAs("niceplots.pdf");
-	tryit.SaveAs((comparedir+"/niceplots_sig.pdf").c_str());
+
+        frame_sigi->Print("v");
+	tryit.SaveAs("niceplots_100cor.pdf");
+	tryit.SaveAs((comparedir+"/niceplots_sig_100cor.pdf").c_str());
+	tryit.SaveAs((comparedir+"/niceplots_sig_100cor.eps").c_str());
+	tryit.SaveAs((comparedir+"/niceplots_sig_100cor.C").c_str());
 	// C r e a t e   i n d e x   c a t e g o r y   a n d   j o i n   s a m p l e s 
 	// ---------------------------------------------------------------------------
 
@@ -1025,6 +1054,19 @@ void FitAndSplotB23MuNuDataForTraining::simfitseparateandsavesig_chi2fit_100cor(
 
        //bkg constraints for low and high && commonn contraints for pdf
 	RooArgSet allbkgcon(allbkgboth_con,allbkgcon_common,"lol4");
+
+
+
+	TFile file_before((clsdir+"fitresults_beforeanyfit.root").c_str(), "RECREATE");
+
+	RooWorkspace workspace_before("workspaceFit", "workspaceFit");
+
+//	workspace_before.import(Bplus_Corrected_Mass);
+	workspace_before.import(allsignalcon_syst_100);
+	workspace_before.import(simPdfsig,RecycleConflictNodes());
+	workspace_before.Write("", TObject::kOverwrite);
+
+
 
 	bool systematics(true);
         bool correlation(false);
@@ -1981,8 +2023,8 @@ void FitAndSplotB23MuNuDataForTraining::simfitseparateandsavesig_chi2fit()
 
 	TLegend *leg3 = new TLegend(0.52,0.6,0.9,0.9);
 
-	leg3->AddEntry(frame_sigi->findObject("signaliatko_l"),"Signal #sigma_{low}","l");
-	leg3->AddEntry(frame_sigi->findObject("misiatko_l"),"Misid #sigma_{low}","l");
+	leg3->AddEntry(frame_sigi->findObject("signaliatko_l"),"Signal #sigma_{low}","f");
+	leg3->AddEntry(frame_sigi->findObject("misiatko_l"),"Misid #sigma_{low}","f");
 	leg3->AddEntry(frame_sigi->findObject("signaliatko"),"Signal #sigma_{high}","l");
 	leg3->AddEntry(frame_sigi->findObject("misiatko"),"Misid #sigma_{high}","l");
 	//          leg3->AddEntry(frame_sigi->findObject("priatko"),"PartReco","l");
@@ -5090,9 +5132,7 @@ void FitAndSplotB23MuNuDataForTraining::plotprettysim_chi2_reallynice_paper(stri
    fpull.Close();
 }
 
-
-
-void FitAndSplotB23MuNuDataForTraining::plotprettysim_chi2_reallynice(string type, string pidcutRun1, string pidcutRun2, string nameofclsroot, string nameofpdf, bool signalcomp)
+void FitAndSplotB23MuNuDataForTraining::plotprettysim_chi2_reallynice_both_special_courier(string type, string pidcutRun1, string pidcutRun2, string nameofclsroot, string nameofpdf, bool signalcomp)
 { 
    cout<<"Plotting result of the fit"<<endl;
    TFile fw((clsdir+nameofclsroot).c_str());
@@ -5111,6 +5151,1112 @@ void FitAndSplotB23MuNuDataForTraining::plotprettysim_chi2_reallynice(string typ
 //   RooAbsPdf* model_total = workspaceFit->pdf(("normpdf"));
 //   RooDataSet* data = (RooDataSet*)workspaceFit->data(("data_"+type).c_str());
    RooAbsPdf* model_total = workspaceFit->pdf(nameofpdf.c_str());
+//   data->plotOn(frame1,Cut("sample==sample::LowFCME")) ;
+   RooCategory* cat = (RooCategory*)workspaceFit->cat("sample");
+//   double original=BF_int->getVal();
+//   BF_int->setVal(-20.0*original);
+
+
+   Bplus_Corrected_Mass->setRange("high",6999,7000);
+   Bplus_Corrected_Mass->setRange("low",4000,6999);
+
+   Bplus_Corrected_Mass->setRange("high2",6999,7000);
+   Bplus_Corrected_Mass->setRange("low2",4000,6999);
+   Bplus_Corrected_Mass->setRange("high3",6999,7000);
+   Bplus_Corrected_Mass->setRange("low3",4000,6999);
+
+
+   Bplus_Corrected_Mass->setRange("high",6999,7000);
+   Bplus_Corrected_Mass->setRange("low",4000,6999);
+
+
+
+   if(!data || !Bplus_Corrected_Mass || !model_total)
+   {
+      cerr<<"ERROR: in function FitAndSplotB23MuNuDataForTraining::plot, error downloading stuff from workspace"<<endl;
+      cout<<Bplus_Corrected_Mass<<" "<<data<<" "<<model_total<<endl;
+      return;
+   }
+
+//   Bplus_Corrected_Mass->setBins(60);
+   Bplus_Corrected_Mass->setBins(60);
+   Bplus_Corrected_Mass->setUnit("MeV/#it{c}^{2}");
+   Bplus_Corrected_Mass->setMin(4000);
+   Bplus_Corrected_Mass->setMax(7000);
+
+   RooPlot* frame = Bplus_Corrected_Mass->frame(Title("firstfitLowFCME"),Bins(60)) ;
+   data->plotOn(frame) ;
+//unbl   model_total->plotOn(frame, RooFit::Range("low,high"), RooFit::NormRange("low,high"), RooFit::LineColor(kBlue) );
+   model_total->plotOn(frame,ProjWData(*cat,*data),RooFit::Range("low2"),RooFit::NormRange("low2"),RooFit::LineColor(kRed),RooFit::Name("res1"));
+   model_total->plotOn(frame,ProjWData(*cat,*data),RooFit::Range("high2"),RooFit::NormRange("high2"),RooFit::LineColor(kRed),RooFit::Name("res2"));
+
+   cout<<"Combined plot"<<endl;
+   
+   frame->Print("V");
+
+   auto dataHist = (RooHist*) frame->getHist("h_combData");
+
+ //  auto dataHist = (RooHist*) frame->getHist(("h_data"));
+
+   cout<<"NGet "<<dataHist->GetN()<<endl;
+  //TGraphAsymmErrors tgae(datahist->GetN());
+  // tgae.SetTitle("");
+   double x(0);
+   double y(0);
+   for(int i(0); i<dataHist->GetN(); ++i)
+   {
+   cout<<"this is values "<<x<<" "<<y<<" "<<i<<endl;   
+   if((dataHist->GetY()[i])==0.0)
+      {
+      cout<<"this is values "<<x<<" "<<y<<" "<<i<<endl;
+      dataHist->SetPoint(i,x,1000);
+      }
+//   if(numy=dataHist->GetY();)
+//      tgae.SetPoint(i,x,y);
+//      tgae.SetPointError(i, hist->GetErrorXlow(i), hist->GetErrorXhigh(i),
+//            hist->GetErrorYlow(i), hist->GetErrorYhigh(i));
+   }
+   auto curve1 = (RooCurve*) frame->getObject(1);
+   auto curve2 = (RooCurve*) frame->getObject(2);
+   auto hres1 = dataHist->makePullHist(*curve1,true);
+   auto hres2 = dataHist->makePullHist(*curve2,true);
+
+
+   Bplus_Corrected_Mass->setBins(60);
+   Bplus_Corrected_Mass->setUnit("MeV/c^{2}");
+   Bplus_Corrected_Mass->setMin(4000);
+   Bplus_Corrected_Mass->setMax(7000);
+
+   TColor* col1 = gROOT->GetColor(92);
+   col1->SetRGB(double(141)/double(255),double(211)/double(255),double(199)/double(255)); //green
+   TColor* col2 = gROOT->GetColor(95);
+   col2->SetRGB(double(255)/double(255),double(255)/double(255),double(179)/double(255)); //yellow
+
+   TColor* col3 = gROOT->GetColor(98);
+   col3->SetRGB(double(190)/double(255),double(186)/double(255),double(218)/double(255)); //violer
+
+   TColor* col4 = gROOT->GetColor(99);
+   col4->SetRGB(double(128)/double(255),double(177)/double(255),double(211)/double(255)); //blue
+
+   TColor* col5 = gROOT->GetColor(94);
+   col5->SetRGB(double(253)/double(255),double(180)/double(255),double(98)/double(255)); //orange
+
+
+
+  
+   RooPlot* frame10 = Bplus_Corrected_Mass->frame(Title(""));
+   frame10->addPlotable(hres1,"P");
+   frame10->addPlotable(hres2,"P");
+   TCanvas* canv4 = new TCanvas("myattempt5","myattempt5",600,150) ;
+   frame10->GetYaxis()->SetRangeUser(-5,5);
+   frame10->GetYaxis()->SetLabelSize(0.1);
+   frame10->GetXaxis()->SetNdivisions(0);
+   frame10->GetYaxis()->SetNdivisions(503);
+   frame10->GetYaxis()->SetLabelSize(0.133);
+
+   TLine line1(4000, -3, 7000, -3);
+   line1.SetLineColor(2);
+   TLine line2(4000, 3, 7000, 3);
+   line2.SetLineColor(2);
+   frame10->GetXaxis()->SetTitle("") ;  frame10->SetTitle("") ; frame10->Draw() ; line1.Draw("same"); line2.Draw("same");   
+   canv4->SaveAs("PULL.pdf");
+
+   savePullPlot(*frame, plotdir+"Combined_pullPlot.root");
+   TFile fpull((plotdir+"Combined_pullPlot.root").c_str());
+   TCanvas* cpull = (TCanvas*)fpull.Get("pullplot");
+//   model_total->plotOn(frame, RooFit::LineColor(kRed),RooFit::Components(("newexpoun_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("combinatorial"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"));
+//   model_total->plotOn(frame, RooFit::LineColor(kCyan),RooFit::Components(("misidModel_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("mis2"));
+
+//    model_total->plotOn(frame, RooFit::Components(("newpartreco_"+type+",misidModel_"+type+",newexpoun_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("partreco"),RooFit::FillColor(94), RooFit::LineColor(94), RooFit::DrawOption("F"));
+
+
+//   model_total->plotOn(frame,RooFit::Components(("misidModel_"+type+","+"newpartreco_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("mis2"),RooFit::FillColor(99), RooFit::LineColor(99), RooFit::DrawOption("F"));
+
+
+//   model_total->plotOn(frame, RooFit::Components(("newexpoun_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("combinatorial"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"),Invisible());
+
+
+  // model_total->plotOn(frame,Slice(*cat,type.c_str()),ProjWData(*cat,*data),RooFit::Range("low2"),RooFit::NormRange("low2"),RooFit::LineColor(kRed));
+  // model_total->plotOn(frame,Slice(*cat,type.c_str()),ProjWData(*cat,*data),RooFit::Range("high2"),RooFit::NormRange("high2"),RooFit::LineColor(kRed));
+     model_total->plotOn(frame,ProjWData(*cat,*data),RooFit::NormRange("low,high") ,RooFit::Range("low,high"),RooFit::Components(("newexpoun_LowFCME,misidModel_LowFCME,newpartreco_LowFCME,newexpoun_HighFCME,misidModel_HighFCME,newpartreco_HighFCME")), RooFit::Name("partreco"),RooFit::FillColor(94), RooFit::LineColor(94), RooFit::DrawOption("F"),VLines());
+   model_total->plotOn(frame,ProjWData(*cat,*data), RooFit::FillColor(99), RooFit::LineColor(99), RooFit::DrawOption("F"),RooFit::Components(("newexpoun_LowFCME,misidModel_LowFCME,newexpoun_HighFCME,misidModel_HighFCME")),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("mis2"),VLines());
+  model_total->plotOn(frame,ProjWData(*cat,*data), RooFit::NormRange("low"),RooFit::Range("low"),RooFit::Components(("newexpoun_LowFCME,newexpoun_HighFCME")), RooFit::Name("combinatorial1"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"),VLines());
+  model_total->plotOn(frame,ProjWData(*cat,*data), RooFit::NormRange("high"),RooFit::Range("high"),RooFit::Components(("newexpoun_LowFCME,newexpoun_HighFCME")),RooFit::Name("combinatorial2"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"),VLines());
+
+ if (signalcomp==true)
+
+   {
+
+
+
+           double original=BF_int->getVal();
+           double theorist=1.3e-7;
+           double scaly=theorist/original;
+ 
+          cout<<"The normalisation factor is "<<scaly<<endl;
+
+           RooAbsReal* integral_low = model_total->createIntegral(*Bplus_Corrected_Mass,NormSet(*Bplus_Corrected_Mass),Range("low"));
+//
+           double int_low = integral_low->getVal();
+
+//           BF_int->setVal(scaly*original);
+
+//          RooAbsReal* integral_low_2 = model_total->createIntegral(*Bplus_Corrected_Mass,NormSet(*Bplus_Corrected_Mass),Range("low"));
+//
+//           double int_low_2 = integral_low_2->getVal();
+           cout<<"This is integral after norm  "<<int_low<<" Num of expected events"<<model_total->expectedEvents(RooArgSet(*Bplus_Corrected_Mass))<<endl;
+           double num_ori=model_total->expectedEvents(RooArgSet(*Bplus_Corrected_Mass));
+
+//           double scaling=int_low/int_low_2;
+//           cout<<"scaling factor "<<scaling;
+
+
+ //          model_total->plotOn(frame,ProjWData(*cat,*data),LineColor(kYellow),LineStyle(kDashed),RooFit::Name("signal5"),VLines(),RooFit::Range("low"),RooFit::NormRange("low"),RooFit::Normalization(scaling));
+//           model_total->plotOn(frame,ProjWData(*cat,*data),LineColor(kPink),LineStyle(kDashed),RooFit::Name("signal6"),VLines(),RooFit::Range("low"),RooFit::NormRange("low"),RooFit::Normalization(scaly));
+           cout<<"Plotting the normalized histo "<<endl;
+
+//           RooAbsReal* integral_low = model_total->createIntegral(*Bplus_Corrected_Mass,NormSet(*Bplus_Corrected_Mass),Range("low"));
+//
+//           double int_low = integral_low->getVal();
+//           cout<<"This is integral before norm  "<<int_low<<" Num of expected events"<<model_total->expectedEvents(ProjWData(*cat,*data))<<endl;
+
+//           double original=BF_int->getVal();
+//new stuff           BF_int->setVal(-20.0*original);
+//new stuff
+//new stuff           RooAbsReal* integral_low_3 = model_total->createIntegral(*Bplus_Corrected_Mass,NormSet(*Bplus_Corrected_Mass),Range("low"));
+//new stuff
+//new stuff           double int_low_3 = integral_low_3->getVal();
+//new stuff           cout<<"This is integral after scaling by -20  "<<int_low_3<<" Num of expected events"<<model_total->expectedEvents(RooArgSet(*Bplus_Corrected_Mass))<<endl;
+//new stuff
+//new stuff           model_total->plotOn(frame,ProjWData(*cat,*data),Components(("blah_LowFCME,blah_HighFCME")),LineColor(kBlack),LineStyle(kDashed),RooFit::Range("low"),RooFit::NormRange("low"),RooFit::Name("signal"),VLines());
+//new stuff           model_total->plotOn(frame,ProjWData(*cat,*data),Components(("blah_LowFCME,blah_HighFCME")),LineColor(kBlack),LineStyle(kDashed),RooFit::Range("high"),RooFit::NormRange("high"),VLines());
+
+
+//           double original=BF_int->getVal();
+//           double theorist=1.3e-7;
+//           double scaly=theorist/original;
+           BF_int->setVal(scaly*original);
+
+           RooAbsReal* integral_low_2 = model_total->createIntegral(*Bplus_Corrected_Mass,NormSet(*Bplus_Corrected_Mass),Range("low"));
+//
+           double int_low_2 = integral_low_2->getVal();
+           cout<<"This is integral after norm  "<<int_low_2<<" Num of expected events"<<model_total->expectedEvents(RooArgSet(*Bplus_Corrected_Mass))<<endl;
+
+           double num_new=model_total->expectedEvents(RooArgSet(*Bplus_Corrected_Mass));
+           double scaling=int_low/int_low_2;
+           double scaling_num=num_new/num_ori;
+           cout<<"scaling factor "<<scaling<<endl;
+
+//           model_total->plotOn(frame,ProjWData(*cat,*data),Components(("blah_LowFCME,blah_HighFCME")),LineColor(kBlue),LineStyle(kDashed),RooFit::Range("low"),RooFit::NormRange("low"),RooFit::Name("signal2"),VLines());
+//           model_total->plotOn(frame,ProjWData(*cat,*data),Components(("blah_LowFCME,blah_HighFCME")),LineColor(kBlue),LineStyle(kDashed),RooFit::Range("high"),RooFit::NormRange("high"),VLines());
+
+//           model_total->plotOn(frame,ProjWData(*cat,*data),Components(("blah_LowFCME,blah_HighFCME,newexpoun_LowFCME,misidModel_LowFCME,newpartreco_LowFCME,newexpoun_HighFCME,misidModel_HighFCME,newpartreco_HighFCME")),LineColor(kGreen),LineStyle(kDashed),RooFit::Name("signal3"),VLines());
+
+//           model_total->plotOn(frame,ProjWData(*cat,*data),LineColor(kViolet),LineStyle(kDashed),RooFit::Name("signal4"),VLines(),RooFit::Range("low"),RooFit::NormRange("low"),RooFit::Normalization(3.0));
+//           model_total->plotOn(frame,ProjWData(*cat,*data),LineColor(kYellow),LineStyle(kDashed),RooFit::Name("signal5"),VLines(),RooFit::Range("low"),RooFit::NormRange("low"),RooFit::Normalization(scaling));
+
+           model_total->plotOn(frame,ProjWData(*cat,*data),LineColor(kBlack),LineStyle(kDashed),RooFit::Name("signal5"),VLines(),RooFit::Range("low"),RooFit::NormRange("low"),RooFit::Normalization(scaling_num));
+
+   }
+
+
+//forcombi   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("newpartreco_"+type+",misidModel_"+type+",newexpoun_"+type).c_str()),ProjWData(*cat,*data),RooFit::Range("low2"), RooFit::NormRange("low2"), RooFit::Name("partreco"),RooFit::FillColor(94), RooFit::LineColor(94), RooFit::DrawOption("F"),VLines());
+//forcombi   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("misidModel_"+type+","+"newexpoun_"+type).c_str()),ProjWData(*cat,*data),RooFit::Range("low2"), RooFit::NormRange("low2"),RooFit::Name("mis2"),RooFit::FillColor(99), RooFit::LineColor(99), RooFit::DrawOption("F"),VLines());
+//forcombi   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("newexpoun_"+type).c_str()),ProjWData(*cat,*data),RooFit::Range("low2"),RooFit::NormRange("low2"), RooFit::Name("combinatorial1"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"),VLines());
+//forcombi   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("newexpoun_"+type).c_str()),ProjWData(*cat,*data),RooFit::Range("low2"),RooFit::NormRange("low2"), RooFit::Name("combinatorial2"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"),VLines());
+//forcombi   if (signalcomp==true)
+//forcombi
+//forcombi   {
+//forcombi	   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("blah_"+type).c_str()),ProjWData(*cat,*data),LineColor(95),RooFit::FillColor(95),RooFit::Range("low2"),RooFit::NormRange("low2"),RooFit::Name("signal"),RooFit::DrawOption("F"),VLines());
+//forcombi   }
+//forcombi
+//forcombi   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("newpartreco_"+type+",misidModel_"+type+",newexpoun_"+type).c_str()),ProjWData(*cat,*data),LineColor(kRed),RooFit::Range("high2"), RooFit::NormRange("high2"));
+//forcombi   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("misidModel_"+type+","+"newexpoun_"+type).c_str()),ProjWData(*cat,*data),LineColor(kCyan),RooFit::Range("high2"), RooFit::NormRange("high2"));
+//forcombi   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("newexpoun_"+type).c_str()),ProjWData(*cat,*data),LineColor(kMagenta),RooFit::Range("high2"),RooFit::NormRange("high2"));
+//forcombi
+//forcombi   if (signalcomp==true)
+//forcombi   {
+//forcombi	   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("blah_"+type).c_str()),ProjWData(*cat,*data),LineColor(95),RooFit::FillColor(95),RooFit::Range("high2"),RooFit::NormRange("high2"),RooFit::DrawOption("F"),VLines());
+//forcombi   }
+//forcombi
+
+
+
+//unbl    model_total->plotOn(frame, RooFit::Components(("newpartreco_"+type+",misidModel_"+type+",newexpoun_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("partreco"),RooFit::FillColor(94), RooFit::LineColor(94), RooFit::DrawOption("F"),VLines());
+//unbl
+//unbl
+//unbl   model_total->plotOn(frame,RooFit::Components(("misidModel_"+type+","+"newexpoun_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("mis2"),RooFit::FillColor(99), RooFit::LineColor(99), RooFit::DrawOption("F"),VLines());
+//unbl
+//unbl//   model_total->plotOn(frame,RooFit::Components(("misidModel_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("mis3"), RooFit::FillColor(99), RooFit::LineColor(99));
+//unbl
+//unbl   model_total->plotOn(frame, RooFit::Components(("newexpoun_"+type).c_str()),RooFit::NormRange("low"), RooFit::Range("low"), RooFit::Name("combinatorial1"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"),VLines());     
+//unbl   model_total->plotOn(frame, RooFit::Components(("newexpoun_"+type).c_str()),RooFit::NormRange("high"), RooFit::Range("high"), RooFit::Name("combinatorial2"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"),VLines());     
+//   (RooHist*)dataHist->plotOn(frame);
+//
+
+  frame->drawAfter("combinatorial2","h_combData");
+   frame->drawAfter("h_combData","res1");
+   frame->drawAfter("h_combData","res2");
+
+   frame->drawAfter("res2","h_combData");
+   frame->drawAfter("res1","h_combData");
+   if (signalcomp==true)
+   {
+    frame->drawBefore("res1","signal5");
+   }
+
+
+
+//combi   frame->drawAfter("combinatorial2",("h_combData_Cut[sample==sample::"+type+"]").c_str());
+//combi   frame->drawAfter(("h_combData_Cut[sample==sample::"+type+"]").c_str(),"res1");
+//combi   frame->drawAfter(("h_combData_Cut[sample==sample::"+type+"]").c_str(),"res2");
+//combi   frame->drawAfter("res2",("h_combData_Cut[sample==sample::"+type+"]").c_str());
+//combi   frame->drawAfter("res1",("h_combData_Cut[sample==sample::"+type+"]").c_str());
+//combi   if (signalcomp==true)
+//combi   {
+//combi   frame->drawAfter("res1","signal");
+//combi   }
+//combi   frame->Print("v");
+//   frame->drawAfter("mis2",("h_data_"+type).c_str());
+//   frame->drawAfter("partreco",("h_data_"+type).c_str());
+
+//   model_total->plotOn(frame,RooFit::Components(("misidModel_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("mis3"), RooFit::FillColor(99), RooFit::LineColor(99));
+//   model_total->plotOn(frame, RooFit::Components(("newexpoun_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("combinatorial"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"),VLines());
+
+   TLegend *leg = new TLegend(0.45,0.5,0.85,0.9);
+   leg->SetTextSize(0.058);
+   leg->AddEntry(frame->findObject("res1"),"Total Fit","l");
+   leg->AddEntry(frame->findObject("h_combData"),"Data","lep");
+   leg->AddEntry(frame->findObject("combinatorial1"),"Combinatorial","f");
+   leg->AddEntry(frame->findObject("mis2"),"Misidentified","f");
+   leg->AddEntry(frame->findObject("partreco"),"Partially reconstructed","f");
+
+   if (signalcomp==true)
+
+   {
+//   leg->AddEntry(frame->findObject("signal"),"-20*Signal","l");
+
+   leg->AddEntry(frame->findObject("signal5"),"Prediction from","l");
+//   leg->AddEntry((TObject*)0,"Danilina, A.V. & Nikitin, N.V.","");
+   leg->AddEntry((TObject*)0,"PAN (2018) 81:347","");
+//   leg->AddEntry(frame->findObject("signal5"),"#url{https://link.springer.com/article/10.1134%2FS1063778818030092#citeas}","l");
+   }
+
+ //  leg->AddEntry(frame->findObject("res1"),"Total Fit","l");
+
+//  RooArgSet* params2 = model_total->getParameters(*Bplus_Corrected_Mass)->selectByAtrribute("Constant",kFALSE);
+//  RooArgSet* floatPars = model_total->getParameters(*data)->selectByAttribute(“Constant”,kFALSE);
+//  int numoffreepar=params2->getSize(); 
+
+  int numofvar(0);
+  int numofvarcon(0);
+  RooArgSet* vars = model_total->getVariables();
+  TIterator* iter = vars->createIterator();
+  RooRealVar* var(0);
+  cout<<"HELLOCACA"<<endl;
+  while((var=(RooRealVar*)iter->Next()))
+  {
+        if(!var->isConstant() && var->GetName() != Bplus_Corrected_Mass->GetName())
+        {
+                  cout<<var->GetName()<<" is a free parameter."<<endl;
+                  numofvar++;
+        }
+
+
+        if(var->isConstant() && var->GetName() != Bplus_Corrected_Mass->GetName())
+        {
+                  cout<<var->GetName()<<" is a constant parameter."<<endl;
+                  numofvarcon++;
+        }
+  cout<<"anything"<<endl;
+  }
+
+  cout<<"Number of free parameters "<<numofvar<<endl;
+  cout<<"Number of constant parameters "<<numofvarcon<<endl;
+   
+
+   ofstream out((plotdir+"Combined_FitResults_reallynice_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+"_Rescaled.txt").c_str());
+   saveFitInfo_abspdf_norf(out, frame, numofvar, model_total);
+
+
+
+   TCanvas canv("canv", "canv", 900, 600);
+//   frame->GetXaxis()->SetTitle("Corrected #it{#mu^{#plus}#mu^{#minus}#mu^{#plus}} mass [MeV/#it{c}^{2}]");
+   frame->GetXaxis()->SetTitle("#it{M}_{corr} [MeV/#it{c}^{2}]");
+
+   frame->GetYaxis()->SetTitle("Candidates / (50 MeV/#it{c}^{2})");
+   frame->Draw();
+   string optLR[]="L";
+   string optPrelim[]="Final";
+   //string optText=("LHCb");
+   string optText=("#splitline{LHCb}{2011-16}");
+
+   printLHCb("LTT","Other",optText);
+//   printLHCb("LLLplusplus","Other",optText);
+
+
+   leg->Draw("same");
+
+   TCanvas canvTot("canvTot", "canvTot", 900, 600);
+
+   canvTot.Divide(1,2);
+   canvTot.cd(1);
+   gPad->SetPad(0.005, 0.205, 0.995, 0.995);
+   canv.DrawClonePad();
+   canvTot.cd(2);
+   gPad->SetPad(0.005, 0.005, 0.995, 0.2);
+   canv4->DrawClonePad();
+
+   canvTot.Print((plotdir+"Combined_"+pidcutRun1+pidcutRun2+"plotB23MuNuFitPretty_chi2_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+"_Rescaled_reallynice_courier.pdf").c_str());
+   canvTot.Print((plotdir+"Combined_"+pidcutRun1+pidcutRun2+"plotB23MuNuFitPretty_chi2_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+"_Rescaled_reallynice_courier.root").c_str());
+
+
+   canv.Print((plotdir+"Combined_"+pidcutRun1+pidcutRun2+"plotB23MuNuFitPretty_chi2_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+"_Rescaled_reallynice_nopull_courier_P.pdf").c_str());
+   canv.Print((plotdir+"Combined_"+pidcutRun1+pidcutRun2+"plotB23MuNuFitPretty_chi2_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+"_Rescaled_reallynice_nopull_courier_P.eps").c_str());
+   canv.Print((plotdir+"Combined_"+pidcutRun1+pidcutRun2+"plotB23MuNuFitPretty_chi2_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+"_Rescaled_reallynice_nopull_courier_P.C").c_str());
+   canv.Print((plotdir+"Combined_"+pidcutRun1+pidcutRun2+"plotB23MuNuFitPretty_chi2_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+"_Rescaled_reallynice_nopull_courier_P.root").c_str());
+
+   canv.SetLogy();
+   canvTot.cd(1);
+   canv.DrawClonePad();
+   canvTot.Print((plotdir+"Combined_"+pidcutRun1+pidcutRun2+"plotB23MuNuFitLogyPretty_chi2_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+"_Recaled_reallynice_courier.pdf").c_str());
+   canvTot.Print((plotdir+"Combined_"+pidcutRun1+pidcutRun2+"plotB23MuNuFitLogyPretty_chi2_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+"_Rescaled_reallynice_courier.root").c_str());
+
+   fw.Close();
+   fpull.Close();
+}
+void FitAndSplotB23MuNuDataForTraining::plotprettysim_chi2_reallynice_both_special(string type, string pidcutRun1, string pidcutRun2, string nameofclsroot, string nameofpdf, bool signalcomp)
+{ 
+   cout<<"Plotting result of the fit"<<endl;
+   TFile fw((clsdir+nameofclsroot).c_str());
+
+  
+
+   RooWorkspace* workspaceFit = (RooWorkspace*)fw.Get("workspaceFit");
+   if(!workspaceFit)
+   {
+      cerr<<"ERROR: in function FitAndSplotB23MuNuDataForTraining::plot, no workspace found in file "<<workspaceFileName<<endl;
+      return;
+   }
+   RooRealVar* Bplus_Corrected_Mass = workspaceFit->var("Bplus_Corrected_Mass");
+   RooRealVar* BF_int = workspaceFit->var("BR");
+   RooDataSet* data = (RooDataSet*)workspaceFit->data(("combData"));
+//   RooAbsPdf* model_total = workspaceFit->pdf(("normpdf"));
+//   RooDataSet* data = (RooDataSet*)workspaceFit->data(("data_"+type).c_str());
+   RooAbsPdf* model_total = workspaceFit->pdf(nameofpdf.c_str());
+//   data->plotOn(frame1,Cut("sample==sample::LowFCME")) ;
+   RooCategory* cat = (RooCategory*)workspaceFit->cat("sample");
+//   double original=BF_int->getVal();
+//   BF_int->setVal(-20.0*original);
+
+
+   Bplus_Corrected_Mass->setRange("high",6999,7000);
+   Bplus_Corrected_Mass->setRange("low",4000,6999);
+
+   Bplus_Corrected_Mass->setRange("high2",6999,7000);
+   Bplus_Corrected_Mass->setRange("low2",4000,6999);
+   Bplus_Corrected_Mass->setRange("high3",6999,7000);
+   Bplus_Corrected_Mass->setRange("low3",4000,6999);
+
+
+   Bplus_Corrected_Mass->setRange("high",6999,7000);
+   Bplus_Corrected_Mass->setRange("low",4000,6999);
+
+
+
+   if(!data || !Bplus_Corrected_Mass || !model_total)
+   {
+      cerr<<"ERROR: in function FitAndSplotB23MuNuDataForTraining::plot, error downloading stuff from workspace"<<endl;
+      cout<<Bplus_Corrected_Mass<<" "<<data<<" "<<model_total<<endl;
+      return;
+   }
+
+//   Bplus_Corrected_Mass->setBins(60);
+   Bplus_Corrected_Mass->setBins(60);
+   Bplus_Corrected_Mass->setUnit("MeV/#it{c}^{2}");
+   Bplus_Corrected_Mass->setMin(4000);
+   Bplus_Corrected_Mass->setMax(7000);
+
+   RooPlot* frame = Bplus_Corrected_Mass->frame(Title("firstfitLowFCME"),Bins(60)) ;
+   data->plotOn(frame) ;
+//unbl   model_total->plotOn(frame, RooFit::Range("low,high"), RooFit::NormRange("low,high"), RooFit::LineColor(kBlue) );
+   model_total->plotOn(frame,ProjWData(*cat,*data),RooFit::Range("low2"),RooFit::NormRange("low2"),RooFit::LineColor(kRed),RooFit::Name("res1"));
+   model_total->plotOn(frame,ProjWData(*cat,*data),RooFit::Range("high2"),RooFit::NormRange("high2"),RooFit::LineColor(kRed),RooFit::Name("res2"));
+
+   cout<<"Combined plot"<<endl;
+   
+   frame->Print("V");
+
+   auto dataHist = (RooHist*) frame->getHist("h_combData");
+
+ //  auto dataHist = (RooHist*) frame->getHist(("h_data"));
+
+   cout<<"NGet "<<dataHist->GetN()<<endl;
+  //TGraphAsymmErrors tgae(datahist->GetN());
+  // tgae.SetTitle("");
+   double x(0);
+   double y(0);
+   for(int i(0); i<dataHist->GetN(); ++i)
+   {
+   cout<<"this is values "<<x<<" "<<y<<" "<<i<<endl;   
+   if((dataHist->GetY()[i])==0.0)
+      {
+      cout<<"this is values "<<x<<" "<<y<<" "<<i<<endl;
+      dataHist->SetPoint(i,x,1000);
+      }
+//   if(numy=dataHist->GetY();)
+//      tgae.SetPoint(i,x,y);
+//      tgae.SetPointError(i, hist->GetErrorXlow(i), hist->GetErrorXhigh(i),
+//            hist->GetErrorYlow(i), hist->GetErrorYhigh(i));
+   }
+   auto curve1 = (RooCurve*) frame->getObject(1);
+   auto curve2 = (RooCurve*) frame->getObject(2);
+   auto hres1 = dataHist->makePullHist(*curve1,true);
+   auto hres2 = dataHist->makePullHist(*curve2,true);
+
+
+   Bplus_Corrected_Mass->setBins(60);
+   Bplus_Corrected_Mass->setUnit("MeV/c^{2}");
+   Bplus_Corrected_Mass->setMin(4000);
+   Bplus_Corrected_Mass->setMax(7000);
+
+   TColor* col1 = gROOT->GetColor(92);
+   col1->SetRGB(double(141)/double(255),double(211)/double(255),double(199)/double(255)); //green
+   TColor* col2 = gROOT->GetColor(95);
+   col2->SetRGB(double(255)/double(255),double(255)/double(255),double(179)/double(255)); //yellow
+
+   TColor* col3 = gROOT->GetColor(98);
+   col3->SetRGB(double(190)/double(255),double(186)/double(255),double(218)/double(255)); //violer
+
+   TColor* col4 = gROOT->GetColor(99);
+   col4->SetRGB(double(128)/double(255),double(177)/double(255),double(211)/double(255)); //blue
+
+   TColor* col5 = gROOT->GetColor(94);
+   col5->SetRGB(double(253)/double(255),double(180)/double(255),double(98)/double(255)); //orange
+
+
+
+  
+   RooPlot* frame10 = Bplus_Corrected_Mass->frame(Title(""));
+   frame10->addPlotable(hres1,"P");
+   frame10->addPlotable(hres2,"P");
+   TCanvas* canv4 = new TCanvas("myattempt5","myattempt5",600,150) ;
+   frame10->GetYaxis()->SetRangeUser(-5,5);
+   frame10->GetYaxis()->SetLabelSize(0.1);
+   frame10->GetXaxis()->SetNdivisions(0);
+   frame10->GetYaxis()->SetNdivisions(503);
+   frame10->GetYaxis()->SetLabelSize(0.133);
+
+   TLine line1(4000, -3, 7000, -3);
+   line1.SetLineColor(2);
+   TLine line2(4000, 3, 7000, 3);
+   line2.SetLineColor(2);
+   frame10->GetXaxis()->SetTitle("") ;  frame10->SetTitle("") ; frame10->Draw() ; line1.Draw("same"); line2.Draw("same");   
+   canv4->SaveAs("PULL.pdf");
+
+   savePullPlot(*frame, plotdir+"Combined_pullPlot.root");
+   TFile fpull((plotdir+"Combined_pullPlot.root").c_str());
+   TCanvas* cpull = (TCanvas*)fpull.Get("pullplot");
+//   model_total->plotOn(frame, RooFit::LineColor(kRed),RooFit::Components(("newexpoun_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("combinatorial"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"));
+//   model_total->plotOn(frame, RooFit::LineColor(kCyan),RooFit::Components(("misidModel_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("mis2"));
+
+//    model_total->plotOn(frame, RooFit::Components(("newpartreco_"+type+",misidModel_"+type+",newexpoun_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("partreco"),RooFit::FillColor(94), RooFit::LineColor(94), RooFit::DrawOption("F"));
+
+
+//   model_total->plotOn(frame,RooFit::Components(("misidModel_"+type+","+"newpartreco_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("mis2"),RooFit::FillColor(99), RooFit::LineColor(99), RooFit::DrawOption("F"));
+
+
+//   model_total->plotOn(frame, RooFit::Components(("newexpoun_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("combinatorial"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"),Invisible());
+
+
+  // model_total->plotOn(frame,Slice(*cat,type.c_str()),ProjWData(*cat,*data),RooFit::Range("low2"),RooFit::NormRange("low2"),RooFit::LineColor(kRed));
+  // model_total->plotOn(frame,Slice(*cat,type.c_str()),ProjWData(*cat,*data),RooFit::Range("high2"),RooFit::NormRange("high2"),RooFit::LineColor(kRed));
+     model_total->plotOn(frame,ProjWData(*cat,*data),RooFit::NormRange("low,high") ,RooFit::Range("low,high"),RooFit::Components(("newexpoun_LowFCME,misidModel_LowFCME,newpartreco_LowFCME,newexpoun_HighFCME,misidModel_HighFCME,newpartreco_HighFCME")), RooFit::Name("partreco"),RooFit::FillColor(94), RooFit::LineColor(94), RooFit::DrawOption("F"),VLines());
+   model_total->plotOn(frame,ProjWData(*cat,*data), RooFit::FillColor(99), RooFit::LineColor(99), RooFit::DrawOption("F"),RooFit::Components(("newexpoun_LowFCME,misidModel_LowFCME,newexpoun_HighFCME,misidModel_HighFCME")),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("mis2"),VLines());
+  model_total->plotOn(frame,ProjWData(*cat,*data), RooFit::NormRange("low"),RooFit::Range("low"),RooFit::Components(("newexpoun_LowFCME,newexpoun_HighFCME")), RooFit::Name("combinatorial1"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"),VLines());
+  model_total->plotOn(frame,ProjWData(*cat,*data), RooFit::NormRange("high"),RooFit::Range("high"),RooFit::Components(("newexpoun_LowFCME,newexpoun_HighFCME")),RooFit::Name("combinatorial2"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"),VLines());
+
+ if (signalcomp==true)
+
+   {
+
+
+
+           double original=BF_int->getVal();
+           double theorist=1.3e-7;
+           double scaly=theorist/original;
+ 
+          cout<<"The normalisation factor is "<<scaly<<endl;
+
+           RooAbsReal* integral_low = model_total->createIntegral(*Bplus_Corrected_Mass,NormSet(*Bplus_Corrected_Mass),Range("low"));
+//
+           double int_low = integral_low->getVal();
+
+//           BF_int->setVal(scaly*original);
+
+//          RooAbsReal* integral_low_2 = model_total->createIntegral(*Bplus_Corrected_Mass,NormSet(*Bplus_Corrected_Mass),Range("low"));
+//
+//           double int_low_2 = integral_low_2->getVal();
+           cout<<"This is integral after norm  "<<int_low<<" Num of expected events"<<model_total->expectedEvents(RooArgSet(*Bplus_Corrected_Mass))<<endl;
+           double num_ori=model_total->expectedEvents(RooArgSet(*Bplus_Corrected_Mass));
+
+//           double scaling=int_low/int_low_2;
+//           cout<<"scaling factor "<<scaling;
+
+
+ //          model_total->plotOn(frame,ProjWData(*cat,*data),LineColor(kYellow),LineStyle(kDashed),RooFit::Name("signal5"),VLines(),RooFit::Range("low"),RooFit::NormRange("low"),RooFit::Normalization(scaling));
+//           model_total->plotOn(frame,ProjWData(*cat,*data),LineColor(kPink),LineStyle(kDashed),RooFit::Name("signal6"),VLines(),RooFit::Range("low"),RooFit::NormRange("low"),RooFit::Normalization(scaly));
+           cout<<"Plotting the normalized histo "<<endl;
+
+//           RooAbsReal* integral_low = model_total->createIntegral(*Bplus_Corrected_Mass,NormSet(*Bplus_Corrected_Mass),Range("low"));
+//
+//           double int_low = integral_low->getVal();
+//           cout<<"This is integral before norm  "<<int_low<<" Num of expected events"<<model_total->expectedEvents(ProjWData(*cat,*data))<<endl;
+
+//           double original=BF_int->getVal();
+//new stuff           BF_int->setVal(-20.0*original);
+//new stuff
+//new stuff           RooAbsReal* integral_low_3 = model_total->createIntegral(*Bplus_Corrected_Mass,NormSet(*Bplus_Corrected_Mass),Range("low"));
+//new stuff
+//new stuff           double int_low_3 = integral_low_3->getVal();
+//new stuff           cout<<"This is integral after scaling by -20  "<<int_low_3<<" Num of expected events"<<model_total->expectedEvents(RooArgSet(*Bplus_Corrected_Mass))<<endl;
+//new stuff
+//new stuff           model_total->plotOn(frame,ProjWData(*cat,*data),Components(("blah_LowFCME,blah_HighFCME")),LineColor(kBlack),LineStyle(kDashed),RooFit::Range("low"),RooFit::NormRange("low"),RooFit::Name("signal"),VLines());
+//new stuff           model_total->plotOn(frame,ProjWData(*cat,*data),Components(("blah_LowFCME,blah_HighFCME")),LineColor(kBlack),LineStyle(kDashed),RooFit::Range("high"),RooFit::NormRange("high"),VLines());
+
+
+//           double original=BF_int->getVal();
+//           double theorist=1.3e-7;
+//           double scaly=theorist/original;
+           BF_int->setVal(scaly*original);
+
+           RooAbsReal* integral_low_2 = model_total->createIntegral(*Bplus_Corrected_Mass,NormSet(*Bplus_Corrected_Mass),Range("low"));
+//
+           double int_low_2 = integral_low_2->getVal();
+           cout<<"This is integral after norm  "<<int_low_2<<" Num of expected events"<<model_total->expectedEvents(RooArgSet(*Bplus_Corrected_Mass))<<endl;
+
+           double num_new=model_total->expectedEvents(RooArgSet(*Bplus_Corrected_Mass));
+           double scaling=int_low/int_low_2;
+           double scaling_num=num_new/num_ori;
+           cout<<"scaling factor "<<scaling<<endl;
+
+//           model_total->plotOn(frame,ProjWData(*cat,*data),Components(("blah_LowFCME,blah_HighFCME")),LineColor(kBlue),LineStyle(kDashed),RooFit::Range("low"),RooFit::NormRange("low"),RooFit::Name("signal2"),VLines());
+//           model_total->plotOn(frame,ProjWData(*cat,*data),Components(("blah_LowFCME,blah_HighFCME")),LineColor(kBlue),LineStyle(kDashed),RooFit::Range("high"),RooFit::NormRange("high"),VLines());
+
+//           model_total->plotOn(frame,ProjWData(*cat,*data),Components(("blah_LowFCME,blah_HighFCME,newexpoun_LowFCME,misidModel_LowFCME,newpartreco_LowFCME,newexpoun_HighFCME,misidModel_HighFCME,newpartreco_HighFCME")),LineColor(kGreen),LineStyle(kDashed),RooFit::Name("signal3"),VLines());
+
+//           model_total->plotOn(frame,ProjWData(*cat,*data),LineColor(kViolet),LineStyle(kDashed),RooFit::Name("signal4"),VLines(),RooFit::Range("low"),RooFit::NormRange("low"),RooFit::Normalization(3.0));
+//           model_total->plotOn(frame,ProjWData(*cat,*data),LineColor(kYellow),LineStyle(kDashed),RooFit::Name("signal5"),VLines(),RooFit::Range("low"),RooFit::NormRange("low"),RooFit::Normalization(scaling));
+
+           model_total->plotOn(frame,ProjWData(*cat,*data),LineColor(kBlack),LineStyle(kDashed),RooFit::Name("signal5"),VLines(),RooFit::Range("low"),RooFit::NormRange("low"),RooFit::Normalization(scaling_num));
+
+   }
+
+
+//forcombi   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("newpartreco_"+type+",misidModel_"+type+",newexpoun_"+type).c_str()),ProjWData(*cat,*data),RooFit::Range("low2"), RooFit::NormRange("low2"), RooFit::Name("partreco"),RooFit::FillColor(94), RooFit::LineColor(94), RooFit::DrawOption("F"),VLines());
+//forcombi   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("misidModel_"+type+","+"newexpoun_"+type).c_str()),ProjWData(*cat,*data),RooFit::Range("low2"), RooFit::NormRange("low2"),RooFit::Name("mis2"),RooFit::FillColor(99), RooFit::LineColor(99), RooFit::DrawOption("F"),VLines());
+//forcombi   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("newexpoun_"+type).c_str()),ProjWData(*cat,*data),RooFit::Range("low2"),RooFit::NormRange("low2"), RooFit::Name("combinatorial1"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"),VLines());
+//forcombi   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("newexpoun_"+type).c_str()),ProjWData(*cat,*data),RooFit::Range("low2"),RooFit::NormRange("low2"), RooFit::Name("combinatorial2"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"),VLines());
+//forcombi   if (signalcomp==true)
+//forcombi
+//forcombi   {
+//forcombi	   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("blah_"+type).c_str()),ProjWData(*cat,*data),LineColor(95),RooFit::FillColor(95),RooFit::Range("low2"),RooFit::NormRange("low2"),RooFit::Name("signal"),RooFit::DrawOption("F"),VLines());
+//forcombi   }
+//forcombi
+//forcombi   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("newpartreco_"+type+",misidModel_"+type+",newexpoun_"+type).c_str()),ProjWData(*cat,*data),LineColor(kRed),RooFit::Range("high2"), RooFit::NormRange("high2"));
+//forcombi   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("misidModel_"+type+","+"newexpoun_"+type).c_str()),ProjWData(*cat,*data),LineColor(kCyan),RooFit::Range("high2"), RooFit::NormRange("high2"));
+//forcombi   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("newexpoun_"+type).c_str()),ProjWData(*cat,*data),LineColor(kMagenta),RooFit::Range("high2"),RooFit::NormRange("high2"));
+//forcombi
+//forcombi   if (signalcomp==true)
+//forcombi   {
+//forcombi	   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("blah_"+type).c_str()),ProjWData(*cat,*data),LineColor(95),RooFit::FillColor(95),RooFit::Range("high2"),RooFit::NormRange("high2"),RooFit::DrawOption("F"),VLines());
+//forcombi   }
+//forcombi
+
+
+
+//unbl    model_total->plotOn(frame, RooFit::Components(("newpartreco_"+type+",misidModel_"+type+",newexpoun_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("partreco"),RooFit::FillColor(94), RooFit::LineColor(94), RooFit::DrawOption("F"),VLines());
+//unbl
+//unbl
+//unbl   model_total->plotOn(frame,RooFit::Components(("misidModel_"+type+","+"newexpoun_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("mis2"),RooFit::FillColor(99), RooFit::LineColor(99), RooFit::DrawOption("F"),VLines());
+//unbl
+//unbl//   model_total->plotOn(frame,RooFit::Components(("misidModel_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("mis3"), RooFit::FillColor(99), RooFit::LineColor(99));
+//unbl
+//unbl   model_total->plotOn(frame, RooFit::Components(("newexpoun_"+type).c_str()),RooFit::NormRange("low"), RooFit::Range("low"), RooFit::Name("combinatorial1"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"),VLines());     
+//unbl   model_total->plotOn(frame, RooFit::Components(("newexpoun_"+type).c_str()),RooFit::NormRange("high"), RooFit::Range("high"), RooFit::Name("combinatorial2"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"),VLines());     
+//   (RooHist*)dataHist->plotOn(frame);
+//
+
+  frame->drawAfter("combinatorial2","h_combData");
+   frame->drawAfter("h_combData","res1");
+   frame->drawAfter("h_combData","res2");
+
+   frame->drawAfter("res2","h_combData");
+   frame->drawAfter("res1","h_combData");
+   if (signalcomp==true)
+   {
+    frame->drawBefore("res1","signal5");
+   }
+
+
+
+//combi   frame->drawAfter("combinatorial2",("h_combData_Cut[sample==sample::"+type+"]").c_str());
+//combi   frame->drawAfter(("h_combData_Cut[sample==sample::"+type+"]").c_str(),"res1");
+//combi   frame->drawAfter(("h_combData_Cut[sample==sample::"+type+"]").c_str(),"res2");
+//combi   frame->drawAfter("res2",("h_combData_Cut[sample==sample::"+type+"]").c_str());
+//combi   frame->drawAfter("res1",("h_combData_Cut[sample==sample::"+type+"]").c_str());
+//combi   if (signalcomp==true)
+//combi   {
+//combi   frame->drawAfter("res1","signal");
+//combi   }
+//combi   frame->Print("v");
+//   frame->drawAfter("mis2",("h_data_"+type).c_str());
+//   frame->drawAfter("partreco",("h_data_"+type).c_str());
+
+//   model_total->plotOn(frame,RooFit::Components(("misidModel_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("mis3"), RooFit::FillColor(99), RooFit::LineColor(99));
+//   model_total->plotOn(frame, RooFit::Components(("newexpoun_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("combinatorial"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"),VLines());
+
+   TLegend *leg = new TLegend(0.5,0.5,0.9,0.9);
+   leg->SetTextSize(0.058);
+   leg->AddEntry(frame->findObject("res1"),"Total Fit","l");
+   leg->AddEntry(frame->findObject("combinatorial1"),"Combinatorial","f");
+   leg->AddEntry(frame->findObject("mis2"),"Misid.","f");
+   leg->AddEntry(frame->findObject("partreco"),"Partial Rec.","f");
+
+   if (signalcomp==true)
+
+   {
+//   leg->AddEntry(frame->findObject("signal"),"-20*Signal","l");
+
+   leg->AddEntry(frame->findObject("signal5"),"Prediction from","l");
+//   leg->AddEntry((TObject*)0,"Danilina, A.V. & Nikitin, N.V.","");
+   leg->AddEntry((TObject*)0,"PAN (2018) 81:347","");
+//   leg->AddEntry(frame->findObject("signal5"),"#url{https://link.springer.com/article/10.1134%2FS1063778818030092#citeas}","l");
+   }
+
+ //  leg->AddEntry(frame->findObject("res1"),"Total Fit","l");
+
+//  RooArgSet* params2 = model_total->getParameters(*Bplus_Corrected_Mass)->selectByAtrribute("Constant",kFALSE);
+//  RooArgSet* floatPars = model_total->getParameters(*data)->selectByAttribute(“Constant”,kFALSE);
+//  int numoffreepar=params2->getSize(); 
+
+  int numofvar(0);
+  int numofvarcon(0);
+  RooArgSet* vars = model_total->getVariables();
+  TIterator* iter = vars->createIterator();
+  RooRealVar* var(0);
+  cout<<"HELLOCACA"<<endl;
+  while((var=(RooRealVar*)iter->Next()))
+  {
+        if(!var->isConstant() && var->GetName() != Bplus_Corrected_Mass->GetName())
+        {
+                  cout<<var->GetName()<<" is a free parameter."<<endl;
+                  numofvar++;
+        }
+
+
+        if(var->isConstant() && var->GetName() != Bplus_Corrected_Mass->GetName())
+        {
+                  cout<<var->GetName()<<" is a constant parameter."<<endl;
+                  numofvarcon++;
+        }
+  cout<<"anything"<<endl;
+  }
+
+  cout<<"Number of free parameters "<<numofvar<<endl;
+  cout<<"Number of constant parameters "<<numofvarcon<<endl;
+   
+
+   ofstream out((plotdir+"Combined_FitResults_reallynice_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+"_Rescaled.txt").c_str());
+   saveFitInfo_abspdf_norf(out, frame, numofvar, model_total);
+
+
+
+   TCanvas canv("canv", "canv", 900, 600);
+//   frame->GetXaxis()->SetTitle("Corrected #it{#mu^{#plus}#mu^{#minus}#mu^{#plus}} mass [MeV/#it{c}^{2}]");
+   frame->GetXaxis()->SetTitle("#it{M_{B_{corr}}} [MeV/#it{c}^{2}]");
+   frame->GetYaxis()->SetTitle("Candidates / (50 MeV/#it{c}^{2})");
+   frame->Draw();
+   string optLR[]="L";
+   string optPrelim[]="Final";
+   string optText=("LHCb");
+
+
+   printLHCb("LTT","Other",optText);
+//   printLHCb("LLLplusplus","Other",optText);
+
+
+   leg->Draw("same");
+
+   TCanvas canvTot("canvTot", "canvTot", 900, 600);
+
+   canvTot.Divide(1,2);
+   canvTot.cd(1);
+   gPad->SetPad(0.005, 0.205, 0.995, 0.995);
+   canv.DrawClonePad();
+   canvTot.cd(2);
+   gPad->SetPad(0.005, 0.005, 0.995, 0.2);
+   canv4->DrawClonePad();
+
+   canvTot.Print((plotdir+"Combined_"+pidcutRun1+pidcutRun2+"plotB23MuNuFitPretty_chi2_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+"_Rescaled_reallynice.pdf").c_str());
+   canvTot.Print((plotdir+"Combined_"+pidcutRun1+pidcutRun2+"plotB23MuNuFitPretty_chi2_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+"_Rescaled_reallynice.root").c_str());
+
+
+   canv.Print((plotdir+"Combined_"+pidcutRun1+pidcutRun2+"plotB23MuNuFitPretty_chi2_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+"_Rescaled_reallynice_nopull.pdf").c_str());
+   canv.Print((plotdir+"Combined_"+pidcutRun1+pidcutRun2+"plotB23MuNuFitPretty_chi2_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+"_Rescaled_reallynice_nopull.root").c_str());
+
+   canv.SetLogy();
+   canvTot.cd(1);
+   canv.DrawClonePad();
+   canvTot.Print((plotdir+"Combined_"+pidcutRun1+pidcutRun2+"plotB23MuNuFitLogyPretty_chi2_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+"_Recaled_reallynice.pdf").c_str());
+   canvTot.Print((plotdir+"Combined_"+pidcutRun1+pidcutRun2+"plotB23MuNuFitLogyPretty_chi2_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+"_Rescaled_reallynice.root").c_str());
+
+   fw.Close();
+   fpull.Close();
+}
+void FitAndSplotB23MuNuDataForTraining::plotprettysim_chi2_reallynice_both(string type, string pidcutRun1, string pidcutRun2, string nameofclsroot, string nameofpdf, bool signalcomp)
+{ 
+   cout<<"Plotting result of the fit"<<endl;
+   TFile fw((clsdir+nameofclsroot).c_str());
+
+  
+
+   RooWorkspace* workspaceFit = (RooWorkspace*)fw.Get("workspaceFit");
+   if(!workspaceFit)
+   {
+      cerr<<"ERROR: in function FitAndSplotB23MuNuDataForTraining::plot, no workspace found in file "<<workspaceFileName<<endl;
+      return;
+   }
+   RooRealVar* Bplus_Corrected_Mass = workspaceFit->var("Bplus_Corrected_Mass");
+   RooRealVar* BF_int = workspaceFit->var("BR");
+   RooDataSet* data = (RooDataSet*)workspaceFit->data(("combData"));
+//   RooAbsPdf* model_total = workspaceFit->pdf(("normpdf"));
+//   RooDataSet* data = (RooDataSet*)workspaceFit->data(("data_"+type).c_str());
+   RooAbsPdf* model_total = workspaceFit->pdf(nameofpdf.c_str());
+//   data->plotOn(frame1,Cut("sample==sample::LowFCME")) ;
+   RooCategory* cat = (RooCategory*)workspaceFit->cat("sample");
+
+
+   Bplus_Corrected_Mass->setRange("high",6999,7000);
+   Bplus_Corrected_Mass->setRange("low",4000,6999);
+
+   Bplus_Corrected_Mass->setRange("high2",6999,7000);
+   Bplus_Corrected_Mass->setRange("low2",4000,6999);
+   Bplus_Corrected_Mass->setRange("high3",6999,7000);
+   Bplus_Corrected_Mass->setRange("low3",4000,6999);
+
+
+   Bplus_Corrected_Mass->setRange("high",6999,7000);
+   Bplus_Corrected_Mass->setRange("low",4000,6999);
+
+
+
+   if(!data || !Bplus_Corrected_Mass || !model_total)
+   {
+      cerr<<"ERROR: in function FitAndSplotB23MuNuDataForTraining::plot, error downloading stuff from workspace"<<endl;
+      cout<<Bplus_Corrected_Mass<<" "<<data<<" "<<model_total<<endl;
+      return;
+   }
+
+//   Bplus_Corrected_Mass->setBins(60);
+   Bplus_Corrected_Mass->setBins(60);
+   Bplus_Corrected_Mass->setUnit("MeV/c^{2}");
+   Bplus_Corrected_Mass->setMin(4000);
+   Bplus_Corrected_Mass->setMax(7000);
+
+   RooPlot* frame = Bplus_Corrected_Mass->frame(Title("firstfitLowFCME"),Bins(60)) ;
+   data->plotOn(frame) ;
+//unbl   model_total->plotOn(frame, RooFit::Range("low,high"), RooFit::NormRange("low,high"), RooFit::LineColor(kBlue) );
+   model_total->plotOn(frame,ProjWData(*cat,*data),RooFit::Range("low2"),RooFit::NormRange("low2"),RooFit::LineColor(kRed),RooFit::Name("res1"));
+   model_total->plotOn(frame,ProjWData(*cat,*data),RooFit::Range("high2"),RooFit::NormRange("high2"),RooFit::LineColor(kRed),RooFit::Name("res2"));
+
+   cout<<"Combined plot"<<endl;
+   
+   frame->Print("V");
+
+   auto dataHist = (RooHist*) frame->getHist("h_combData");
+
+ //  auto dataHist = (RooHist*) frame->getHist(("h_data"));
+
+   cout<<"NGet "<<dataHist->GetN()<<endl;
+  //TGraphAsymmErrors tgae(datahist->GetN());
+  // tgae.SetTitle("");
+   double x(0);
+   double y(0);
+   for(int i(0); i<dataHist->GetN(); ++i)
+   {
+   cout<<"this is values "<<x<<" "<<y<<" "<<i<<endl;   
+   if((dataHist->GetY()[i])==0.0)
+      {
+      cout<<"this is values "<<x<<" "<<y<<" "<<i<<endl;
+      dataHist->SetPoint(i,x,1000);
+      }
+//   if(numy=dataHist->GetY();)
+//      tgae.SetPoint(i,x,y);
+//      tgae.SetPointError(i, hist->GetErrorXlow(i), hist->GetErrorXhigh(i),
+//            hist->GetErrorYlow(i), hist->GetErrorYhigh(i));
+   }
+   auto curve1 = (RooCurve*) frame->getObject(1);
+   auto curve2 = (RooCurve*) frame->getObject(2);
+   auto hres1 = dataHist->makePullHist(*curve1,true);
+   auto hres2 = dataHist->makePullHist(*curve2,true);
+
+
+   Bplus_Corrected_Mass->setBins(60);
+   Bplus_Corrected_Mass->setUnit("MeV/c^{2}");
+   Bplus_Corrected_Mass->setMin(4000);
+   Bplus_Corrected_Mass->setMax(7000);
+
+   TColor* col1 = gROOT->GetColor(92);
+   col1->SetRGB(double(141)/double(255),double(211)/double(255),double(199)/double(255)); //green
+   TColor* col2 = gROOT->GetColor(95);
+   col2->SetRGB(double(255)/double(255),double(255)/double(255),double(179)/double(255)); //yellow
+
+   TColor* col3 = gROOT->GetColor(98);
+   col3->SetRGB(double(190)/double(255),double(186)/double(255),double(218)/double(255)); //violer
+
+   TColor* col4 = gROOT->GetColor(99);
+   col4->SetRGB(double(128)/double(255),double(177)/double(255),double(211)/double(255)); //blue
+
+   TColor* col5 = gROOT->GetColor(94);
+   col5->SetRGB(double(253)/double(255),double(180)/double(255),double(98)/double(255)); //orange
+
+
+
+  
+   RooPlot* frame10 = Bplus_Corrected_Mass->frame(Title(""));
+   frame10->addPlotable(hres1,"P");
+   frame10->addPlotable(hres2,"P");
+   TCanvas* canv4 = new TCanvas("myattempt5","myattempt5",600,150) ;
+   frame10->GetYaxis()->SetRangeUser(-5,5);
+   frame10->GetYaxis()->SetLabelSize(0.1);
+   frame10->GetXaxis()->SetNdivisions(0);
+   frame10->GetYaxis()->SetNdivisions(503);
+   frame10->GetYaxis()->SetLabelSize(0.133);
+
+   TLine line1(4000, -3, 7000, -3);
+   line1.SetLineColor(2);
+   TLine line2(4000, 3, 7000, 3);
+   line2.SetLineColor(2);
+   frame10->GetXaxis()->SetTitle("") ;  frame10->SetTitle("") ; frame10->Draw() ; line1.Draw("same"); line2.Draw("same");   
+   canv4->SaveAs("PULL.pdf");
+
+   savePullPlot(*frame, plotdir+"Combined_pullPlot.root");
+   TFile fpull((plotdir+"Combined_pullPlot.root").c_str());
+   TCanvas* cpull = (TCanvas*)fpull.Get("pullplot");
+//   model_total->plotOn(frame, RooFit::LineColor(kRed),RooFit::Components(("newexpoun_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("combinatorial"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"));
+//   model_total->plotOn(frame, RooFit::LineColor(kCyan),RooFit::Components(("misidModel_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("mis2"));
+
+//    model_total->plotOn(frame, RooFit::Components(("newpartreco_"+type+",misidModel_"+type+",newexpoun_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("partreco"),RooFit::FillColor(94), RooFit::LineColor(94), RooFit::DrawOption("F"));
+
+
+//   model_total->plotOn(frame,RooFit::Components(("misidModel_"+type+","+"newpartreco_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("mis2"),RooFit::FillColor(99), RooFit::LineColor(99), RooFit::DrawOption("F"));
+
+
+//   model_total->plotOn(frame, RooFit::Components(("newexpoun_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("combinatorial"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"),Invisible());
+
+
+  // model_total->plotOn(frame,Slice(*cat,type.c_str()),ProjWData(*cat,*data),RooFit::Range("low2"),RooFit::NormRange("low2"),RooFit::LineColor(kRed));
+  // model_total->plotOn(frame,Slice(*cat,type.c_str()),ProjWData(*cat,*data),RooFit::Range("high2"),RooFit::NormRange("high2"),RooFit::LineColor(kRed));
+     model_total->plotOn(frame,ProjWData(*cat,*data),RooFit::NormRange("low,high") ,RooFit::Range("low,high"),RooFit::Components(("newexpoun_LowFCME,misidModel_LowFCME,newpartreco_LowFCME,newexpoun_HighFCME,misidModel_HighFCME,newpartreco_HighFCME")), RooFit::Name("partreco"),RooFit::FillColor(94), RooFit::LineColor(94), RooFit::DrawOption("F"),VLines());
+   model_total->plotOn(frame,ProjWData(*cat,*data), RooFit::FillColor(99), RooFit::LineColor(99), RooFit::DrawOption("F"),RooFit::Components(("newexpoun_LowFCME,misidModel_LowFCME,newexpoun_HighFCME,misidModel_HighFCME")),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("mis2"),VLines());
+  model_total->plotOn(frame,ProjWData(*cat,*data), RooFit::NormRange("low"),RooFit::Range("low"),RooFit::Components(("newexpoun_LowFCME,newexpoun_HighFCME")), RooFit::Name("combinatorial1"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"),VLines());
+  model_total->plotOn(frame,ProjWData(*cat,*data), RooFit::NormRange("high"),RooFit::Range("high"),RooFit::Components(("newexpoun_LowFCME,newexpoun_HighFCME")), RooFit::Name("combinatorial2"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"),VLines());
+ if (signalcomp==true)
+
+   {
+           model_total->plotOn(frame,ProjWData(*cat,*data),Components(("blah_LowFCME,blah_HighFCME")),LineColor(95),RooFit::FillColor(95),RooFit::Range("low"),RooFit::NormRange("low"),RooFit::Name("signal"),RooFit::DrawOption("F"),VLines());
+
+           model_total->plotOn(frame,ProjWData(*cat,*data),Components(("blah_LowFCME,blah_HighFCME")),LineColor(95),RooFit::FillColor(95),RooFit::Range("high"),RooFit::NormRange("high"),RooFit::DrawOption("F"),VLines());
+   }
+
+
+//forcombi   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("newpartreco_"+type+",misidModel_"+type+",newexpoun_"+type).c_str()),ProjWData(*cat,*data),RooFit::Range("low2"), RooFit::NormRange("low2"), RooFit::Name("partreco"),RooFit::FillColor(94), RooFit::LineColor(94), RooFit::DrawOption("F"),VLines());
+//forcombi   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("misidModel_"+type+","+"newexpoun_"+type).c_str()),ProjWData(*cat,*data),RooFit::Range("low2"), RooFit::NormRange("low2"),RooFit::Name("mis2"),RooFit::FillColor(99), RooFit::LineColor(99), RooFit::DrawOption("F"),VLines());
+//forcombi   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("newexpoun_"+type).c_str()),ProjWData(*cat,*data),RooFit::Range("low2"),RooFit::NormRange("low2"), RooFit::Name("combinatorial1"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"),VLines());
+//forcombi   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("newexpoun_"+type).c_str()),ProjWData(*cat,*data),RooFit::Range("low2"),RooFit::NormRange("low2"), RooFit::Name("combinatorial2"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"),VLines());
+//forcombi   if (signalcomp==true)
+//forcombi
+//forcombi   {
+//forcombi	   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("blah_"+type).c_str()),ProjWData(*cat,*data),LineColor(95),RooFit::FillColor(95),RooFit::Range("low2"),RooFit::NormRange("low2"),RooFit::Name("signal"),RooFit::DrawOption("F"),VLines());
+//forcombi   }
+//forcombi
+//forcombi   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("newpartreco_"+type+",misidModel_"+type+",newexpoun_"+type).c_str()),ProjWData(*cat,*data),LineColor(kRed),RooFit::Range("high2"), RooFit::NormRange("high2"));
+//forcombi   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("misidModel_"+type+","+"newexpoun_"+type).c_str()),ProjWData(*cat,*data),LineColor(kCyan),RooFit::Range("high2"), RooFit::NormRange("high2"));
+//forcombi   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("newexpoun_"+type).c_str()),ProjWData(*cat,*data),LineColor(kMagenta),RooFit::Range("high2"),RooFit::NormRange("high2"));
+//forcombi
+//forcombi   if (signalcomp==true)
+//forcombi   {
+//forcombi	   model_total->plotOn(frame,Slice(*cat,type.c_str()),Components(("blah_"+type).c_str()),ProjWData(*cat,*data),LineColor(95),RooFit::FillColor(95),RooFit::Range("high2"),RooFit::NormRange("high2"),RooFit::DrawOption("F"),VLines());
+//forcombi   }
+//forcombi
+
+
+
+//unbl    model_total->plotOn(frame, RooFit::Components(("newpartreco_"+type+",misidModel_"+type+",newexpoun_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("partreco"),RooFit::FillColor(94), RooFit::LineColor(94), RooFit::DrawOption("F"),VLines());
+//unbl
+//unbl
+//unbl   model_total->plotOn(frame,RooFit::Components(("misidModel_"+type+","+"newexpoun_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("mis2"),RooFit::FillColor(99), RooFit::LineColor(99), RooFit::DrawOption("F"),VLines());
+//unbl
+//unbl//   model_total->plotOn(frame,RooFit::Components(("misidModel_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("mis3"), RooFit::FillColor(99), RooFit::LineColor(99));
+//unbl
+//unbl   model_total->plotOn(frame, RooFit::Components(("newexpoun_"+type).c_str()),RooFit::NormRange("low"), RooFit::Range("low"), RooFit::Name("combinatorial1"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"),VLines());     
+//unbl   model_total->plotOn(frame, RooFit::Components(("newexpoun_"+type).c_str()),RooFit::NormRange("high"), RooFit::Range("high"), RooFit::Name("combinatorial2"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"),VLines());     
+//   (RooHist*)dataHist->plotOn(frame);
+//
+
+  frame->drawAfter("combinatorial2","h_combData");
+   frame->drawAfter("h_combData","res1");
+   frame->drawAfter("h_combData","res2");
+
+   frame->drawAfter("res2","h_combData");
+   frame->drawAfter("res1","h_combData");
+   if (signalcomp==true)
+   {
+    frame->drawAfter("res1","signal");
+   }
+
+
+
+//combi   frame->drawAfter("combinatorial2",("h_combData_Cut[sample==sample::"+type+"]").c_str());
+//combi   frame->drawAfter(("h_combData_Cut[sample==sample::"+type+"]").c_str(),"res1");
+//combi   frame->drawAfter(("h_combData_Cut[sample==sample::"+type+"]").c_str(),"res2");
+//combi   frame->drawAfter("res2",("h_combData_Cut[sample==sample::"+type+"]").c_str());
+//combi   frame->drawAfter("res1",("h_combData_Cut[sample==sample::"+type+"]").c_str());
+//combi   if (signalcomp==true)
+//combi   {
+//combi   frame->drawAfter("res1","signal");
+//combi   }
+//combi   frame->Print("v");
+//   frame->drawAfter("mis2",("h_data_"+type).c_str());
+//   frame->drawAfter("partreco",("h_data_"+type).c_str());
+
+//   model_total->plotOn(frame,RooFit::Components(("misidModel_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("mis3"), RooFit::FillColor(99), RooFit::LineColor(99));
+//   model_total->plotOn(frame, RooFit::Components(("newexpoun_"+type).c_str()),RooFit::NormRange("low,high"), RooFit::Range("low,high"), RooFit::Name("combinatorial"),RooFit::FillColor(92), RooFit::LineColor(92),RooFit::DrawOption("F"),VLines());
+
+   TLegend *leg = new TLegend(0.57,0.6,0.9,0.9);
+   leg->SetTextSize(0.065);
+   leg->AddEntry(frame->findObject("res1"),"Total Fit","l");
+   leg->AddEntry(frame->findObject("combinatorial1"),"Combinatorial","f");
+   leg->AddEntry(frame->findObject("mis2"),"Misid","f");
+   leg->AddEntry(frame->findObject("partreco"),"PartReco","f");
+
+   if (signalcomp==true)
+
+   {
+   leg->AddEntry(frame->findObject("signal"),"Signal","f");
+   }
+
+ //  leg->AddEntry(frame->findObject("res1"),"Total Fit","l");
+//   RooArgSet* floatPars = model_total->getParameters(*data)->selectByAttribute(“Constant”,kFALSE);
+//   int numoffreepar=floatPars->getSize(); 
+
+
+  int numofvar(0);
+  int numofvarcon(0);
+  RooArgSet* vars = model_total->getVariables();
+  TIterator* iter = vars->createIterator();
+  RooRealVar* var(0);
+  cout<<"HELLOCACA"<<endl;
+  while((var=(RooRealVar*)iter->Next()))
+  {
+        if(!var->isConstant() && var->GetName() != Bplus_Corrected_Mass->GetName())
+        {
+                  cout<<var->GetName()<<" is a free parameter."<<endl;
+                  numofvar++;
+        }
+
+
+        if(var->isConstant() && var->GetName() != Bplus_Corrected_Mass->GetName())
+        {
+                  cout<<var->GetName()<<" is a constant parameter."<<endl;
+                  numofvarcon++;
+        }
+  cout<<"anything"<<endl;
+  }
+
+  cout<<"Number of free parameters "<<numofvar<<endl;
+  cout<<"Number of constant parameters "<<numofvarcon<<endl;
+   
+
+   ofstream out((plotdir+"Combined_FitResults_reallynice_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+".txt").c_str());
+   saveFitInfo_abspdf_norf(out, frame, numofvar, model_total);
+
+
+//   ofstream out((plotdir+"Combined_FitResults_reallynice_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+".txt").c_str());
+//   saveFitInfo(out, frame, 2, model_total);
+
+
+
+   TCanvas canv("canv", "canv", 800, 600);
+   frame->GetXaxis()->SetTitle("Corrected #mu^{+} #mu^{-} #mu^{+} mass [MeV/c^{2}]");
+   frame->Draw();
+   string optLR[]="L";
+   string optPrelim[]="Final";
+   string optText=("#splitline{LHCb}{#splitline{#scale[1.0]{Data}}{}}");
+
+//   printLHCb("RB","Other",optText);
+
+
+   leg->Draw("same");
+
+   TCanvas canvTot("canvTot", "canvTot", 800, 600);
+
+   canvTot.Divide(1,2);
+   canvTot.cd(1);
+   gPad->SetPad(0.005, 0.205, 0.995, 0.995);
+   canv.DrawClonePad();
+   canvTot.cd(2);
+   gPad->SetPad(0.005, 0.005, 0.995, 0.2);
+   canv4->DrawClonePad();
+
+   canvTot.Print((plotdir+"Combined_"+pidcutRun1+pidcutRun2+"plotB23MuNuFitPretty_chi2_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+"_reallynice.pdf").c_str());
+   canvTot.Print((plotdir+"Combined_"+pidcutRun1+pidcutRun2+"plotB23MuNuFitPretty_chi2_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+"_reallynice.root").c_str());
+
+
+   canv.Print((plotdir+"Combined_"+pidcutRun1+pidcutRun2+"plotB23MuNuFitPretty_chi2_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+"_reallynice_nopull.pdf").c_str());
+   canv.Print((plotdir+"Combined_"+pidcutRun1+pidcutRun2+"plotB23MuNuFitPretty_chi2_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+"_reallynice_nopull.root").c_str());
+
+   canv.SetLogy();
+   canvTot.cd(1);
+   canv.DrawClonePad();
+   canvTot.Print((plotdir+"Combined_"+pidcutRun1+pidcutRun2+"plotB23MuNuFitLogyPretty_chi2_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+"_reallynice.pdf").c_str());
+   canvTot.Print((plotdir+"Combined_"+pidcutRun1+pidcutRun2+"plotB23MuNuFitLogyPretty_chi2_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+"_reallynice.root").c_str());
+
+   fw.Close();
+   fpull.Close();
+}
+
+
+void FitAndSplotB23MuNuDataForTraining::plotprettysim_chi2_reallynice(string type, string pidcutRun1, string pidcutRun2, string nameofclsroot, string nameofpdf, bool signalcomp)
+{ 
+   cout<<"Plotting result of the fit"<<endl;
+   TFile fw((clsdir+nameofclsroot).c_str());
+
+   TFile file_before((clsdir+"fitresults_beforeanyfit.root").c_str()); 
+   RooWorkspace* workspaceFit_before = (RooWorkspace*)file_before.Get("workspaceFit");
+
+   cout<<"Printing workspace before"<<endl;
+   workspaceFit_before->Print("v");
+
+   RooWorkspace* workspaceFit = (RooWorkspace*)fw.Get("workspaceFit");
+
+
+   cout<<"Printing workspace after"<<endl;
+   workspaceFit->Print("v");
+
+   if(!workspaceFit)
+   {
+      cerr<<"ERROR: in function FitAndSplotB23MuNuDataForTraining::plot, no workspace found in file "<<workspaceFileName<<endl;
+      return;
+   }
+   RooRealVar* Bplus_Corrected_Mass = workspaceFit->var("Bplus_Corrected_Mass");
+   RooRealVar* BF_int = workspaceFit->var("BR");
+   RooDataSet* data = (RooDataSet*)workspaceFit->data(("combData"));
+//   RooAbsPdf* model_total = workspaceFit->pdf(("normpdf"));
+//   RooDataSet* data = (RooDataSet*)workspaceFit->data(("data_"+type).c_str());
+   RooAbsPdf* model_total = workspaceFit->pdf(nameofpdf.c_str());
+   RooAbsPdf* model_total_before = workspaceFit_before->pdf(nameofpdf.c_str());
 //   data->plotOn(frame1,Cut("sample==sample::LowFCME")) ;
    RooCategory* cat = (RooCategory*)workspaceFit->cat("sample");
 
@@ -5299,8 +6445,172 @@ void FitAndSplotB23MuNuDataForTraining::plotprettysim_chi2_reallynice(string typ
    }
 
 
-   ofstream out((plotdir+type+"FitResults_reallynice.txt").c_str());
+   ofstream out((plotdir+type+"FitResults_reallynice_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+".txt").c_str());
    saveFitInfo(out, frame, 2, model_total);
+
+
+   ofstream out_nice((plotdir+type+"FitResults_reallynice_"+nameofpdf+"_with_"+cleanNameString(d2s(BF_int->getVal()))+"_nicevisual.txt").c_str());
+   cout<<"Look at params "<<endl;
+
+        out_nice<<"\\documentclass[a4paper,11pt]{article}"<<endl;
+        out_nice<<"\\usepackage[pdftex]{graphicx}"<<endl;
+        out_nice<<"\\usepackage{url}"<<endl;
+        out_nice<<"\\usepackage{mathtools}"<<endl;
+        out_nice<<"\\usepackage{amsmath}"<<endl;
+        out_nice<<"\\usepackage{graphicx}"<<endl;
+        out_nice<<"\\usepackage[table]{xcolor}"<<endl;
+        out_nice<<"\\usepackage{amsmath,amssymb}"<<endl;
+        out_nice<<"\\usepackage[top=25mm,bottom=25mm,left=25mm,right=25mm]{geometry}"<<endl;
+        out_nice<<"\\usepackage{colortbl}"<<endl;
+        out_nice<<"\\begin{document}"<<endl;
+
+
+        out_nice<<"\\begin{table}[H]"<<endl;
+        out_nice<<"\\centering"<<endl;
+        out_nice<<"\\small"<<endl;
+        out_nice<<"\\begin{tabular}{| l  l | }"<<endl;
+        out_nice<<"\\hline"<<endl;
+        out_nice<<"Fit Parameter & Value  \\\\ \\hline"<<endl;
+
+   RooArgSet* listofpar= model_total->getParameters(data);
+   listofpar->Print("v");
+
+   cout<<"List of all vars before"<<endl;
+   RooArgSet listofallvars= workspaceFit_before->allVars();
+   listofallvars.Print("v");
+//   RooArgSet* listofpar_bef= model_total_before->getParameters(data);
+//   listofpar_bef->Print("v");
+//   RooArgSet pars_before = model_total->floatParsFinal();
+//   cout<<"Look at floats "<<endl;
+//   pars_before.Print();
+
+   cout<<"HELLOCACA_before"<<endl;
+   string trueparam="";
+
+   RooArgSet* vars = model_total->getVariables();
+   cout<<"HELLOCACA_before I"<<endl;
+   RooArgSet* vars_before = model_total_before->getVariables();
+   cout<<"HELLOCACA_before II"<<endl;
+   TIterator* iter = vars->createIterator();
+   TIterator* iter_before = vars_before->createIterator();
+   TIterator* iter_before_2 = vars_before->createIterator();
+   RooRealVar* var(0);
+   RooRealVar* var_before(0);
+   cout<<"HELLOCACA"<<endl;
+   while((var=(RooRealVar*)iter->Next()))
+   {
+	   if(!var->isConstant() && var->GetName() != Bplus_Corrected_Mass->GetName())
+	   {
+                   cout<<var->GetName()<<endl;
+		   if (var->GetName()=="misid_scaled_LowFCME")
+		   {
+			   var->SetName("N^{scaled}_{misID_{low}}");
+		   }
+		   else if (var->GetName()=="misid_scaled_HighFCME")
+		   {
+			   var->SetName("N^{scaled}_{misID_{high}}");
+		   }
+
+		   else if (var->GetName()=="cbmeanr4_LowFCME")
+		   {
+			   var->SetName("#mu_{misID_{low}}");
+		   }
+		   else if (var->GetName()=="cbmeanr4_HighFCME")
+		   {
+			   var->SetName("#mu_{misID_{high}}");
+		   }
+
+		   else if (var->GetName()=="cbsigmar4_LowFCME")
+		   {
+			   var->SetName("#sigma_{misID_{low}}");
+		   }
+		   else if (var->GetName()=="cbsigmar4_HighFCME")
+		   {
+			   var->SetName("#sigma_{misID_{high}}");
+		   }
+
+                   else
+                   {
+                    var->SetName(var->GetTitle());
+                   }
+
+		   out_nice<<"$ "<<var->GetName()<<" $ & $"<<round_to_digits(var->getVal(),4)<<" \\pm "<<round_to_digits(var->getError(),3)<<"$ \\\\ "<<endl;
+	   }
+   cout<<"anything"<<endl;
+   }
+
+
+   while((var_before=(RooRealVar*)iter_before->Next()))
+   {
+	   if(!var_before->isConstant() && var_before->GetName() != Bplus_Corrected_Mass->GetName())
+	   {
+                   cout<<var_before->GetName()<<endl;
+		   if (var_before->GetName()=="misid_scaled_LowFCME")
+		   {
+			   var_before->SetName("N^{scaled}_{misID_{low}}");
+		   }
+		   else if (var_before->GetName()=="misid_scaled_HighFCME")
+		   {
+			   var_before->SetName("N^{scaled}_{misID_{high}}");
+		   }
+
+		   else if (var_before->GetName()=="cbmeanr4_LowFCME")
+		   {
+			   var_before->SetName("#mu_{misID_{low}}");
+		   }
+		   else if (var_before->GetName()=="cbmeanr4_HighFCME")
+		   {
+			   var_before->SetName("#mu_{misID_{high}}");
+		   }
+
+		   else if (var_before->GetName()=="cbsigmar4_LowFCME")
+		   {
+			   var_before->SetName("#sigma_{misID_{low}}");
+		   }
+		   else if (var_before->GetName()=="cbsigmar4_HighFCME")
+		   {
+			   var_before->SetName("#sigma_{misID_{high}}");
+		   }
+
+                   else
+                   {
+                    var_before->SetName(var_before->GetTitle());
+                   }
+
+		   out_nice<<"$ "<<var_before->GetName()<<" $ & $"<<round_to_digits(var_before->getVal(),4)<<" \\pm "<<round_to_digits(var_before->getError(),3)<<"$ \\\\ "<<endl;
+	   }
+   cout<<"anything"<<endl;
+   }
+
+
+   cout<<"values of constant variables"<<endl;
+   while((var_before=(RooRealVar*)iter_before_2->Next()))
+   {
+	   if(var_before->isConstant() && var_before->GetName() != Bplus_Corrected_Mass->GetName())
+	   {
+           cout<<"$ "<<var_before->GetName()<<" $ & $"<<round_to_digits(var_before->getVal(),3)<<endl;
+           }
+   }
+
+        out_nice<<"\\hline"<<endl;
+        out_nice<<"\\end{tabular}"<<endl;
+        out_nice<<"\\caption{Fit results for all floating variables in the unblinded data fit. The $\\mathcal{B}(\\Bmumumu) ="+d2s(BF_int->getVal())+"$}"<<endl;
+        out_nice<<"\\label{tab:floatingparsummary_fit}"<<endl;
+        out_nice<<"\\end{table}"<<endl;
+        out_nice<<"\\end{document}"<<endl;
+
+
+
+//   TIterator* iter2 = vars->createIterator();
+//   RooRealVar* var2(0);
+//   while((var2=(RooRealVar*)iter2->Next()))
+//   {
+//      if(var2->isConstant() && var2->GetName() != Bplus_MM->GetName()) var2->SetName(var2->GetTitle());
+//
+//   cout<<"anything con"<<endl;
+//   }
+
+//   cout<<"HELLOPIPI"<<endl;
 
    //frame10->Chi2
 
@@ -6308,10 +7618,10 @@ void FitAndSplotB23MuNuDataForTraining::calculateFOM_chi2(string type, string pi
 	out<<"\\begin{tabular}{| l | l | l | l |}"<<endl;
 	out<<"\\hline"<<endl;
 	out<<"Sample &   cut & 3fb$^{-1}$ \\\\ "<<endl;
-	out<<"misid  & "<<tags<<" & "<< number_misid->getVal() <<" \\\\ " <<endl;
-	out<<"mcsig  & "<<tags<<" & "<< number_sig->getVal() <<"  \\\\ "<<endl;
-	out<<"combi  & "<<tags<<" & "<< number_exp->getVal() <<" \\\\ "<<endl;
-	out<<"partreco  & "<<"no cut"<<" & " << number_pr->getVal() << " \\\\ "<<endl;
+	out<<"misid  & "<<tags<<" & "<< round_to_digits(number_misid->getVal(),3)<<" \\\\ " <<endl;
+	out<<"mcsig  & "<<tags<<" & "<<round_to_digits(number_sig->getVal(),3)<<"  \\\\ "<<endl;
+	out<<"combi & "<<tags<<" & "<< round_to_digits(number_exp->getVal(),3)<<" \\\\ "<<endl;
+	out<<"partreco & "<<"no cut"<<" & " << round_to_digits(number_pr->getVal(),3)<<" \\\\ "<<endl;
 	out<<"\\hline"<<endl;
 	out<<"Sample 4.5-5.0 &  cut & 3fb$^{-1}$ \\\\ "<<endl;
 	out<<"\\hline"<<endl;

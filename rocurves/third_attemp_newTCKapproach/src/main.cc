@@ -154,8 +154,8 @@ int main()
        fbkg3.push_back("Bu23MuNuData2016_corrmFUSMB_trigger_Jpsi_mu1isMuonTight_mu2isMuonTight_mu3isMuonTight_mu1MuonNShared_mu2MuonNShared_mu3MuonNShared_qmincut.root");
       
        vector<string> condi3;
-       condi3.push_back("2016(trained on Run1)");
-       condi3.push_back("2016(trained on 2016)");
+       condi3.push_back("2016 (trained on Run I)");
+       condi3.push_back("2016 (trained on 2016)");
 
  
 //       plotRocCurvesSallyCompareDiffTraining(paths, condi3 ,fsig3, fbkg3 ,vars, "_Combi_CompareTrainSeparately_", extracuts, tr, nsigexp, nbkgexp, namemything1, mincut, maxcut, weightBranchSig, weightBranchBkg);
@@ -194,12 +194,12 @@ int main()
        fbkg4.push_back("Bu23MuNuData2016_corrmFUSMB_trigger_Jpsi_mu1isMuonTight_mu2isMuonTight_mu3isMuonTight_mu1MuonNShared_mu2MuonNShared_mu3MuonNShared_qmincut.root");
 
        vector<string> condi4;
-       condi4.push_back("Run1(trained on Run1)");
-       condi4.push_back("Run1(trained on Run1+2016)");
-       condi4.push_back("2016(trained on 2016)");
-       condi4.push_back("2016(trained on Run1+2016)");       
+       condi4.push_back("Run I (trained on Run I )");
+       condi4.push_back("Run I (trained on Run I + 2016)");
+       condi4.push_back("2016 (trained on 2016)");
+       condi4.push_back("2016 (trained on Run I + 2016)");       
  
-       plotRocCurvesSallyCompareDiffTraining(paths4, condi4 ,fsig4, fbkg4, vars4, "_Combi_CompareTrainOnBothRun1and2016_", extracuts, tr, nsigexp, nbkgexp, namemything1, mincut, maxcut, weightBranchSig, weightBranchBkg);
+//       plotRocCurvesSallyCompareDiffTraining(paths4, condi4 ,fsig4, fbkg4, vars4, "_Combi_CompareTrainOnBothRun1and2016_", extracuts, tr, nsigexp, nbkgexp, namemything1, mincut, maxcut, weightBranchSig, weightBranchBkg);
      
        plotRocCurvesSallyCompareDiffTrainingOneMinusBkgRej(paths4, condi4 ,fsig4, fbkg4, vars4, "_Combi_CompareTrainOnBothRun1and2016_", extracuts, tr, nsigexp, nbkgexp, namemything1, mincut, maxcut, weightBranchSig, weightBranchBkg);
 

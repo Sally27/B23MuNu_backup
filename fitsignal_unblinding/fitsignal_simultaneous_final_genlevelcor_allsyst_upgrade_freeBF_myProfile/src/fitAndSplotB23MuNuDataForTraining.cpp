@@ -58,6 +58,319 @@
 using namespace std;
 using namespace RooFit;
 
+void FitAndSplotB23MuNuDataForTraining::simfit_fit_teststat()
+{
+    TFile f_int((clsdir+"fitresults_sigandbkghypo_forCLs_syst_100.root").c_str(), "READ");
+    RooWorkspace* ws_int = (RooWorkspace*)f_int.Get("workspaceFit");
+//sally    double CLsBF(1.0e-8);
+
+
+    RooAbsPdf* pdf_int = ws_int->pdf("simPdfsig");
+    RooAbsPdf* pdf_LL_int = ws_int->pdf("normsigpdf_LowFCME");
+    RooAbsPdf* pdf_DD_int = ws_int->pdf("normsigpdf_HighFCME");
+    RooAbsData* data_int = ws_int->data("combData");
+    RooCategory* cat_int = (RooCategory*)ws_int->cat("sample");
+    RooRealVar* BF_int = ws_int->var("BR");
+    RooRealVar* nmisidlow_int = ws_int->var("misid_scaled_LowFCME");
+    RooRealVar* mass_int = ws_int->var("Bplus_Corrected_Mass");
+    RooArgSet allsignallow_con=ws_int->argSet("eff_ratio_pr_low_con,eff_ratio_run1_low_err_tot_100_con,eff_ratio_2016_low_err_tot_100_con,jpsik_run1_low_con,jpsik_2016_low_con");
+    RooArgSet allsignalhigh_con=ws_int->argSet("eff_ratio_pr_high_con,eff_ratio_run1_high_err_tot_100_con,eff_ratio_2016_high_err_tot_100_con,jpsik_run1_high_con,jpsik_2016_high_con");
+    RooArgSet allsignalcon_common=ws_int->argSet("BRpr_con,BRnorm_con");
+    RooArgSet allsignalboth_con(allsignallow_con,allsignalhigh_con,"lol");
+    RooArgSet constraints(allsignalboth_con,allsignalcon_common,"lol2");
+
+    pdf_int->getParameters(*mass_int)->Print("v") ;
+    mass_int->setRange("high",6999,7000);
+    mass_int->setRange("low",4000,6999);
+    mass_int->setRange("new",4000,7000);
+    mass_int->setRange("high1",6999,7000);
+    mass_int->setRange("low1",4000,6999);
+
+
+
+
+    vector<double> clsvalues;
+    clsvalues.push_back(-5.0e-8);
+    clsvalues.push_back(-4.5e-8);
+    clsvalues.push_back(-4.0e-8);
+    clsvalues.push_back(-3.5e-8);
+    clsvalues.push_back(-3.0e-8);
+    clsvalues.push_back(-2.5e-8);
+    clsvalues.push_back(-2.0e-8);
+    clsvalues.push_back(-1.5e-8);
+    clsvalues.push_back(-1.0e-8);
+    clsvalues.push_back(-0.5e-8);
+    clsvalues.push_back(0.0);
+    clsvalues.push_back(0.5e-8);
+    clsvalues.push_back(1.0e-8);
+    clsvalues.push_back(1.5e-8);
+    clsvalues.push_back(2.0e-8);
+    clsvalues.push_back(2.5e-8);
+    clsvalues.push_back(3.0e-8);
+    clsvalues.push_back(3.5e-8);
+    clsvalues.push_back(4.0e-8);
+    clsvalues.push_back(4.5e-8);
+    clsvalues.push_back(5.0e-8);
+
+    vector<double> minvals;
+    vector<double> minvals_fixed;
+
+    for (int i(0);i<clsvalues.size();i++)
+    {
+
+
+    double CLsBF=clsvalues.at(i);
+    std::cout << "Value of BF_int 0:" <<BF_int->getVal()<<endl;
+    BF_int->setVal(CLsBF);
+    BF_int->setConstant(true);
+    std::cout << "Value of BF_int 1:" <<BF_int->getVal()<<endl;
+
+
+
+
+
+     RooFitResult* data_intresult_free = pdf_int->fitTo(*data_int,RooFit::Extended(true),RooFit::Range("low,high"),ExternalConstraints(constraints),RooFit::Save(true));
+
+     double minimizedll=data_intresult_free->minNll();
+     minvals.push_back(minimizedll);
+
+//    TCanvas* likel = new TCanvas("likel","likel",800,800) ;
+//    RooPlot* frame_likel = nmisidlow_int->frame(Range(310,350),Title("Likelihood plot for nmisidlow low")) ;
+//    RooPlot* frame_likel2 = nmisid_high->frame(Range(240,300),Title("Likelihood plot for nmisidlow high")) ;
+//    RooPlot* frame_likel3 = BF_int->frame(Range(-5.0e-8,5.0e-8),Title("Likelihood plot for br")) ;
+//	RooPlot* frame_likel4 = npartreco_low.frame(Range(10,60),Title("Likelihood plot for npartrecolow")) ;
+//	int migradStatus(5);
+//	int hesseStatus(5);
+//	int minosStatus(5);
+//
+//
+//	RooAbsReal* nll = pdf_int->createNLL(*data_int,RooFit::Range("low,high"),Extended(kTRUE),ExternalConstraints(constraints));
+//	RooAbsReal* pll = nll->createProfile(RooArgList(*nmisidlow_int,*BF_int));
+//	RooMinuit m(*nll);
+//	m.setStrategy(2);
+//	migradStatus=m.migrad();
+//	hesseStatus=m.hesse();
+//	minosStatus=m.minos();
+//	RooFitResult* data_intresult_free=m.save();
+//	cout<<"migrad status "<<migradStatus<<endl;
+//	cout<<"hesse status "<<hesseStatus<<endl;
+//	cout<<"minos status "<<minosStatus<<endl;
+//	nll->plotOn(frame_likel,ShiftToZero());
+//	pll->plotOn(frame_likel,ShiftToZero(),LineColor(kRed));
+////	nll->plotOn(frame_likel2,ShiftToZero());
+////	pll->plotOn(frame_likel2,ShiftToZero(),LineColor(kRed));
+//	nll->plotOn(frame_likel3,ShiftToZero());
+//	pll->plotOn(frame_likel3,ShiftToZero(),LineColor(kRed));
+////	nll->plotOn(frame_likel4,ShiftToZero());
+////	pll->plotOn(frame_likel4,ShiftToZero(),LineColor(kRed));
+//
+//	likel->Divide(2,1) ;
+//	likel->cd(1) ; frame_likel->GetYaxis()->SetTitleOffset(1.4) ; frame_likel->Draw() ;
+//	likel->cd(2) ; frame_likel2->GetYaxis()->SetTitleOffset(1.4) ; frame_likel2->Draw() ;
+//	likel->cd(2) ; frame_likel3->GetYaxis()->SetTitleOffset(1.4) ; frame_likel3->Draw() ;
+//	likel->cd(4) ; frame_likel4->GetYaxis()->SetTitleOffset(1.4) ; frame_likel4->Draw() ;
+	//	frame_likel->Draw();
+//	likel->SaveAs((plotdir+"ProfileLikelihood_for_BF_own"+ cleanNameString(d2s(BF_int->getVal()))+".pdf").c_str());     
+
+
+
+    TCanvas* firstfit= new TCanvas("firstfit", "firstfit",800,400);
+    firstfit->Divide(2) ;
+    RooPlot* frame1 = mass_int->frame(Title("firstfitLowFCME"),Bins(60)) ;
+    data_int->plotOn(frame1,Cut("sample==sample::LowFCME")) ;
+    cout<<"PLOT FINISH 1"<<endl;
+    pdf_int->plotOn(frame1,Slice(*cat_int,"LowFCME"),ProjWData(*cat_int,*data_int),RooFit::Range("low"),RooFit::NormRange("low"));
+    pdf_int->plotOn(frame1,Slice(*cat_int,"LowFCME"),ProjWData(*cat_int,*data_int),RooFit::Range("high"),RooFit::NormRange("high"));
+    pdf_int->plotOn(frame1,Slice(*cat_int,"LowFCME"),Components(("newexpoun_LowFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kRed),RooFit::Range("low"),RooFit::NormRange("low"));
+    pdf_int->plotOn(frame1,Slice(*cat_int,"LowFCME"),Components(("misidModel_LowFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kCyan),RooFit::Range("low"), RooFit::NormRange("low"));
+    pdf_int->plotOn(frame1,Slice(*cat_int,"LowFCME"),Components(("newpartreco_LowFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kMagenta),RooFit::Range("low"),RooFit::NormRange("low"));
+    pdf_int->plotOn(frame1,Slice(*cat_int,"LowFCME"),Components(("newexpoun_LowFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kRed),RooFit::Range("high"),RooFit::NormRange("high"));
+    pdf_int->plotOn(frame1,Slice(*cat_int,"LowFCME"),Components(("misidModel_LowFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kCyan),RooFit::Range("high"), RooFit::NormRange("high"));
+    pdf_int->plotOn(frame1,Slice(*cat_int,"LowFCME"),Components(("newpartreco_LowFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kMagenta),RooFit::Range("high"),RooFit::NormRange("high"));
+    pdf_int->plotOn(frame1,Slice(*cat_int,"LowFCME"),Components(("blah_LowFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kGreen),RooFit::Range("low"), RooFit::NormRange("low"));
+    pdf_int->plotOn(frame1,Slice(*cat_int,"LowFCME"),Components(("blah_LowFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kGreen),RooFit::Range("high"),RooFit::NormRange("high"));
+
+    cout<<"PLOT FINISH 2"<<endl;
+    RooPlot* frame2 = mass_int->frame(Title("firstfitHighFCME"),Bins(60)) ;
+    data_int->plotOn(frame2,Cut("sample==sample::HighFCME")) ;
+    pdf_int->plotOn(frame2,Slice(*cat_int,"HighFCME"),ProjWData(*cat_int,*data_int),RooFit::Range("low"),RooFit::NormRange("low"));
+    pdf_int->plotOn(frame2,Slice(*cat_int,"HighFCME"),ProjWData(*cat_int,*data_int),RooFit::Range("high"),RooFit::NormRange("high"));
+    pdf_int->plotOn(frame2,Slice(*cat_int,"HighFCME"),Components(("newexpoun_HighFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kRed),RooFit::Range("low"),RooFit::NormRange("low"));
+    pdf_int->plotOn(frame2,Slice(*cat_int,"HighFCME"),Components(("misidModel_HighFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kCyan),RooFit::Range("low"), RooFit::NormRange("low"));
+    pdf_int->plotOn(frame2,Slice(*cat_int,"HighFCME"),Components(("newpartreco_HighFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kMagenta),RooFit::Range("low"),RooFit::NormRange("low"));
+    pdf_int->plotOn(frame2,Slice(*cat_int,"HighFCME"),Components(("newexpoun_HighFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kRed),RooFit::Range("high"),RooFit::NormRange("high"));
+    pdf_int->plotOn(frame2,Slice(*cat_int,"HighFCME"),Components(("misidModel_HighFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kCyan),RooFit::Range("high"), RooFit::NormRange("high"));
+    pdf_int->plotOn(frame2,Slice(*cat_int,"HighFCME"),Components(("newpartreco_HighFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kMagenta),RooFit::Range("high"),RooFit::NormRange("high"));
+    pdf_int->plotOn(frame2,Slice(*cat_int,"HighFCME"),Components(("blah_HighFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kGreen),RooFit::Range("low"), RooFit::NormRange("low"));
+    pdf_int->plotOn(frame2,Slice(*cat_int,"HighFCME"),Components(("blah_HighFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kGreen),RooFit::Range("high"),RooFit::NormRange("high"));
+
+    firstfit->cd(1) ; gPad->SetLeftMargin(0.15) ; frame1->GetYaxis()->SetTitleOffset(1.1) ; frame1->Draw() ;
+    firstfit->cd(2) ; gPad->SetLeftMargin(0.15) ; frame2->GetYaxis()->SetTitleOffset(1.1) ; frame2->Draw() ;
+    firstfit->SaveAs((plotdir+"FitResult_LCME_HCME_injectsig_"+cleanNameString(d2s(BF_int->getVal()))+".pdf").c_str());
+
+    TCanvas* c_float = new TCanvas("float","float",800,400) ;
+    c_float->Divide(2) ;
+    pdf_LL_int->paramOn(frame1, Format("NELU"), Layout(0.5, 0.5, 0.6));
+    pdf_DD_int->paramOn(frame2, Format("NELU"), Layout(0.5, 0.5, 0.6));
+    c_float->cd(1) ; gPad->SetLeftMargin(0.15) ; frame1->GetYaxis()->SetTitleOffset(1.1) ; frame1->Draw() ;
+    c_float->cd(2) ; gPad->SetLeftMargin(0.15) ; frame2->GetYaxis()->SetTitleOffset(1.1) ; frame2->Draw() ;
+    c_float->SaveAs((plotdir+"FitResult_LCME_HCME_withfloatingvar_injectsig_"+cleanNameString(d2s(BF_int->getVal()))+"_TS.pdf").c_str());
+
+
+
+    RooArgSet* params2 = pdf_int->getParameters(*mass_int);
+    params2->writeToFile((plotdir+"SimultaneousFitResults_bkgpdfandsigpdf_with_"+cleanNameString(d2s(BF_int->getVal()))+"_variables_syst_100_TS.txt").c_str());
+    ofstream outsig((plotdir+"SimultaneousFitResults_bkgpdfandsigpdfwith_"+cleanNameString(d2s(BF_int->getVal()))+"_fullfitinfo_syst_100_TS.txt").c_str());
+    saveFitInfo_abspdf(outsig, frame1, 10, pdf_int,data_intresult_free);
+
+    TFile file3((clsdir+"fitresults_sigandbkghypo_forCLs_syst_100_final"+cleanNameString(d2s(BF_int->getVal()))+"_TS.root").c_str(), "RECREATE");
+    RooWorkspace workspaceFit3("workspaceFit", "workspaceFit");
+
+    workspaceFit3.import(*mass_int);
+ //   workspaceFit3.import(*data_low);
+ //   workspaceFit3.import(*data_high);
+    workspaceFit3.import(*data_int);
+    workspaceFit3.import(constraints);
+    //      workspaceFit2.import(simPdf,RecycleConflictNodes());
+    workspaceFit3.import(*pdf_int,RecycleConflictNodes());
+    workspaceFit3.Write("", TObject::kOverwrite);
+    cout<<"Workspace for fit has been saved:"<<endl;
+    file3.Close();
+
+    delete firstfit;
+
+
+    std::cout << "Value of BF_int 2:" <<BF_int->getVal()<<endl;
+    BF_int->setConstant(false);
+    BF_int->setVal(0.0);
+    BF_int->setConstant(true);
+    std::cout << "Value of BF_int 3:" <<BF_int->getVal()<<endl;
+    RooFitResult* data_intresult_fixed = pdf_int->fitTo(*data_int,RooFit::Extended(true),RooFit::Range("low1,high1"),ExternalConstraints(constraints),RooFit::Save(true));
+
+     double minimizedll_fixed=data_intresult_fixed->minNll();
+     minvals_fixed.push_back(minimizedll_fixed);
+
+    TCanvas* secondfit= new TCanvas("secondfit", "secondfit",800,400);
+    secondfit->Divide(2);
+    RooPlot* frame3 = mass_int->frame(Title("secondfitlowFCME"),Bins(60)) ;
+    data_int->plotOn(frame3,Cut("sample==sample::LowFCME"));
+    pdf_int->plotOn(frame3,Slice(*cat_int,"LowFCME"),ProjWData(*cat_int,*data_int),RooFit::Range("low1"),RooFit::NormRange("low1"));
+    pdf_int->plotOn(frame3,Slice(*cat_int,"LowFCME"),ProjWData(*cat_int,*data_int),RooFit::Range("high1"),RooFit::NormRange("high1"));
+
+    pdf_int->plotOn(frame3,Slice(*cat_int,"LowFCME"),Components(("newexpoun_LowFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kRed),RooFit::Range("low1"),RooFit::NormRange("low1"));
+    pdf_int->plotOn(frame3,Slice(*cat_int,"LowFCME"),Components(("misidModel_LowFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kCyan),RooFit::Range("low1"), RooFit::NormRange("low1"));
+    pdf_int->plotOn(frame3,Slice(*cat_int,"LowFCME"),Components(("newpartreco_LowFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kMagenta),RooFit::Range("low1"),RooFit::NormRange("low1"));
+    pdf_int->plotOn(frame3,Slice(*cat_int,"LowFCME"),Components(("newexpoun_LowFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kRed),RooFit::Range("high1"),RooFit::NormRange("high1"));
+    pdf_int->plotOn(frame3,Slice(*cat_int,"LowFCME"),Components(("misidModel_LowFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kCyan),RooFit::Range("high1"), RooFit::NormRange("high1"));
+    pdf_int->plotOn(frame3,Slice(*cat_int,"LowFCME"),Components(("newpartreco_LowFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kMagenta),RooFit::Range("high1"),RooFit::NormRange("high1"));
+    pdf_int->plotOn(frame3,Slice(*cat_int,"LowFCME"),Components(("blah_LowFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kGreen),RooFit::Range("low1"), RooFit::NormRange("low1"));
+    pdf_int->plotOn(frame3,Slice(*cat_int,"LowFCME"),Components(("blah_LowFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kGreen),RooFit::Range("high1"),RooFit::NormRange("high1"));
+    cout<<"PLOT FINISH 3"<<endl;
+    RooPlot* frame4 = mass_int->frame(Title("secondfitHighFCME"),Bins(60)) ;
+    data_int->plotOn(frame4,Cut("sample==sample::HighFCME")) ;
+    pdf_int->plotOn(frame4,Slice(*cat_int,"HighFCME"),ProjWData(*cat_int,*data_int),RooFit::Range("low1"),RooFit::NormRange("low1"));
+    pdf_int->plotOn(frame4,Slice(*cat_int,"HighFCME"),ProjWData(*cat_int,*data_int),RooFit::Range("high1"),RooFit::NormRange("high1"));
+    pdf_int->plotOn(frame4,Slice(*cat_int,"HighFCME"),Components(("newexpoun_HighFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kRed),RooFit::Range("low1"),RooFit::NormRange("low1"));
+    pdf_int->plotOn(frame4,Slice(*cat_int,"HighFCME"),Components(("misidModel_HighFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kCyan),RooFit::Range("low1"), RooFit::NormRange("low1"));
+    pdf_int->plotOn(frame4,Slice(*cat_int,"HighFCME"),Components(("newpartreco_HighFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kMagenta),RooFit::Range("low1"),RooFit::NormRange("low1"));
+    pdf_int->plotOn(frame4,Slice(*cat_int,"HighFCME"),Components(("newexpoun_HighFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kRed),RooFit::Range("high1"),RooFit::NormRange("high1"));
+    pdf_int->plotOn(frame4,Slice(*cat_int,"HighFCME"),Components(("misidModel_HighFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kCyan),RooFit::Range("high1"), RooFit::NormRange("high1"));
+    pdf_int->plotOn(frame4,Slice(*cat_int,"HighFCME"),Components(("newpartreco_HighFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kMagenta),RooFit::Range("high1"),RooFit::NormRange("high1"));
+    pdf_int->plotOn(frame4,Slice(*cat_int,"HighFCME"),Components(("blah_HighFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kGreen),RooFit::Range("low1"), RooFit::NormRange("low1"));
+    pdf_int->plotOn(frame4,Slice(*cat_int,"HighFCME"),Components(("blah_HighFCME")),ProjWData(*cat_int,*data_int),LineStyle(kDashed),LineColor(kGreen),RooFit::Range("high1"),RooFit::NormRange("high1"));
+    secondfit->cd(1) ; gPad->SetLeftMargin(0.15) ; frame3->GetYaxis()->SetTitleOffset(1.1) ; frame3->Draw() ;
+    secondfit->cd(2) ; gPad->SetLeftMargin(0.15) ; frame4->GetYaxis()->SetTitleOffset(1.1) ; frame4->Draw() ;
+    secondfit->SaveAs((plotdir+"FitResult_LCME_HCME_injectsig_"+cleanNameString(d2s(BF_int->getVal()))+"_TS.pdf").c_str());
+
+    TCanvas* c_float2 = new TCanvas("float","float",800,400) ;
+    c_float2->Divide(2) ;
+    pdf_LL_int->paramOn(frame3, Format("NELU"), Layout(0.5, 0.5, 0.6));
+    pdf_DD_int->paramOn(frame4, Format("NELU"), Layout(0.5, 0.5, 0.6));
+    c_float2->cd(1) ; gPad->SetLeftMargin(0.15) ; frame3->GetYaxis()->SetTitleOffset(1.1) ; frame3->Draw() ;
+    c_float2->cd(2) ; gPad->SetLeftMargin(0.15) ; frame4->GetYaxis()->SetTitleOffset(1.1) ; frame4->Draw() ;
+    c_float2->SaveAs((plotdir+"FitResult_LCME_HCME_withfloatingvar_injectsig_"+cleanNameString(d2s(BF_int->getVal()))+"_TS.pdf").c_str());
+
+
+    RooArgSet* params3 = pdf_int->getParameters(*mass_int);
+    params3->writeToFile((plotdir+"SimultaneousFitResults_bkgpdf_variables_syst_100_"+cleanNameString(d2s(BF_int->getVal()))+"_TS.txt").c_str());
+    ofstream outbkg((plotdir+"SimultaneousFitResults_bkgpdf_fullfitinfo_syst_100_"+cleanNameString(d2s(BF_int->getVal()))+"_TS.txt").c_str());
+    saveFitInfo_abspdf(outbkg, frame3, 10, pdf_int,data_intresult_fixed);
+
+
+      delete secondfit;
+
+        TFile file4((clsdir+"fitresults_bkghypo_forCLs_syst_100_final_"+cleanNameString(d2s(BF_int->getVal()))+"_TS.root").c_str(), "RECREATE");
+        RooWorkspace workspaceFit4("workspaceFit", "workspaceFit");
+
+        workspaceFit4.import(*mass_int);
+//        workspaceFit4.import(*data_low);
+//        workspaceFit4.import(*data_high);
+        workspaceFit4.import(*data_int);
+        workspaceFit4.import(constraints);
+//      workspaceFit2.import(simPdf,RecycleConflictNodes());
+	workspaceFit4.import(*pdf_int,RecycleConflictNodes());
+	workspaceFit4.Write("", TObject::kOverwrite);
+	cout<<"Workspace for fit has been saved:"<<endl;
+
+
+	file4.Close();
+
+
+
+
+   f_int.Close();
+
+
+    }
+
+       vector<double> br;
+       br=clsvalues;
+       double* mybrval=&br[0];
+
+      int sizeofvec;
+      sizeofvec=br.size();
+
+       vector<double> minll;
+       minll=minvals;
+       double* myminval=&minll[0];
+
+       vector<double> minll_fixed;
+       minll_fixed=minvals_fixed;
+       double* myminval_fixed=&minll_fixed[0];
+
+       vector<double> teststat;
+       for (int o(0);o<minll.size(); o++)
+       {
+	       double data_intVal = 2*(minll_fixed.at(o)-minll.at(o));
+               teststat.push_back(data_intVal);
+       } 
+
+       double* myteststat=&teststat[0];
+
+
+       double cLower = *min_element(teststat.begin(), teststat.end());
+       double cMaxer = *max_element(teststat.begin(), teststat.end());
+
+
+      // const Int_t n = sizeofvec;
+        TCanvas *c1 = new TCanvas("c1","CLS",200,10,700,500);
+        //c1->DrawFrame(0,0,5,1, "CLs");
+	c1->SetTitle("TestStat");
+	TH1F *hr = c1->DrawFrame(-5e-8,cLower,5e-8,cMaxer);
+	hr->SetXTitle("B (B^{+} #rightarrow #mu^{+} #mu^{-} #mu^{+} #nu) [10^{-8}]");
+	hr->SetYTitle("TestStat");
+	hr->GetYaxis()->SetTitleOffset(1.1);
+//	c1->SetLogy();
+        const Int_t n = sizeofvec;
+        TGraph *grsecond =  new TGraph(n,mybrval,myteststat);
+        grsecond->Draw("l");
+        c1->SaveAs((plotdir+"MyOwnProfileLL_TestSTat.pdf").c_str());
+
+       
+
+
+
+}
 
 void FitAndSplotB23MuNuDataForTraining::simfit_fit()
 {
@@ -260,9 +573,15 @@ void FitAndSplotB23MuNuDataForTraining::simfit_fit()
         TCanvas *c1 = new TCanvas("c1","CLS",200,10,700,500);
         //c1->DrawFrame(0,0,5,1, "CLs");
 	c1->SetTitle("ProfileLL");
+        gPad->SetLeftMargin(0.15);
+        gPad->SetRightMargin(0.15);
 	TH1F *hr = c1->DrawFrame(-5e-8,cLower,5e-8,cMaxer);
 	hr->SetXTitle("B (B^{+} #rightarrow #mu^{+} #mu^{-} #mu^{+} #nu) [10^{-8}]");
 	hr->SetYTitle("MinLL");
+	hr->GetYaxis()->SetTitleOffset(1.1);
+//        gPad->SetLeftMargin(0.15);
+//        gPad->SetRightMargin(0.15);
+
 //	c1->SetLogy();
         const Int_t n = sizeofvec;
         TGraph *grsecond =  new TGraph(n,mybrval,myminval);

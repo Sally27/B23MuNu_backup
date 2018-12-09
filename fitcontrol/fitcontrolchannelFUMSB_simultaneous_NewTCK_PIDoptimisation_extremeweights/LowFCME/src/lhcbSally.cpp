@@ -498,7 +498,7 @@ void printLHCb(char* optLR="L", char* optPrelim="Final", char* optText="")
 	}
 
 	if (optPrelim=="Final"){
-		lhcbName->AddText("LHCb");
+		lhcbName->AddText("#splitline{LHCb}{2011-16}");
 		cout<<"Choosing text"<<endl;
 	}
 	else if (optPrelim=="Prelim"){

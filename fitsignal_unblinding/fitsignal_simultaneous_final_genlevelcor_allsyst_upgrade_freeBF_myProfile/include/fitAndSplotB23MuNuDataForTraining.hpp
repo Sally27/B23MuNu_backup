@@ -237,6 +237,7 @@ class FitAndSplotB23MuNuDataForTraining
 
 //Sally's addition//
 
+  void simfit_fit_teststat();
   void simfit_fit();
    void plotprettysim(string type);
    void plotprettysim_chi2(string type, string PIDcutRun1, string PIDcutRun2,string nameofclsroot, string nameofpdf,bool signalcomp);

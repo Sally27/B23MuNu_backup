@@ -70,35 +70,35 @@ cd /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_neg
 #cd /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_1_5e_8sig/
 #
 #./main 1000 -1.5e-8
-
-mkdir /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_0_0e_8sig
-
-cp /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/bin/*root /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_0_0e_8sig/
-cp /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/bin/main /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_0_0e_8sig/
-
-cd /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_0_0e_8sig/
-
-./main 1000 0.0e-8
-
-mkdir /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_1_75e_8sig
-
-cp /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/bin/*root /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_1_75e_8sig/
-cp /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/bin/main /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_1_75e_8sig/
-
-cd /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_1_75e_8sig/
-
-./main 1000 -1.75e-8
-
-
-mkdir /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_2_0e_8sig
-
-cp /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/bin/*root /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_2_0e_8sig/
-cp /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/bin/main /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_2_0e_8sig/
-
-cd /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_2_0e_8sig/
-
-./main 1000 -2.0e-8
-
+#
+#mkdir /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_0_0e_8sig
+#
+#cp /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/bin/*root /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_0_0e_8sig/
+#cp /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/bin/main /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_0_0e_8sig/
+#
+#cd /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_0_0e_8sig/
+#
+#./main 1000 0.0e-8
+#
+#mkdir /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_1_75e_8sig
+#
+#cp /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/bin/*root /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_1_75e_8sig/
+#cp /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/bin/main /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_1_75e_8sig/
+#
+#cd /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_1_75e_8sig/
+#
+#./main 1000 -1.75e-8
+#
+#
+#mkdir /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_2_0e_8sig
+#
+#cp /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/bin/*root /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_2_0e_8sig/
+#cp /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/bin/main /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_2_0e_8sig/
+#
+#cd /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_2_0e_8sig/
+#
+#./main 1000 -2.0e-8
+#
 
 mkdir /vols/lhcb/ss4314/CLsMethod/expected_limit_sim_allsyst_upgrade_unblinding_negBF/toy_1000_minus_2_25e_8
 

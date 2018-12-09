@@ -26,6 +26,7 @@ using namespace std;
 
 void plotvariablebeforeq2_only3(string k, double low, double high, string xaxis, string filenamesig, string filenamemisid, string filenamecombi, string year);
 void plotvariable_partrecostudy_checkcorr(string k, double low, double high, string xaxis, string filenamereco,string filenamereco2 ,string year, double scalecalc);
+void plotvariable_partrecostudy_nice(string k, double low, double high, string xaxis, string filenamesig, string filenamereco, string year, double scalecalc);
 void plotvariablebeforeq2(string k, double low, double high, string xaxis,string filemcsig, string filepartreco, string filemisid, string filecombi, string year);
 void plotvariable_partrecostudy(string k, double low, double high, string xaxis, string filenamesig, string filenamereco, string year, double scale);
 void plotvariablebeforeq2_line(string k, double low, double high, string xaxis,string filemcsig, string filepartreco, string filemisid, string filecombi);

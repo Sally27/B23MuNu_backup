@@ -169,13 +169,17 @@ if (year=="2012")
 	run.plotprettysim_chi2("LowFCME",ok.c_str(),pid2.c_str(),"fitresults_bkghypo_forCLs_syst_100_final_0.root","simPdfsig",false);
 	run.plotprettysim_chi2("HighFCME",ok.c_str(),pid2.c_str(),"fitresults_bkghypo_forCLs_syst_100_final_0.root","simPdfsig",false);
 	run.plotprettysim_chi2("LowFCME",ok.c_str(),pid2.c_str(),"fitresults_sigandbkghypo_forCLs_syst_100_final__2e_08.root","simPdfsig",true);
-	run.plotprettysim_chi2("HighFCME",ok.c_str(),pid2.c_str(),"itresults_sigandbkghypo_forCLs_syst_100_final__2e_08.root","simPdfsig",true);
+	run.plotprettysim_chi2("HighFCME",ok.c_str(),pid2.c_str(),"fitresults_sigandbkghypo_forCLs_syst_100_final__2e_08.root","simPdfsig",true);
 //
 ////        lhcbSally();
 	run.plotprettysim_chi2_reallynice("LowFCME",ok.c_str(),pid2.c_str(),"fitresults_bkghypo_forCLs_syst_100_final_0.root","simPdfsig",false);
 	run.plotprettysim_chi2_reallynice("HighFCME",ok.c_str(),pid2.c_str(),"fitresults_bkghypo_forCLs_syst_100_final_0.root","simPdfsig",false);
+
+	run.plotprettysim_chi2_reallynice_both("",ok.c_str(),pid2.c_str(),"fitresults_bkghypo_forCLs_syst_100_final_0.root","simPdfsig",false);
 	run.plotprettysim_chi2_reallynice("LowFCME",ok.c_str(),pid2.c_str(),"fitresults_sigandbkghypo_forCLs_syst_100_final__2e_08.root","simPdfsig",true);
 	run.plotprettysim_chi2_reallynice("HighFCME",ok.c_str(),pid2.c_str(),"fitresults_sigandbkghypo_forCLs_syst_100_final__2e_08.root","simPdfsig",true);
+        run.plotprettysim_chi2_reallynice_both("",ok.c_str(),pid2.c_str(),"fitresults_sigandbkghypo_forCLs_syst_100_final__2e_08.root","simPdfsig",true);
+
         run.plotpretty_plotnicely_paper_sigsim_drive("LowFCME",true);
         run.plotpretty_plotnicely_paper_sigsim_drive("HighFCME",true);
         run.plotpretty_plotnicely_paper_sigsim_drive("LowFCME",false);
@@ -200,6 +204,9 @@ if (year=="2012")
 	run.plotprettysim_chi2("HighFCME",ok.c_str(),pid2.c_str(),freebf,"simPdfsig",true);
 	run.plotprettysim_chi2_reallynice("LowFCME",ok.c_str(),pid2.c_str(),freebf,"simPdfsig",true);
 	run.plotprettysim_chi2_reallynice("HighFCME",ok.c_str(),pid2.c_str(),freebf,"simPdfsig",true);
+	run.plotprettysim_chi2_reallynice_both("",ok.c_str(),pid2.c_str(),freebf,"simPdfsig",true);
+	run.plotprettysim_chi2_reallynice_both_special("",ok.c_str(),pid2.c_str(),freebf,"simPdfsig",true);
+	run.plotprettysim_chi2_reallynice_both_special_courier("",ok.c_str(),pid2.c_str(),freebf,"simPdfsig",true);
 }
 
 //	run.fitmisidcomponentall_chi2(dir,misidfilenames,weights,species, "", ok.c_str(),pid2.c_str());

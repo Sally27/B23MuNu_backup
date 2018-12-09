@@ -1812,8 +1812,8 @@ double optimiseBdtPunziScaled_new(string fileSig,
 
 
    TLegend *leg = new TLegend(0.25,0.75,0.6,0.88);
-   leg->AddEntry("reth","#sigma=3, 2016 ","l");
-   leg->AddEntry("reth2","#sigma=5, 2016","l");
+   leg->AddEntry("reth","n=3, 2016 ","l");
+   leg->AddEntry("reth2","n=5, 2016","l");
 //   leg->SetFillColorAlpha(kWhite,1.0);
    leg->Draw();
 

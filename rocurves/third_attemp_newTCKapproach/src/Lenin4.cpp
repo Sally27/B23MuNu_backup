@@ -1150,7 +1150,10 @@ void plotRocCurvesSallyCompareDiffTraining(vector<string> pathnamesally,vector<s
    frame->GetXaxis()->SetTitle("Signal Efficiency");
    frame->GetYaxis()->SetTitle("Background Rejection");
     
-   TLegend leg(0.60,0.3,0.9,0.7);
+   TLegend leg(0.55,0.3,0.9,0.7);
+   leg.SetTextSize(0.046);
+   leg.SetBorderSize(0);
+
    int j(0);
 
    for(int i(0); i < fsigname.size(); ++i)
@@ -1215,7 +1218,7 @@ void plotRocCurvesSallyCompareDiffTrainingOneMinusBkgRej(vector<string> pathname
   
    vector<TGraph*> vec;
 
-   TCanvas cROC("cROC", "cROC", 600, 600);
+   TCanvas cROC("cROC", "cROC", 1100, 600);
    
    TH1F* frame;
    frame = cROC.DrawFrame(0,0,1,0.015);
@@ -1229,8 +1232,8 @@ void plotRocCurvesSallyCompareDiffTrainingOneMinusBkgRej(vector<string> pathname
 //   TGaxis::SetMaxDigits(2); 
 //   frame->GetYaxis()->SetMaxDigits(3);
 
-   TLegend leg(0.35,0.6,0.5,0.9);
-   leg.SetTextSize(0.032);
+   TLegend leg(0.3,0.6,0.49,0.9);
+   leg.SetTextSize(0.046);
    leg.SetBorderSize(0);
 
    int j(0);
@@ -1255,9 +1258,9 @@ void plotRocCurvesSallyCompareDiffTrainingOneMinusBkgRej(vector<string> pathname
    }
 
    cROC.cd();
-   TLine* myline=new TLine(0.44, 0.0,0.44,0.015);
+   TLine* myline=new TLine(0.47, 0.0,0.47,0.015);
    myline->SetLineColor(9);
-   TLine* myline2=new TLine(0.36, 0.0,0.36,0.015);
+   TLine* myline2=new TLine(0.34, 0.0,0.34,0.015);
    myline2->SetLineColor(9);
    myline->SetLineWidth(5);
    myline->Draw("same");
@@ -1265,7 +1268,7 @@ void plotRocCurvesSallyCompareDiffTrainingOneMinusBkgRej(vector<string> pathname
    myline2->Draw("same");
 
 //   cROC.SetLogy();
-//   cROC.Update();
+   cROC.Update();
    leg.Draw("same");
    cROC.SaveAs((scale+outputfilename+"_COMPAREroccurvesDIFFERENTtrainings_ONEminusBKGRej.pdf").c_str());
    cROC.SaveAs((scale+outputfilename+"_COMPAREroccurvesDIFFERENTtrainings_ONEminusBKGRej.root").c_str());

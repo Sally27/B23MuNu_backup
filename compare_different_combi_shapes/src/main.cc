@@ -106,8 +106,18 @@ int main(){
 	 frame10->GetYaxis()->SetRangeUser(-5,5);
 	 frame10->GetYaxis()->SetLabelSize(0.1);
 	 frame10->GetXaxis()->SetNdivisions(0);
-	 frame10->GetYaxis()->SetNdivisions(503);
-	 frame10->GetYaxis()->SetLabelSize(0.133);
+	 frame10->GetYaxis()->SetNdivisions(5);
+	 frame10->GetYaxis()->SetLabelSize(0.15);
+         frame10->GetYaxis()->SetTitleOffset(0.20);
+         frame10->GetYaxis()->SetTitleSize(0.3);
+         frame10->GetYaxis()->SetTitle("Pull");
+
+
+//   graph->GetXaxis()->SetNdivisions(0);
+//   graph->GetYaxis()->SetNdivisions(5);
+//   graph->GetYaxis()->SetLabelSize(0.15);
+
+
 
 	 TLine line1(2500, -3, 10000, -3);
 	 line1.SetLineColor(2);

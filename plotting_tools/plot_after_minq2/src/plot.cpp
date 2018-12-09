@@ -22,6 +22,7 @@
 #include <math.h>
 #include "plot.hpp"
 #include "useful.hpp"
+#include "TROOT.h"
 //#include "DataSample.hpp"
 
 using namespace std;
@@ -119,6 +120,137 @@ void plotvariable_partrecostudy_checkcorr(string k, double low, double high, str
 
 
 }
+
+
+void plotvariable_partrecostudy_nice(string k, double low, double high, string xaxis, string filenamesig, string filenamereco, string year, double scalecalc)
+{
+
+  TCanvas* mp3 = new TCanvas("mp3", "mp3", 700, 600);
+  THStack *hs = new THStack("hs", "nostack"); 
+  int nbins=100;
+  DataSample hist3(filenamesig.c_str(), "DecayTree");
+
+
+  
+  TH1F* la = new TH1F("bplusmm2", "bplusmm2", nbins, low, high);
+  hs->Add(la,"nostack");
+  hist3.t->Draw((k+">>bplusmm2").c_str());
+  double nSel3 = hist3.t->GetEntries();
+  cout<<"number of events combi"<<nSel3<<endl;
+
+  DataSample hist1(filenamereco.c_str(), "DecayTree");
+  double nSel1 = hist1.t->GetEntries();
+  double scale;
+  scale = nSel3/nSel1;
+  TH1F* a = new TH1F("bpluscorrmass", "bplusmm", nbins, low, high);
+//  a->Scale(scale);
+  cout<<"This is scale2: "<<scale<<endl;
+  hist1.t->Draw((k+">>bpluscorrmass").c_str());
+  a->Scale(scale/scalecalc);
+  hs->Add(a,"nostack");
+  cout<<"number of events in misid kaon"<<nSel1<<endl; 
+  /*print nSel1;*/
+
+
+        TColor* col1 = gROOT->GetColor(92);
+        col1->SetRGB(double(141)/double(255),double(211)/double(255),double(199)/double(255)); //green
+        TColor* col2 = gROOT->GetColor(95);
+        col2->SetRGB(double(255)/double(255),double(255)/double(255),double(179)/double(255)); //yellow
+
+        TColor* col3 = gROOT->GetColor(98);
+        col3->SetRGB(double(190)/double(255),double(186)/double(255),double(218)/double(255)); //violer
+
+        TColor* col4 = gROOT->GetColor(99);
+        col4->SetRGB(double(128)/double(255),double(177)/double(255),double(211)/double(255)); //blue
+
+        TColor* col5 = gROOT->GetColor(94);
+        col5->SetRGB(double(253)/double(255),double(180)/double(255),double(98)/double(255)); //orange
+
+        TColor* col6 = gROOT->GetColor(82);
+        col6->SetRGB(double(141)/double(255),double(211)/double(255),double(199)/double(255)); //green
+        col6->SetAlpha(0.5);
+
+        TColor* col7 = gROOT->GetColor(85);
+        col7->SetRGB(double(255)/double(255),double(255)/double(255),double(179)/double(255)); //yellow
+        col7->SetAlpha(0.5);
+
+
+        TColor* col8 = gROOT->GetColor(88);
+        col8->SetRGB(double(190)/double(255),double(186)/double(255),double(218)/double(255)); //violer
+        col8->SetAlpha(0.5);
+
+        TColor* col9 = gROOT->GetColor(89);
+        col9->SetRGB(double(128)/double(255),double(177)/double(255),double(211)/double(255)); //blue
+        col9->SetAlpha(0.5);
+
+        TColor* col10 = gROOT->GetColor(84);
+        col10->SetRGB(double(253)/double(255),double(180)/double(255),double(98)/double(255)); //orange
+        col10->SetAlpha(0.5);
+
+
+  double yaxismax;
+  yaxismax=hs->GetMaximum("nostack");
+
+  double binsize=((high-low)/100.0);
+
+  gStyle->SetOptStat(0);
+    
+   mp3->SetLeftMargin(0.2);
+   mp3->SetRightMargin(0.1);
+
+   la->SetLineColor(98);
+   la->SetFillColor(88);
+//   la->SetTitle((k+ " NOT TO SCALE").c_str());
+   la->SetXTitle(xaxis.c_str());
+   la->SetYTitle(("Arbitrary Entries / ("+d2s(binsize)+" MeV/c^{2})").c_str());
+   la->GetYaxis()->SetTitleOffset(1.4);
+   la->SetMinimum(0.0);
+//   la->SetMaximum(30000);
+   la->SetMaximum(yaxismax+1000);
+//   la->Draw("LF2");
+
+//   myline=TLine(1000000, 0.0,1000000,yaxismax+1000);
+//   myline.SetLineColor(kBlack);
+//   myline.SetLineWidth(5);
+//   myline.Draw("same");
+
+
+//   a->SetTitle((k+" NOT TO SCALE").c_str());
+
+
+   a->SetLineColor(94);
+   a->SetFillColor(84);
+   a->SetXTitle(xaxis.c_str());
+   a->GetYaxis()->SetTitleOffset(1.4);
+   a->SetYTitle(("Arbitrary Entries / ("+d2s(binsize)+" MeV/c^{2})").c_str());
+//   a->SetLineColor(kRed);
+   a->Draw("LF2");
+
+   la->Draw("LF2 same");
+
+
+//   Double_t xl1=.7, yl1=0.7, xl2=xl1+.2, yl2=yl1+.2;   
+   Double_t xl1=.52, yl1=0.6, xl2=xl1+.3, yl2=yl1+.2;
+    TLegend *leg = new TLegend(xl1,yl1,xl2,yl2);
+//    leg->SetTextSize(0.02);
+    leg->SetBorderSize(0);
+    //leg->AddEntry("LHCb Simulation","");
+    leg->AddEntry(a,"PARTRECO MC","lf");   // h1 and h2 are histogram pointers
+    leg->AddEntry(la,"SIGNAL MC","lf");
+    leg->SetTextSize(0.05);
+    leg->Draw("same");
+
+  
+   mp3->Update();
+   mp3->SaveAs(("variable"+k+"PartRecoScaled"+year+"_"+d2s(scalecalc)+"_supernice.pdf").c_str());
+ 
+   return;
+
+
+}
+
+
+
 void plotvariable_partrecostudy(string k, double low, double high, string xaxis, string filenamesig, string filenamereco, string year, double scalecalc)
 {
 

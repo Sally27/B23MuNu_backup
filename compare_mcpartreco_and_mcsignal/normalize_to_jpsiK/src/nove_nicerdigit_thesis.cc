@@ -259,6 +259,7 @@ int main(){
        out<<"\\hline"<<endl;
 
 
+        out<<" R^{21}(\\pr) & "<< ((((overall.calculate_total_seleff(double(number_bkk_nor), overall.return_file("pr","no"),"no"))/effqmin)*(overall.return_gen_eff("pr")))/((overall.return_gen_eff("norm"))*(overall.calculate_total_seleff(double(number_bkk_sig), overall.return_file("norm","no"),"no")))).roundToError_diffbase(true)<<" &  Using 2012" <<" \\\\ "<<endl;
 
         TFile fillinfo("../PR_info/PR_Yield_Thesis_FULL.root","RECREATE");
 //        TTree fillinfotree("PR_Yield","PR_Yield");

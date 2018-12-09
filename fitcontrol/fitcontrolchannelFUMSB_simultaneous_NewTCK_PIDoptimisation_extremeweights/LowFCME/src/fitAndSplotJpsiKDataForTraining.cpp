@@ -18,6 +18,7 @@
 #include "MyCB.hpp"
 #include "RooIpatia2.hpp"
 #include "TLegend.h"
+#include "THStack.h"
 #include "TLine.h"
 #include "lhcbSally.hpp"
 
@@ -355,6 +356,864 @@ void FitAndSplotJpsiKDataForTraining::plotprettyhypathia3_plotnicely(string data
    fpull.Close();
 }
 
+
+void FitAndSplotJpsiKDataForTraining::plotprettyhypathia3_plotnicely_paper_allfour(string dataset, string path1, string path2,string path3, string path4,string pathtoworkspaceBoth)
+{ 
+   cout<<"Plotting result of the fit"<<endl;
+   TFile fw((path1+"FitB2JpsiKworkspace.root").c_str());
+   TFile fw2((path2+"FitB2JpsiKworkspace.root").c_str());
+   TFile fw3((path3+"FitB2JpsiKworkspace.root").c_str());
+   TFile fw4((path4+"FitB2JpsiKworkspace.root").c_str());
+
+   RooWorkspace* workspaceFit = (RooWorkspace*)fw.Get("workspaceFit");
+   RooWorkspace* workspaceFit2 = (RooWorkspace*)fw2.Get("workspaceFit");
+
+   RooWorkspace* workspaceFit3 = (RooWorkspace*)fw3.Get("workspaceFit");
+   RooWorkspace* workspaceFit4 = (RooWorkspace*)fw4.Get("workspaceFit");
+
+   if(!workspaceFit || !workspaceFit2 || !workspaceFit3 || !workspaceFit4)
+   {
+      cerr<<"ERROR: in function FitAndSplotJpsiKDataForTraining::plot, no workspace found in file "<<workspaceFileName<<endl;
+      return;
+   }
+
+   RooRealVar* Bplus_MM = workspaceFit->var("Bplus_MM");
+   RooDataSet* data = (RooDataSet*)workspaceFit->data("data");
+   RooAbsPdf* model_total1 = workspaceFit->pdf("model");
+
+    
+
+
+   double firstdata=data->sumEntries();
+  cout<<"First dataset"<<data->sumEntries()<<endl;
+  RooRealVar firstnum("firstnum","furstnum",firstdata);
+ //  RooAbsReal* first = model_total->createIntegral(*Bplus_MM,RooFit::NormSet(*Bplus_MM),RooFit::Range("new"));
+
+  THStack *hs = new THStack("hs","");
+
+  
+  TH1* hh_1d = (TH1*) model_total1->createHistogram("Bplus_MM",60,0,0) ;
+  hh_1d->SetLineColor(kRed);
+   hs->Add(hh_1d);
+
+   RooRealVar* Bplus_MM2 = workspaceFit2->var("Bplus_MM");
+   RooDataSet* data2 = (RooDataSet*)workspaceFit2->data("data");
+   RooAbsPdf* model_total2 = workspaceFit2->pdf("model");
+   RooAbsPdf* expo2 = workspaceFit2->pdf("expo");
+   RooAbsPdf* piblah2 = workspaceFit2->pdf("piblah");
+   RooAbsPdf* cb12 = workspaceFit2->pdf("cb1");
+   RooRealVar* sig2 = workspaceFit2->var("sig");
+   RooRealVar* bkg2 = workspaceFit2->var("bkg");
+   RooRealVar* bkg22 = workspaceFit2->var("bkg2");
+   
+   expo2->SetTitle("expo2");
+   expo2->SetName("expo2");
+   piblah2->SetTitle("piblah2");
+   piblah2->SetName("piblah2");
+   cb12->SetTitle("cb12");
+   cb12->SetName("cb12");
+   sig2->SetTitle("signal2");
+   sig2->SetName("signal2");
+   bkg2->SetTitle("background2");
+   bkg2->SetName("background2");
+   bkg22->SetTitle("background22");
+   bkg22->SetName("background22");
+
+
+   RooRealVar* Bplus_MM3 = workspaceFit3->var("Bplus_MM");
+   RooDataSet* data3 = (RooDataSet*)workspaceFit3->data("data");
+   RooAbsPdf* model_total3 = workspaceFit3->pdf("model");
+   RooAbsPdf* expo3 = workspaceFit3->pdf("expo");
+   RooAbsPdf* piblah3 = workspaceFit3->pdf("piblah");
+   RooAbsPdf* cb13 = workspaceFit3->pdf("cb1");
+   RooRealVar* sig3 = workspaceFit3->var("sig");
+   RooRealVar* bkg3 = workspaceFit3->var("bkg");
+   RooRealVar* bkg33 = workspaceFit3->var("bkg2");
+   
+   expo3->SetTitle("expo3");
+   expo3->SetName("expo3");
+   piblah3->SetTitle("piblah3");
+   piblah3->SetName("piblah3");
+   cb13->SetTitle("cb13");
+   cb13->SetName("cb13");
+   sig3->SetTitle("signal3");
+   sig3->SetName("signal3");
+   bkg3->SetTitle("background3");
+   bkg3->SetName("background3");
+   bkg33->SetTitle("background33");
+   bkg33->SetName("background33");
+
+
+   RooRealVar* Bplus_MM4 = workspaceFit4->var("Bplus_MM");
+   RooDataSet* data4 = (RooDataSet*)workspaceFit4->data("data");
+   RooAbsPdf* model_total4 = workspaceFit4->pdf("model");
+   RooAbsPdf* expo4 = workspaceFit4->pdf("expo");
+   RooAbsPdf* piblah4 = workspaceFit4->pdf("piblah");
+   RooAbsPdf* cb14 = workspaceFit4->pdf("cb1");
+   RooRealVar* sig4 = workspaceFit4->var("sig");
+   RooRealVar* bkg4 = workspaceFit4->var("bkg");
+   RooRealVar* bkg44 = workspaceFit4->var("bkg2");
+   
+   expo4->SetTitle("expo4");
+   expo4->SetName("expo4");
+   piblah4->SetTitle("piblah4");
+   piblah4->SetName("piblah4");
+   cb14->SetTitle("cb14");
+   cb14->SetName("cb14");
+   sig4->SetTitle("signal4");
+   sig4->SetName("signal4");
+   bkg4->SetTitle("background4");
+   bkg4->SetName("background4");
+   bkg44->SetTitle("background44");
+   bkg44->SetName("background44");
+
+
+
+
+  TH1* hh2_1d = (TH1*) model_total2->createHistogram("Bplus_MM",60,0,0) ;
+
+  hh2_1d->SetLineColor(kBlue);
+  hs->Add(hh2_1d);
+//  hs->SetLineColor(kRed);
+
+
+
+//    c2->Divide(3,2) ;
+//    c2->cd(2) ; gPad->SetLeftMargin(0.15) ; hh_sigmag2_frac->GetZaxis()->SetTitleOffset(1.4) ; hh_sigmag2_frac->Draw("surf3") ; 
+//    c2->cd(3) ; gPad->SetLeftMargin(0.15) ; hh_mean_frac->GetZaxis()->SetTitleOffset(1.4) ; hh_mean_frac->Draw("surf3") ; 
+
+
+   model_total1->SetTitle("model_total1");
+   model_total2->SetTitle("model_total2");
+   model_total3->SetTitle("model_total3");
+   model_total4->SetTitle("model_total4");
+   model_total1->SetName("model_total1");
+   model_total2->SetName("model_total2");
+   model_total3->SetName("model_total3");
+   model_total4->SetName("model_total4");
+
+
+   double seconddata=data2->sumEntries();
+   double thirddata=data3->sumEntries();
+   double fourthdata=data4->sumEntries();
+
+  RooRealVar secondnum("secondnum","secondnum",seconddata);
+  RooRealVar thirdnum("thirdnum","thirdnum",thirddata);
+  RooRealVar fourthnum("fourthnum","fourthnum",fourthdata);
+  cout<<"Second dataset"<<data2->sumEntries()<<endl;
+  cout<<"third dataset"<<data3->sumEntries()<<endl;
+  cout<<"fourth dataset"<<data4->sumEntries()<<endl;
+//  RooDataSet data=data1->append(*data2);
+
+//   cout<<"Combined dataset"<<data.sumEntries()<<endl;
+
+   RooRealVar gm1frac("gm1frac","fraction of gm1",double(firstdata/seconddata)) ;
+
+   RooAddPdf model_total("model_total","model_total",RooArgList(*model_total1,*model_total2,*model_total3,*model_total4),RooArgList(firstnum,secondnum,thirdnum,fourthnum));
+   
+
+//    data->append(*data2);
+   cout<<"Combined dataset"<<data->sumEntries()<<endl;
+   cout<<"RooAddPdf dataset"<<model_total.expectedEvents(*Bplus_MM)<<endl;
+   cout<<model_total.pdfList()<<endl; 
+ //  RooDataSet data=RooDataSet("data","data",RooArgSet(data1,data2));
+ //  RooAddPdf model_total("model_tot","model_tot", RooArgList( model_total1, model_total2));
+//   RooAbsReal* combinatorial = model_exp->createIntegral(*Bplus_Corrected_Mass,RooFit::NormSet(*Bplus_Corrected_Mass),RooFit::Range("new"));
+   
+
+
+//   if(!data || !Bplus_MM || !model_total1 || !data2 || !Bplus_MM2 || !model_total2 )
+//   {
+//      cerr<<"ERROR: in function FitAndSplotJpsiKDataForTraining::plot, error downloading stuff from workspace"<<endl;
+//      cout<<Bplus_MM<<" "<<data<<" "<<model_total<<endl;
+//      return;
+//   }
+
+    data->append(*data2);
+    data->append(*data3);
+    data->append(*data4);
+
+
+   TH1* alldata = (TH1*) data->createHistogram("Bplus_MM",60,0,0) ;
+
+
+   TCanvas* c2 = new TCanvas("lol","lol",900,600);
+   c2->Divide(3,1);
+   c2->cd(1);gPad->SetLeftMargin(0.15) ; hh_1d->GetYaxis()->SetTitleOffset(1.4); hh_1d->SetMaximum(8000) ;hh_1d->Draw();hh2_1d->Draw("same");hs->Draw("same");
+   c2->cd(2);gPad->SetLeftMargin(0.15) ; hs->Draw("nostack");alldata->Draw("same");//hh_1d->SetMaximum(200000);
+   c2->cd(3);gPad->SetLeftMargin(0.15) ; hs->Draw(); alldata->Draw("same");//hh_1d->SetMaximum(200000);
+
+   c2->SaveAs((pathtoworkspaceBoth+"HypatiaplotJpsiKFitLogyPretty_veryniceplot_paper"+dataset+"_HISTOGRAM_ALL4.pdf").c_str());
+   c2->Delete();
+
+
+
+   TColor* col1 = gROOT->GetColor(92);
+   col1->SetRGB(double(141)/double(255),double(211)/double(255),double(199)/double(255)); //green
+   TColor* col2 = gROOT->GetColor(95);
+   col2->SetRGB(double(255)/double(255),double(255)/double(255),double(179)/double(255)); //yellow
+
+   TColor* col3 = gROOT->GetColor(98);
+   col3->SetRGB(double(190)/double(255),double(186)/double(255),double(218)/double(255)); //violer
+
+   TColor* col4 = gROOT->GetColor(99);
+   col4->SetRGB(double(128)/double(255),double(177)/double(255),double(211)/double(255)); //blue
+
+   TColor* col5 = gROOT->GetColor(94);
+   col5->SetRGB(double(253)/double(255),double(180)/double(255),double(98)/double(255)); //orange
+
+
+   //new scheme 
+   //
+   TColor* col6 = gROOT->GetColor(90);
+   col6->SetRGB(double(241)/double(255),double(163)/double(255),double(64)/double(255)); // new orange
+
+   TColor* col7 = gROOT->GetColor(91);
+   col7->SetRGB(double(153)/double(255),double(142)/double(255),double(195)/double(255)); //new violet
+
+
+   Bplus_MM->setBins(60);
+   Bplus_MM->setUnit("MeV/#it{c}^{2}");
+
+   double num_ori=model_total.expectedEvents(RooArgSet(*Bplus_MM));
+   double num_1=model_total1->expectedEvents(RooArgSet(*Bplus_MM));
+   double num_2=model_total2->expectedEvents(RooArgSet(*Bplus_MM));
+   double num_3=model_total3->expectedEvents(RooArgSet(*Bplus_MM));
+   double num_4=model_total4->expectedEvents(RooArgSet(*Bplus_MM));
+   cout<<"Number of expected events "<<num_ori<<endl;
+   cout<<"Number of expected events "<<num_1<<endl;
+   cout<<"Number of expected events "<<num_2<<endl;
+
+   double first_norm=num_1/num_ori;
+   double second_norm=num_2/num_ori;
+
+   double third_norm=num_3/num_ori;
+   double fourth_norm=num_4/num_ori;
+
+//ops   RooPlot* frame0 = Bplus_MM->frame();
+//ops   data->plotOn(frame0);
+//ops
+
+   RooPlot* frame = Bplus_MM->frame();
+   data->plotOn(frame);
+//   model_total2->plotOn(frame, RooFit::LineColor(kRed), RooFit::Name("tot") );
+ 
+   RooPlot* frame1 = Bplus_MM->frame();
+   data->plotOn(frame1);
+//opw
+//opw
+//opw   RooPlot* frame2 = Bplus_MM2->frame();
+//opw   data->plotOn(frame2);
+//opw
+//opw   //frame 0
+//opw   model_total.plotOn(frame0, RooFit::LineColor(kRed), RooFit::Name("tot"),Normalization(1.0));
+//opw   model_total1->plotOn(frame0, RooFit::LineColor(kBlue), RooFit::Name("tot2"),RooFit::LineStyle(kDashed),Normalization(first_norm));
+//opw   model_total2->plotOn(frame0, RooFit::LineColor(kGreen), RooFit::Name("tot3"),RooFit::LineWidth(kDashed),Normalization(second_norm));
+
+
+   //frame WORKNG//
+//   model_total.plotOn(frame, RooFit::LineColor(kRed),RooFit::Components("model_total1,model_total2,model_total4,model_total3") ,RooFit::Name("tot"));
+//   model_total.plotOn(frame, RooFit::LineColor(kYellow),RooFit::Components("model_total1,model_total2,model_total4,model_total3") ,RooFit::Name("tot"));
+   model_total.plotOn(frame, RooFit::Components("expo,piblah,expo2,piblah2,expo3,piblah3,expo4,piblah4"), RooFit::Name("pimumu"),RooFit::FillColor(90), RooFit::LineColor(90), RooFit::DrawOption("F"));
+   model_total.plotOn(frame, RooFit::Components("expo,expo2,expo3,expo4"), RooFit::Name("combinatorial"),RooFit::FillColor(91), RooFit::LineColor(91), RooFit::DrawOption("F"));
+//   model_total.plotOn(frame, RooFit::Components("cb1"), RooFit::Name("signal"),RooFit::FillColor(92), RooFit::LineColor(92), RooFit::DrawOption("F"));
+   model_total.plotOn(frame, RooFit::Components("cb1,cb12,cb13,cb14"), RooFit::Name("signal"),RooFit::LineStyle(kDashed), RooFit::LineColor(kBlue));
+      
+   model_total.plotOn(frame, RooFit::LineColor(kRed),RooFit::Components("model_total1,model_total2,model_total4,model_total3") ,RooFit::Name("tot"));
+   data->plotOn(frame,RooFit::Name("Data"));
+
+
+   model_total1->plotOn(frame1, RooFit::LineColor(kBlue), RooFit::Name("tot1"),RooFit::LineStyle(kDashed),Normalization(first_norm));
+   model_total2->plotOn(frame1, RooFit::LineColor(kGreen), RooFit::Name("tot2"),RooFit::LineStyle(kDashed),Normalization(second_norm));
+   model_total3->plotOn(frame1, RooFit::LineColor(kViolet), RooFit::Name("tot3"),RooFit::LineStyle(kDashed),Normalization(third_norm));
+   model_total4->plotOn(frame1, RooFit::LineColor(kCyan), RooFit::Name("tot4"),RooFit::LineStyle(kDashed),Normalization(fourth_norm));
+   model_total1->plotOn(frame1, RooFit::LineColor(kBlue), RooFit::Name("tot11"));
+   model_total2->plotOn(frame1, RooFit::LineColor(kGreen), RooFit::Name("tot22"));
+   model_total3->plotOn(frame1, RooFit::LineColor(kViolet), RooFit::Name("tot33"));
+   model_total4->plotOn(frame1, RooFit::LineColor(kCyan), RooFit::Name("tot44"));
+   model_total.plotOn(frame1, RooFit::LineColor(kRed),RooFit::Components("model_total1,model_total2,model_total4,model_total3") ,RooFit::Name("tot"));
+//ops   //frame2
+//ops
+//ops   model_total1->plotOn(frame1, RooFit::LineColor(kRed), RooFit::Name("tot"));
+//ops   model_total1->plotOn(frame1, RooFit::Components("expo,piblah"), RooFit::Name("pimumu"),RooFit::FillColor(94), RooFit::LineColor(94), RooFit::DrawOption("F"));
+//ops   model_total1->plotOn(frame1, RooFit::Components("expo"), RooFit::Name("combinatorial"),RooFit::FillColor(92), RooFit::LineColor(92), RooFit::DrawOption("F"));
+//ops//   model_total.plotOn(frame, RooFit::Components("cb1"), RooFit::Name("signal"),RooFit::FillColor(92), RooFit::LineColor(92), RooFit::DrawOption("F"));
+//ops   model_total1->plotOn(frame1, RooFit::Components("cb1"), RooFit::Name("signal"),RooFit::LineStyle(kDashed), RooFit::LineColor(kBlue));
+
+
+
+//ops   //frame2
+//ops
+//ops   model_total2->plotOn(frame2, RooFit::LineColor(kRed), RooFit::Name("tot"),Normalization(1.0));
+//ops   model_total2->plotOn(frame2, RooFit::Components("expo2,piblah2"), RooFit::Name("pimumu"),RooFit::FillColor(94), RooFit::LineColor(94), RooFit::DrawOption("F"));
+//ops   model_total2->plotOn(frame2, RooFit::Components("expo2"), RooFit::Name("combinatorial"),RooFit::FillColor(92), RooFit::LineColor(92), RooFit::DrawOption("F"));
+//ops//   model_total.plotOn(frame, RooFit::Components("cb1"), RooFit::Name("signal"),RooFit::FillColor(92), RooFit::LineColor(92), RooFit::DrawOption("F"));
+//ops   model_total2->plotOn(frame2, RooFit::Components("cb12"), RooFit::Name("signal"),RooFit::LineStyle(kDashed), RooFit::LineColor(kBlue));
+
+
+   model_total.Print("v");
+   cout<<"Model 1"<<endl;
+   model_total1->Print("v");
+
+   cout<<"Model 2"<<endl;
+   model_total2->Print("v");
+
+   cout<<"Model 3"<<endl;
+   model_total3->Print("v");
+
+   cout<<"Model 4"<<endl;
+   model_total4->Print("v");
+
+
+
+//just for now//   data->plotOn(frame);
+//just for now   savePullPlot(*frame, plotdir+"pullPlot.root");
+//just for now   TFile fpull((plotdir+"pullPlot.root").c_str());
+//just for now   TCanvas* cpull = (TCanvas*)fpull.Get("pullplot");
+//just for now   TGraphAsymmErrors* graph = (TGraphAsymmErrors*)cpull->GetPrimitive("Graph");
+//just for now   cout<<"GRAPH "<<graph<<endl;
+//just for now   graph->GetXaxis()->SetNdivisions(0);
+//just for now   graph->GetYaxis()->SetNdivisions(5);
+//just for now   graph->GetYaxis()->SetLabelSize(0.15);
+//just for now
+//just for now//   gStyle->SetTitleFontSize(0.99);
+//just for now
+//just for now   graph->GetYaxis()->SetTitleOffset(0.20);
+//just for now   graph->GetYaxis()->SetTitleSize(0.3);
+//just for now   graph->GetYaxis()->SetTitle("Pull");
+
+ //  model_total->paramOn(frame);
+//   model_total->plotOn(frame, RooFit::Components("expo"), RooFit::Name("combinatorial"),RooFit::FillColor(92), RooFit::LineColor(92), RooFit::DrawOption("F"));
+//   model_total->plotOn(frame, RooFit::Components("cb1"), RooFit::Name("signal"),RooFit::LineStyle(kDashed), RooFit::LineColor(kBlack));
+//just for now   model_total->plotOn(frame, RooFit::Components("expo,piblah"), RooFit::Name("pimumu"),RooFit::FillColor(94), RooFit::LineColor(94), RooFit::DrawOption("F"));
+//just for now   model_total->plotOn(frame, RooFit::Components("expo"), RooFit::Name("combinatorial"),RooFit::FillColor(92), RooFit::LineColor(92), RooFit::DrawOption("F"));
+//just for now   model_total->plotOn(frame, RooFit::Components("cb1"), RooFit::Name("signal"),RooFit::LineStyle(kDashed), RooFit::LineColor(kBlue));
+//just for now
+//just for now   model_total2->plotOn(frame, RooFit::Components("expo,piblah"), RooFit::Name("pimumu"),RooFit::FillColor(94), RooFit::LineColor(94), RooFit::DrawOption("F"));
+//just for now   model_total2->plotOn(frame, RooFit::Components("expo"), RooFit::Name("combinatorial"),RooFit::FillColor(92), RooFit::LineColor(92), RooFit::DrawOption("F"));
+//just for now   model_total2->plotOn(frame, RooFit::Components("cb1"), RooFit::Name("signal"),RooFit::LineStyle(kDashed), RooFit::LineColor(kBlue));
+//just for now
+//just for now   model_total->plotOn(frame, RooFit::LineColor(kRed), RooFit::Name("tot") );
+//just for now
+  TLegend *leg = new TLegend(0.60,0.62,0.92,0.92);
+//  leg->AddEntry(frame->findObject("tot"),"Total fit","l");
+  leg->AddEntry(frame->findObject("tot"),"Total fit","l");
+  leg->AddEntry(frame->findObject("Data"),"Data","lep");
+  leg->AddEntry(frame->findObject("signal"),"#it{B^{#plus}#rightarrow J/#kern[-0.3]{#psi}K^{#plus}}","l");
+  leg->AddEntry(frame->findObject("pimumu"),"#it{B^{#plus}#rightarrow J/#kern[-0.3]{#psi}#pi^{#plus}}","f");
+  leg->AddEntry(frame->findObject("combinatorial"),"Combinatorial","f");
+  leg->SetTextSize(0.054);
+
+
+
+  TLegend *leg2 = new TLegend(0.65,0.62,0.92,0.92);
+//  leg->AddEntry(frame->findObject("tot"),"Total fit","l");
+  leg2->AddEntry(frame1->findObject("tot"),"Total fit","l");
+  leg2->AddEntry(frame1->findObject("tot1"),"model1","l");
+  leg2->AddEntry(frame1->findObject("tot2"),"model2","l");
+  leg2->AddEntry(frame1->findObject("tot3"),"model3","l");
+  leg2->AddEntry(frame1->findObject("tot4"),"model4","l");
+  leg2->SetTextSize(0.036);
+
+ //  leg->AddEntry(frame->findObject("pimumu"),"B^{+} #rightarrow J/#psi #pi^{+}","l");
+//ops
+//ops
+//ops   TCanvas canv0("canv0", "canv0", 800, 600);
+//ops//   frame->GetXaxis()->SetTitle("M(J/#psi K^{+}) [MeV/c^{2}]");
+//ops   frame0->GetXaxis()->SetTitle("M(#mu^{+} #mu^{-} K^{+}) [MeV/c^{2}]");
+//ops   frame0->GetYaxis()->SetTitle("Entries / (5 MeV/c^{2})");
+//ops//   data->plotOn(frame);
+//ops   frame0->SetMinimum(0.1);
+//ops   frame0->SetMaximum(200000.0);
+//ops//   frame->SetMaximum(200000.0);
+//ops//   data->plotOn(frame);
+//ops   frame0->Draw();
+//ops
+//ops   canv0.SetLogy();
+//ops   canv0.Print((pathtoworkspaceBoth+"Frame0_HypatiaplotJpsiKFitPretty_nopull_veryniceplot_paper"+dataset+".pdf").c_str());
+
+
+  TCanvas canv1("canv1", "canv1", 800, 600);
+  frame1->GetXaxis()->SetTitle("#it{M}(#it{#mu}^{#plus}#it{#mu}^{#minus}#it{K}^{#plus}) [MeV/#it{c}^{2}]");
+  frame1->GetYaxis()->SetTitle("Candidates / (5 MeV/#it{c}^{2})");
+  frame1->SetMinimum(1.0);
+
+  frame1->SetMaximum(200000.0);
+  frame1->Draw();
+  leg2->Draw("same");  
+  canv1.SetLogy();
+  canv1.Print((pathtoworkspaceBoth+"ALLFOURCOMPARE_HypatiaplotJpsiKFitPretty_nopull_veryniceplot_paper"+dataset+".pdf").c_str());
+  canv1.Print((pathtoworkspaceBoth+"ALLFOURCOMPARE_HypatiaplotJpsiKFitPretty_nopull_veryniceplot_paper"+dataset+".eps").c_str());
+  canv1.Print((pathtoworkspaceBoth+"ALLFOURCOMPARE_HypatiaplotJpsiKFitPretty_nopull_veryniceplot_paper"+dataset+".C").c_str());
+//ops
+//ops
+//ops   TCanvas canv2("canv2", "canv2", 800, 600);
+//ops//   frame->GetXaxis()->SetTitle("M(J/#psi K^{+}) [MeV/c^{2}]");
+//ops   frame2->GetXaxis()->SetTitle("M(#mu^{+} #mu^{-} K^{+}) [MeV/c^{2}]");
+//ops   frame2->GetYaxis()->SetTitle("Entries / (5 MeV/c^{2})");
+//ops//   data->plotOn(frame);
+//ops   frame2->SetMinimum(0.1);
+//ops   frame2->SetMaximum(200000.0);
+//ops
+//ops//   frame->SetMaximum(200000.0);
+//ops//   data->plotOn(frame);
+//ops   frame2->Draw();
+//ops
+//ops   canv2.SetLogy();
+//ops    
+//ops   canv2.Print((pathtoworkspaceBoth+"Frame2_HypatiaplotJpsiKFitPretty_nopull_veryniceplot_paper"+dataset+".pdf").c_str());
+
+   TCanvas canv("canv", "canv", 1000, 600);
+//   frame->GetXaxis()->SetTitle("M(J/#psi K^{+}) [MeV/c^{2}]");
+//   frame->GetXaxis()->SetTitle("M(#mu^{+} #mu^{-} K^{+}) [MeV/c^{2}]");
+//   frame->GetYaxis()->SetTitle("Entries / (5 MeV/c^{2})");
+   frame->GetXaxis()->SetTitle("#it{M}(#it{#mu}^{#plus}#it{#mu}^{#minus}#it{K}^{#plus}) [MeV/#it{c}^{2}]");
+   frame->GetYaxis()->SetTitle("Candidates / (5 MeV/#it{c}^{2})");
+//   data->plotOn(frame);
+   frame->SetMinimum(1.0);
+//   frame->SetMaximum(200000.0);
+//   data->plotOn(frame);
+   frame->Draw();
+
+   string optLR[]="L";
+   string optPrelim[]="Final";
+//   string optText[]="lol";
+   string optText=("#splitline{LHCb}{2011-16}");
+ //  gROOT->ProcessLine(".L lhcbstyle.C");
+   
+//   lhcbSally();
+//   printLHCb("L","Other",optText);
+   printLHCb();
+   leg->Draw("same");
+
+   TCanvas canvTot("canvTot", "canvTot", 600, 600);
+
+   canvTot.Divide(1,2);
+   canvTot.cd(1);
+   gPad->SetPad(0.005, 0.205, 0.995, 0.995);
+   canv.DrawClonePad();
+   canvTot.cd(2);
+   gPad->SetPad(0.005, 0.005, 0.995, 0.2);
+//just for now   cpull->DrawClonePad();
+
+   canvTot.Print((pathtoworkspaceBoth+"HypatiaplotJpsiKFitPretty_veryniceplot_paper"+dataset+"_allfour.pdf").c_str());
+   canvTot.Print((pathtoworkspaceBoth+"HypatiaplotJpsiKFitPretty_veryniceplot_paper"+dataset+"_allfour.root").c_str());
+
+   canv.Print((pathtoworkspaceBoth+"HypatiaplotJpsiKFitPretty_nopull_veryniceplot_paper"+dataset+"_allfour.pdf").c_str());
+   canv.Print((pathtoworkspaceBoth+"HypatiaplotJpsiKFitPretty_nopull_veryniceplot_paper"+dataset+"_allfour.eps").c_str());
+   canv.Print((pathtoworkspaceBoth+"HypatiaplotJpsiKFitPretty_nopull_veryniceplot_paper"+dataset+"_allfour.C").c_str());
+   canv.Print((pathtoworkspaceBoth+"HypatiaplotJpsiKFitPretty_nopull_veryniceplot_paper"+dataset+"_allfour.root").c_str());
+
+   frame->SetMaximum(200000.0);
+   canv.SetLogy();
+//   canvTot.cd(1);
+//   canv.DrawClonePad();
+//   frame->SetMaximum(200000.0);
+   canv.Modified();
+   canv.Update();
+
+   canv.Print((pathtoworkspaceBoth+"HypatiaplotJpsiKFitLogyPretty_veryniceplot_nopull_paper"+dataset+"_allfour.pdf").c_str());
+   canv.Print((pathtoworkspaceBoth+"HypatiaplotJpsiKFitLogyPretty_veryniceplot_nopull_paper"+dataset+"_allfour.eps").c_str());
+   canv.Print((pathtoworkspaceBoth+"HypatiaplotJpsiKFitLogyPretty_veryniceplot_nopull_paper"+dataset+"_allfour.C").c_str());
+   canv.Print((pathtoworkspaceBoth+"HypatiaplotJpsiKFitLogyPretty_veryniceplot_nopull_paper"+dataset+"_allfour.root").c_str());
+
+//   canvTot.Update();
+
+//   canv.DrawClonePad();
+//   canvTot.cd(1);  T
+   
+//   canv.DrawClonePad(); T
+//   canvTot.Update();
+
+   TCanvas canvTotn("canvTotn", "canvTotn", 600, 600);
+
+   canvTotn.Divide(1,2);
+   canvTotn.cd(1);
+   gPad->SetPad(0.005, 0.205, 0.995, 0.995);
+   canv.DrawClonePad();
+   canvTotn.cd(2);
+   gPad->SetPad(0.005, 0.005, 0.995, 0.2);
+//   cpull->DrawClonePad();
+
+
+
+   canvTotn.Print((pathtoworkspaceBoth+"HypatiaplotJpsiKFitLogyPretty_veryniceplot_paper"+dataset+"_allfour.pdf").c_str());
+   canvTotn.Print((pathtoworkspaceBoth+"HypatiaplotJpsiKFitLogyPretty_veryniceplot_paper"+dataset+"_allfour.root").c_str());
+
+   fw.Close();
+//   fpull.Close();
+}
+
+void FitAndSplotJpsiKDataForTraining::plotprettyhypathia3_plotnicely_paper_both(string dataset, string pathtoworkspaceRun1, string pathtoworkspace2016,string pathtoworkspaceBoth)
+{ 
+   cout<<"Plotting result of the fit"<<endl;
+   TFile fw((pathtoworkspaceRun1+"FitB2JpsiKworkspace.root").c_str());
+   TFile fw2((pathtoworkspace2016+"FitB2JpsiKworkspace.root").c_str());
+
+   RooWorkspace* workspaceFit = (RooWorkspace*)fw.Get("workspaceFit");
+   RooWorkspace* workspaceFit2 = (RooWorkspace*)fw2.Get("workspaceFit");
+   if(!workspaceFit || !workspaceFit2)
+   {
+      cerr<<"ERROR: in function FitAndSplotJpsiKDataForTraining::plot, no workspace found in file "<<workspaceFileName<<endl;
+      return;
+   }
+
+   RooRealVar* Bplus_MM = workspaceFit->var("Bplus_MM");
+   RooDataSet* data = (RooDataSet*)workspaceFit->data("data");
+   RooAbsPdf* model_total1 = workspaceFit->pdf("model");
+
+    
+
+
+   double firstdata=data->sumEntries();
+  cout<<"First dataset"<<data->sumEntries()<<endl;
+  RooRealVar firstnum("firstnum","furstnum",firstdata);
+ //  RooAbsReal* first = model_total->createIntegral(*Bplus_MM,RooFit::NormSet(*Bplus_MM),RooFit::Range("new"));
+
+  THStack *hs = new THStack("hs","");
+
+  
+  TH1* hh_1d = (TH1*) model_total1->createHistogram("Bplus_MM",60,0,0) ;
+  hh_1d->SetLineColor(kRed);
+   hs->Add(hh_1d);
+
+   RooRealVar* Bplus_MM2 = workspaceFit2->var("Bplus_MM");
+   RooDataSet* data2 = (RooDataSet*)workspaceFit2->data("data");
+   RooAbsPdf* model_total2 = workspaceFit2->pdf("model");
+   RooAbsPdf* expo2 = workspaceFit2->pdf("expo");
+   RooAbsPdf* piblah2 = workspaceFit2->pdf("piblah");
+   RooAbsPdf* cb12 = workspaceFit2->pdf("cb1");
+   RooRealVar* sig2 = workspaceFit2->var("sig");
+   RooRealVar* bkg2 = workspaceFit2->var("bkg");
+   RooRealVar* bkg22 = workspaceFit2->var("bkg2");
+   
+   expo2->SetTitle("expo2");
+   expo2->SetName("expo2");
+   piblah2->SetTitle("piblah2");
+   piblah2->SetName("piblah2");
+   cb12->SetTitle("cb12");
+   cb12->SetName("cb12");
+   sig2->SetTitle("signal2");
+   sig2->SetName("signal2");
+   bkg2->SetTitle("background2");
+   bkg2->SetName("background2");
+   bkg22->SetTitle("background22");
+   bkg22->SetName("background22");
+
+  TH1* hh2_1d = (TH1*) model_total2->createHistogram("Bplus_MM",60,0,0) ;
+
+  hh2_1d->SetLineColor(kBlue);
+  hs->Add(hh2_1d);
+//  hs->SetLineColor(kRed);
+
+
+
+//    c2->Divide(3,2) ;
+//    c2->cd(2) ; gPad->SetLeftMargin(0.15) ; hh_sigmag2_frac->GetZaxis()->SetTitleOffset(1.4) ; hh_sigmag2_frac->Draw("surf3") ; 
+//    c2->cd(3) ; gPad->SetLeftMargin(0.15) ; hh_mean_frac->GetZaxis()->SetTitleOffset(1.4) ; hh_mean_frac->Draw("surf3") ; 
+
+
+   model_total1->SetTitle("model_total1");
+   model_total2->SetTitle("model_total2");
+   model_total1->SetName("model_total1");
+   model_total2->SetName("model_total2");
+
+
+   double seconddata=data2->sumEntries();
+
+  RooRealVar secondnum("secondnum","secondnum",seconddata);
+  cout<<"Second dataset"<<data2->sumEntries()<<endl;
+//  RooDataSet data=data1->append(*data2);
+
+//   cout<<"Combined dataset"<<data.sumEntries()<<endl;
+
+   RooRealVar gm1frac("gm1frac","fraction of gm1",double(firstdata/seconddata)) ;
+
+   RooAddPdf model_total("model_total","model_total",RooArgList(*model_total1,*model_total2),RooArgList(firstnum,secondnum));
+   
+
+//    data->append(*data2);
+   cout<<"Combined dataset"<<data->sumEntries()<<endl;
+   cout<<"RooAddPdf dataset"<<model_total.expectedEvents(*Bplus_MM)<<endl;
+   cout<<model_total.pdfList()<<endl; 
+ //  RooDataSet data=RooDataSet("data","data",RooArgSet(data1,data2));
+ //  RooAddPdf model_total("model_tot","model_tot", RooArgList( model_total1, model_total2));
+//   RooAbsReal* combinatorial = model_exp->createIntegral(*Bplus_Corrected_Mass,RooFit::NormSet(*Bplus_Corrected_Mass),RooFit::Range("new"));
+   
+
+
+//   if(!data || !Bplus_MM || !model_total1 || !data2 || !Bplus_MM2 || !model_total2 )
+//   {
+//      cerr<<"ERROR: in function FitAndSplotJpsiKDataForTraining::plot, error downloading stuff from workspace"<<endl;
+//      cout<<Bplus_MM<<" "<<data<<" "<<model_total<<endl;
+//      return;
+//   }
+
+    data->append(*data2);
+
+
+   TH1* alldata = (TH1*) data->createHistogram("Bplus_MM",60,0,0) ;
+
+
+   TCanvas* c2 = new TCanvas("lol","lol",900,600);
+   c2->Divide(3,1);
+   c2->cd(1);gPad->SetLeftMargin(0.15) ; hh_1d->GetYaxis()->SetTitleOffset(1.4); hh_1d->SetMaximum(8000) ;hh_1d->Draw();hh2_1d->Draw("same");hs->Draw("same");
+   c2->cd(2);gPad->SetLeftMargin(0.15) ; hs->Draw("nostack");alldata->Draw("same");//hh_1d->SetMaximum(200000);
+   c2->cd(3);gPad->SetLeftMargin(0.15) ; hs->Draw(); alldata->Draw("same");//hh_1d->SetMaximum(200000);
+
+   c2->SaveAs((pathtoworkspaceBoth+"HypatiaplotJpsiKFitLogyPretty_veryniceplot_paper"+dataset+"_HISTOGRAM.pdf").c_str());
+   c2->Delete();
+
+
+
+   TColor* col1 = gROOT->GetColor(92);
+   col1->SetRGB(double(141)/double(255),double(211)/double(255),double(199)/double(255)); //green
+   TColor* col2 = gROOT->GetColor(95);
+   col2->SetRGB(double(255)/double(255),double(255)/double(255),double(179)/double(255)); //yellow
+
+   TColor* col3 = gROOT->GetColor(98);
+   col3->SetRGB(double(190)/double(255),double(186)/double(255),double(218)/double(255)); //violer
+
+   TColor* col4 = gROOT->GetColor(99);
+   col4->SetRGB(double(128)/double(255),double(177)/double(255),double(211)/double(255)); //blue
+
+   TColor* col5 = gROOT->GetColor(94);
+   col5->SetRGB(double(253)/double(255),double(180)/double(255),double(98)/double(255)); //orange
+
+
+   Bplus_MM->setBins(60);
+   Bplus_MM->setUnit("MeV/c^{2}");
+
+   double num_ori=model_total.expectedEvents(RooArgSet(*Bplus_MM));
+   double num_1=model_total1->expectedEvents(RooArgSet(*Bplus_MM));
+   double num_2=model_total2->expectedEvents(RooArgSet(*Bplus_MM));
+   cout<<"Number of expected events "<<num_ori<<endl;
+   cout<<"Number of expected events "<<num_1<<endl;
+   cout<<"Number of expected events "<<num_2<<endl;
+
+   double first_norm=num_1/num_ori;
+   double second_norm=num_1/num_ori;
+
+
+   RooPlot* frame0 = Bplus_MM->frame();
+   data->plotOn(frame0);
+
+
+   RooPlot* frame = Bplus_MM->frame();
+   data->plotOn(frame);
+//   model_total2->plotOn(frame, RooFit::LineColor(kRed), RooFit::Name("tot") );
+ 
+   RooPlot* frame1 = Bplus_MM->frame();
+   data->plotOn(frame1);
+
+
+   RooPlot* frame2 = Bplus_MM2->frame();
+   data->plotOn(frame2);
+
+   //frame 0
+   model_total.plotOn(frame0, RooFit::LineColor(kRed), RooFit::Name("tot"),Normalization(1.0));
+   model_total1->plotOn(frame0, RooFit::LineColor(kBlue), RooFit::Name("tot2"),RooFit::LineStyle(kDashed),Normalization(first_norm));
+   model_total2->plotOn(frame0, RooFit::LineColor(kGreen), RooFit::Name("tot3"),RooFit::LineWidth(kDashed),Normalization(second_norm));
+
+
+   //frame WORKNG//
+   model_total.plotOn(frame, RooFit::LineColor(kRed),RooFit::Components("model_total1,model_total2") ,RooFit::Name("tot"));
+   model_total.plotOn(frame, RooFit::Components("expo,piblah,expo2,piblah2"), RooFit::Name("pimumu"),RooFit::FillColor(94), RooFit::LineColor(94), RooFit::DrawOption("F"));
+   model_total.plotOn(frame, RooFit::Components("expo,expo2"), RooFit::Name("combinatorial"),RooFit::FillColor(92), RooFit::LineColor(92), RooFit::DrawOption("F"));
+//   model_total.plotOn(frame, RooFit::Components("cb1"), RooFit::Name("signal"),RooFit::FillColor(92), RooFit::LineColor(92), RooFit::DrawOption("F"));
+   model_total.plotOn(frame, RooFit::Components("cb1,cb12"), RooFit::Name("signal"),RooFit::LineStyle(kDashed), RooFit::LineColor(kBlue));
+   
+   model_total1->plotOn(frame, RooFit::LineColor(kBlue), RooFit::Name("tot2"),RooFit::LineStyle(kDashed),Normalization(first_norm));
+   model_total2->plotOn(frame, RooFit::LineColor(kGreen), RooFit::Name("tot3"),RooFit::LineWidth(kDashed),Normalization(second_norm));
+
+   //frame2
+
+   model_total1->plotOn(frame1, RooFit::LineColor(kRed), RooFit::Name("tot"));
+   model_total1->plotOn(frame1, RooFit::Components("expo,piblah"), RooFit::Name("pimumu"),RooFit::FillColor(94), RooFit::LineColor(94), RooFit::DrawOption("F"));
+   model_total1->plotOn(frame1, RooFit::Components("expo"), RooFit::Name("combinatorial"),RooFit::FillColor(92), RooFit::LineColor(92), RooFit::DrawOption("F"));
+//   model_total.plotOn(frame, RooFit::Components("cb1"), RooFit::Name("signal"),RooFit::FillColor(92), RooFit::LineColor(92), RooFit::DrawOption("F"));
+   model_total1->plotOn(frame1, RooFit::Components("cb1"), RooFit::Name("signal"),RooFit::LineStyle(kDashed), RooFit::LineColor(kBlue));
+
+
+
+   //frame2
+
+   model_total2->plotOn(frame2, RooFit::LineColor(kRed), RooFit::Name("tot"),Normalization(1.0));
+   model_total2->plotOn(frame2, RooFit::Components("expo2,piblah2"), RooFit::Name("pimumu"),RooFit::FillColor(94), RooFit::LineColor(94), RooFit::DrawOption("F"));
+   model_total2->plotOn(frame2, RooFit::Components("expo2"), RooFit::Name("combinatorial"),RooFit::FillColor(92), RooFit::LineColor(92), RooFit::DrawOption("F"));
+//   model_total.plotOn(frame, RooFit::Components("cb1"), RooFit::Name("signal"),RooFit::FillColor(92), RooFit::LineColor(92), RooFit::DrawOption("F"));
+   model_total2->plotOn(frame2, RooFit::Components("cb12"), RooFit::Name("signal"),RooFit::LineStyle(kDashed), RooFit::LineColor(kBlue));
+
+
+   model_total.Print("v");
+   cout<<"Model 1"<<endl;
+   model_total1->Print("v");
+
+   cout<<"Model 2"<<endl;
+   model_total2->Print("v");
+
+
+
+
+//just for now//   data->plotOn(frame);
+//just for now   savePullPlot(*frame, plotdir+"pullPlot.root");
+//just for now   TFile fpull((plotdir+"pullPlot.root").c_str());
+//just for now   TCanvas* cpull = (TCanvas*)fpull.Get("pullplot");
+//just for now   TGraphAsymmErrors* graph = (TGraphAsymmErrors*)cpull->GetPrimitive("Graph");
+//just for now   cout<<"GRAPH "<<graph<<endl;
+//just for now   graph->GetXaxis()->SetNdivisions(0);
+//just for now   graph->GetYaxis()->SetNdivisions(5);
+//just for now   graph->GetYaxis()->SetLabelSize(0.15);
+//just for now
+//just for now//   gStyle->SetTitleFontSize(0.99);
+//just for now
+//just for now   graph->GetYaxis()->SetTitleOffset(0.20);
+//just for now   graph->GetYaxis()->SetTitleSize(0.3);
+//just for now   graph->GetYaxis()->SetTitle("Pull");
+
+ //  model_total->paramOn(frame);
+//   model_total->plotOn(frame, RooFit::Components("expo"), RooFit::Name("combinatorial"),RooFit::FillColor(92), RooFit::LineColor(92), RooFit::DrawOption("F"));
+//   model_total->plotOn(frame, RooFit::Components("cb1"), RooFit::Name("signal"),RooFit::LineStyle(kDashed), RooFit::LineColor(kBlack));
+//just for now   model_total->plotOn(frame, RooFit::Components("expo,piblah"), RooFit::Name("pimumu"),RooFit::FillColor(94), RooFit::LineColor(94), RooFit::DrawOption("F"));
+//just for now   model_total->plotOn(frame, RooFit::Components("expo"), RooFit::Name("combinatorial"),RooFit::FillColor(92), RooFit::LineColor(92), RooFit::DrawOption("F"));
+//just for now   model_total->plotOn(frame, RooFit::Components("cb1"), RooFit::Name("signal"),RooFit::LineStyle(kDashed), RooFit::LineColor(kBlue));
+//just for now
+//just for now   model_total2->plotOn(frame, RooFit::Components("expo,piblah"), RooFit::Name("pimumu"),RooFit::FillColor(94), RooFit::LineColor(94), RooFit::DrawOption("F"));
+//just for now   model_total2->plotOn(frame, RooFit::Components("expo"), RooFit::Name("combinatorial"),RooFit::FillColor(92), RooFit::LineColor(92), RooFit::DrawOption("F"));
+//just for now   model_total2->plotOn(frame, RooFit::Components("cb1"), RooFit::Name("signal"),RooFit::LineStyle(kDashed), RooFit::LineColor(kBlue));
+//just for now
+//just for now   model_total->plotOn(frame, RooFit::LineColor(kRed), RooFit::Name("tot") );
+//just for now
+//just for now   TLegend *leg = new TLegend(0.60,0.65,0.92,0.92);
+//just for now //  leg->AddEntry(frame->findObject("tot"),"Total fit","l");
+//just for now   leg->AddEntry(frame->findObject("tot"),"Total fit","l");
+//just for now   leg->AddEntry(frame->findObject("signal"),"B^{+} #rightarrow (J/#psi #rightarrow #mu^{+} #mu^{-}) K^{+}","l");
+//just for now   leg->AddEntry(frame->findObject("pimumu"),"B^{+} #rightarrow (J/#psi #rightarrow #mu^{+} #mu^{-}) #pi^{+}","l");
+//just for now   leg->AddEntry(frame->findObject("combinatorial"),"Combinatorial","l");
+//just for now   leg->SetTextSize(0.036);
+ //  leg->AddEntry(frame->findObject("pimumu"),"B^{+} #rightarrow J/#psi #pi^{+}","l");
+
+
+   TCanvas canv0("canv0", "canv0", 800, 600);
+//   frame->GetXaxis()->SetTitle("M(J/#psi K^{+}) [MeV/c^{2}]");
+   frame0->GetXaxis()->SetTitle("M(#mu^{+} #mu^{-} K^{+}) [MeV/c^{2}]");
+   frame0->GetYaxis()->SetTitle("Entries / (5 MeV/c^{2})");
+//   data->plotOn(frame);
+   frame0->SetMinimum(0.1);
+   frame0->SetMaximum(200000.0);
+//   frame->SetMaximum(200000.0);
+//   data->plotOn(frame);
+   frame0->Draw();
+
+   canv0.SetLogy();
+   canv0.Print((pathtoworkspaceBoth+"Frame0_HypatiaplotJpsiKFitPretty_nopull_veryniceplot_paper"+dataset+".pdf").c_str());
+
+
+   TCanvas canv1("canv1", "canv1", 800, 600);
+//   frame->GetXaxis()->SetTitle("M(J/#psi K^{+}) [MeV/c^{2}]");
+   frame1->GetXaxis()->SetTitle("M(#mu^{+} #mu^{-} K^{+}) [MeV/c^{2}]");
+   frame1->GetYaxis()->SetTitle("Entries / (5 MeV/c^{2})");
+//   data->plotOn(frame);
+   frame1->SetMinimum(0.1);
+
+   frame1->SetMaximum(200000.0);
+//   frame->SetMaximum(200000.0);
+//   data->plotOn(frame);
+   frame1->Draw();
+   canv1.SetLogy();
+   canv1.Print((pathtoworkspaceBoth+"Frame1_HypatiaplotJpsiKFitPretty_nopull_veryniceplot_paper"+dataset+".pdf").c_str());
+
+
+   TCanvas canv2("canv2", "canv2", 800, 600);
+//   frame->GetXaxis()->SetTitle("M(J/#psi K^{+}) [MeV/c^{2}]");
+   frame2->GetXaxis()->SetTitle("M(#mu^{+} #mu^{-} K^{+}) [MeV/c^{2}]");
+   frame2->GetYaxis()->SetTitle("Entries / (5 MeV/c^{2})");
+//   data->plotOn(frame);
+   frame2->SetMinimum(0.1);
+   frame2->SetMaximum(200000.0);
+
+//   frame->SetMaximum(200000.0);
+//   data->plotOn(frame);
+   frame2->Draw();
+
+   canv2.SetLogy();
+    
+   canv2.Print((pathtoworkspaceBoth+"Frame2_HypatiaplotJpsiKFitPretty_nopull_veryniceplot_paper"+dataset+".pdf").c_str());
+
+   TCanvas canv("canv", "canv", 800, 600);
+//   frame->GetXaxis()->SetTitle("M(J/#psi K^{+}) [MeV/c^{2}]");
+   frame->GetXaxis()->SetTitle("M(#mu^{+} #mu^{-} K^{+}) [MeV/c^{2}]");
+   frame->GetYaxis()->SetTitle("Entries / (5 MeV/c^{2})");
+//   data->plotOn(frame);
+   frame->SetMinimum(0.1);
+//   frame->SetMaximum(200000.0);
+//   data->plotOn(frame);
+   frame->Draw();
+
+   string optLR[]="L";
+   string optPrelim[]="Final";
+   string optText[]="lol";
+
+ //  gROOT->ProcessLine(".L lhcbstyle.C");
+
+//   lhcbSally();
+   printLHCb();
+ //  printLHCb();
+//just for now   leg->Draw("same");
+
+   TCanvas canvTot("canvTot", "canvTot", 600, 600);
+
+   canvTot.Divide(1,2);
+   canvTot.cd(1);
+   gPad->SetPad(0.005, 0.205, 0.995, 0.995);
+   canv.DrawClonePad();
+   canvTot.cd(2);
+   gPad->SetPad(0.005, 0.005, 0.995, 0.2);
+//just for now   cpull->DrawClonePad();
+
+   canvTot.Print((pathtoworkspaceBoth+"HypatiaplotJpsiKFitPretty_veryniceplot_paper"+dataset+".pdf").c_str());
+   canvTot.Print((pathtoworkspaceBoth+"HypatiaplotJpsiKFitPretty_veryniceplot_paper"+dataset+".root").c_str());
+
+   canv.Print((pathtoworkspaceBoth+"HypatiaplotJpsiKFitPretty_nopull_veryniceplot_paper"+dataset+".pdf").c_str());
+   canv.Print((pathtoworkspaceBoth+"HypatiaplotJpsiKFitPretty_nopull_veryniceplot_paper"+dataset+".root").c_str());
+
+   frame->SetMaximum(200000.0);
+   canv.SetLogy();
+//   canvTot.cd(1);
+//   canv.DrawClonePad();
+//   frame->SetMaximum(200000.0);
+   canv.Modified();
+   canv.Update();
+
+   canv.Print((pathtoworkspaceBoth+"HypatiaplotJpsiKFitLogyPretty_veryniceplot_nopull_paper"+dataset+".pdf").c_str());
+   canv.Print((pathtoworkspaceBoth+"HypatiaplotJpsiKFitLogyPretty_veryniceplot_nopull_paper"+dataset+".root").c_str());
+
+//   canvTot.Update();
+
+//   canv.DrawClonePad();
+//   canvTot.cd(1);  T
+   
+//   canv.DrawClonePad(); T
+//   canvTot.Update();
+
+   TCanvas canvTotn("canvTotn", "canvTotn", 600, 600);
+
+   canvTotn.Divide(1,2);
+   canvTotn.cd(1);
+   gPad->SetPad(0.005, 0.205, 0.995, 0.995);
+   canv.DrawClonePad();
+   canvTotn.cd(2);
+   gPad->SetPad(0.005, 0.005, 0.995, 0.2);
+//   cpull->DrawClonePad();
+
+
+
+   canvTotn.Print((pathtoworkspaceBoth+"HypatiaplotJpsiKFitLogyPretty_veryniceplot_paper"+dataset+".pdf").c_str());
+   canvTotn.Print((pathtoworkspaceBoth+"HypatiaplotJpsiKFitLogyPretty_veryniceplot_paper"+dataset+".root").c_str());
+
+   fw.Close();
+//   fpull.Close();
+}
 void FitAndSplotJpsiKDataForTraining::plotprettyhypathia3_plotnicely_paper(string dataset, string pathtoworkspace)
 { 
    cout<<"Plotting result of the fit"<<endl;

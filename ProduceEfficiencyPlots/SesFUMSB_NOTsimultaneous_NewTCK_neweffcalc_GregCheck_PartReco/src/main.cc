@@ -272,7 +272,7 @@ for (int i(0); i<variablestoplot.size(); i++)
 
 	string plotName(("SelectionEfficiency_"+histNamesPass.at(0)+"_"+sample.at(0)+".pdf").c_str());
 	vector<double> legPos;
-	legPos.push_back(0.6);
+	legPos.push_back(0.4);
 	legPos.push_back(0.6);
 	legPos.push_back(0.85);
 	legPos.push_back(0.85);

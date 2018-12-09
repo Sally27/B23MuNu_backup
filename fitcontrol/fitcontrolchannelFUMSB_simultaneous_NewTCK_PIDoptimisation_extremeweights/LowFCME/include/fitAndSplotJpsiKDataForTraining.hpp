@@ -56,6 +56,8 @@ class FitAndSplotJpsiKDataForTraining
 
    void plotprettyhypathia3_plotnicely(string dataset, string pathtoworkspace);
    void plotprettyhypathia3_plotnicely_paper(string dataset, string pathtoworkspace);
+   void plotprettyhypathia3_plotnicely_paper_both(string dataset,string pathtoworkspaceRun1, string pathtoworkspace2016, string both);
+   void plotprettyhypathia3_plotnicely_paper_allfour(string dataset, string path1, string path2,string path3, string path4,string pathtoworkspaceBoth);
 
    vector<double> sigfit(string weightname, string type, string mcfilename);
    vector<double> sigfitnoweight(string type, string mcfilename); 

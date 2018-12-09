@@ -30,6 +30,7 @@
 #include "RooCategory.h"
 #include "TCanvas.h"
 #include "TAxis.h"
+#include "TColor.h"
 #include "RooPlot.h"
 #include<iostream>
 #include<fstream>
@@ -838,6 +839,7 @@ vector<double> FitAndSplotB23MuNuDataForTraining::fitmisidcomponentall_chi2(vect
 	RooPlot* ibou_nonuni = Bplus_Corrected_Mass.frame(Title(" ")) ;
 	binnedData_new.plotOn(ibou_nonuni,DataError(RooAbsData::SumW2)); 
         two_ext4.plotOn(ibou_nonuni);
+	binnedData_new.plotOn(ibou_nonuni,DataError(RooAbsData::SumW2)); 
 	RooPlot* ibou_nonuni2 = Bplus_Corrected_Mass.frame(Title("Binned histogram Non uniform bin")) ;
 	binnedData_new.plotOn(ibou_nonuni2,DataError(RooAbsData::SumW2));
 	two_ext4.plotOn(ibou_nonuni2) ;
@@ -864,11 +866,14 @@ vector<double> FitAndSplotB23MuNuDataForTraining::fitmisidcomponentall_chi2(vect
 	delete canvibou_nonuni; 
 
 //----------Non uni on uni plotting issue resolved--------------------//
+        TColor* col4 = gROOT->GetColor(99);
+        col4->SetRGB(double(128)/double(255),double(177)/double(255),double(211)/double(255)); //blue
 
 
 	RooPlot* ibou = Bplus_Corrected_Mass.frame(Title(" ")) ;
 	binnedData.plotOn(ibou,DataError(RooAbsData::SumW2)); 
-        two_ext4.plotOn(ibou);
+        two_ext4.plotOn(ibou,LineColor(99));
+	binnedData.plotOn(ibou,DataError(RooAbsData::SumW2)); 
 	RooPlot* ibou2 = Bplus_Corrected_Mass.frame(Title("Binned histogram")) ;
 	binnedData.plotOn(ibou2,DataError(RooAbsData::SumW2));
 	two_ext4.plotOn(ibou2) ;
@@ -934,8 +939,15 @@ vector<double> FitAndSplotB23MuNuDataForTraining::fitmisidcomponentall_chi2(vect
 
 	TCanvas canv("canv", "canv", 800, 600);
 	ibou->GetXaxis()->SetTitle("Corrected #mu^{+} #mu^{-} #mu^{+} mass [MeV/c^{2}]");
-	ibou->GetYaxis()->SetTitleOffset(1.0);
+        ibou->GetYaxis()->SetTitle("Entries / (200 MeV/c^{2})");
+        ibou->GetYaxis()->SetTitleOffset(0.9);
+//	ibou->GetYaxis()->SetTitleOffset(1.0);
 	ibou->Draw();
+
+        canv.Print((workspacedir+"plotMisidFitPretty_"+type+"_nopull.pdf").c_str());
+        canv.Print((workspacedir+"plotMisidFitPretty_"+type+"_nopull.root").c_str());
+
+
 
 	TCanvas canvTot("canvTot", "canvTot", 600, 600);
 	canvTot.Divide(1,2);

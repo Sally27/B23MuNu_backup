@@ -247,6 +247,9 @@ class FitAndSplotB23MuNuDataForTraining
    void plotprettysim_chi2_reallynice(string type, string pidcutRun1, string pidcutRun2,string nameofclsroot, string nameofpdf,bool signalcomp);
    void plotprettysim_chi2_reallynice_paper(string type, string pidcutRun1, string pidcutRun2);
 
+   void plotprettysim_chi2_reallynice_both_special_courier(string type, string pidcutRun1, string pidcutRun2, string nameofclsroot, string nameofpdf, bool signalcomp);
+   void plotprettysim_chi2_reallynice_both_special(string type, string pidcutRun1, string pidcutRun2, string nameofclsroot, string nameofpdf, bool signalcomp);
+   void plotprettysim_chi2_reallynice_both(string type, string pidcutRun1, string pidcutRun2, string nameofclsroot, string nameofpdf, bool signalcomp);
   void plotpretty_plotnicely_paper_sigsim_drive(string type, bool parameters);
   void plotpretty_plotnicely_paper_prsim_drive(string type, bool parameters);
 

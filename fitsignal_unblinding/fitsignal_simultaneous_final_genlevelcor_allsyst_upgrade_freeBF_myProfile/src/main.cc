@@ -158,6 +158,7 @@ if (year=="2012")
         lhcbSally();
         run.simfitseparateandsavesig_chi2fit_100cor();
         run.simfit_fit();
+        run.simfit_fit_teststat();
         }//end of running fit
         lhcbSally();
 

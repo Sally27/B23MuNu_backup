@@ -247,6 +247,9 @@ int main(){
 //        out << "$\\varepsilon_{sel}$ &  " << round_to_digits(overall.calculate_total_seleff(double(number_bkk_nor)),3), round_to_digits((overall.return_file("pr","no"),"no").val,3)<<"$\\pm$"<<round_to_digits(overall.calculate_total_seleff(double(number_bkk_nor)),3), round_to_digits((overall.return_file("pr","no"),"no").err,3)<<" & Using 2012 " <<" \\\\ "<<endl;
 	out << "$\\varepsilon_{sel}$ &  " << round_to_digits(overall.calculate_total_seleff(double(number_bkk_nor), overall.return_file("pr","no"),"no").val,3)<<"$\\pm$"<<round_to_digits(overall.calculate_total_seleff(double(number_bkk_nor), overall.return_file("pr","no"),"no").err,3)<<" & Using 2012 " <<" \\\\ "<<endl;
 
+       
+	out << "$\\varepsilon^{tot}_{sel}$ &  " << round_to_digits((overall.calculate_total_seleff(double(number_bkk_nor), overall.return_file("pr","no"),"no")*overall.return_gen_eff("pr")).val,3)<<"$\\pm$"<<round_to_digits((overall.calculate_total_seleff(double(number_bkk_nor), overall.return_file("pr","no"),"no")*overall.return_gen_eff("pr")).err,3)<<" & Using 2012 " <<" \\\\ "<<endl;
+
 //----------------------------------------------------divide by qmin---------------- important//
 
 
@@ -254,6 +257,9 @@ int main(){
         out << "$\\varepsilon_{gennorm}$ & " << round_to_digits(overall.return_gen_eff("norm").val,3)<<"$\\pm$" <<round_to_digits(overall.return_gen_eff("norm").err,3)<<" &  Using 2012" <<" \\\\ "<<endl;
 //        out << "$\\varepsilon_{selnorm}$ & " << round_to_digits(overall.calculate_total_seleff(double(number_bkk_sig)),3), round_to_digits((overall.return_file("norm","no"),"no").val,3)<<"$\\pm$"<<round_to_digits(overall.calculate_total_seleff(double(number_bkk_sig)),3), round_to_digits((overall.return_file("norm","no"),"no").err,3)<<" & Using 2012 " <<" \\\\ "<<endl;
         out << "$\\varepsilon_{selnorm}$ & " <<round_to_digits(overall.calculate_total_seleff(double(number_bkk_sig), overall.return_file("norm","no"),"no").val,3)<<"$\\pm$"<<round_to_digits(overall.calculate_total_seleff(double(number_bkk_sig), overall.return_file("norm","no"),"no").err,3)<<" & Using 2012 " <<" \\\\ "<<endl;
+
+
+	out << "$\\varepsilon^{totnorm}_{sel}$ &  " << round_to_digits((overall.calculate_total_seleff(double(number_bkk_sig), overall.return_file("norm","no"),"no")*overall.return_gen_eff("norm")).val,3)<<"$\\pm$"<<round_to_digits((overall.calculate_total_seleff(double(number_bkk_sig), overall.return_file("norm","no"),"no")*overall.return_gen_eff("norm")).err,3)<<" & Using 2012 " <<" \\\\ "<<endl;
         out<<"\\hline"<<endl;
 
 

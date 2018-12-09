@@ -1891,7 +1891,7 @@ void superImposeEfficiencyPlots(vector<TH1*> passHists, vector<TH1*> totHists, s
         gPad->SetLeftMargin(0.15) ;
         gPad->SetRightMargin(0.075) ;
 	TLegend leg(legPos.at(0), legPos.at(1), legPos.at(2), legPos.at(3)); 
-	leg.SetTextSize(0.045);
+	leg.SetTextSize(0.05);
 	leg.SetLineColor(0);
 	leg.SetFillColor(0);
 
